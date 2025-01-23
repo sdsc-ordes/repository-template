@@ -2,7 +2,9 @@
 #
 # Rules:
 #
-# - Add stuff when needed, DO not copy
+# - Add stuff when needed, DO not copy stuff from the internet
+#   just to ignore a whole set of files you think
+#   might be needed in the future.
 #
 # - Do NOT add here ignores which are deeply nested in the
 #   repository structure, instead
