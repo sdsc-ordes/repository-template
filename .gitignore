@@ -1,0 +1,22 @@
+# This Git ignore file should be treated WITH care.
+#
+# Rules:
+#
+# - Add stuff when needed, DO not copy
+#
+# - Do NOT add here ignores which are deeply nested in the
+#   repository structure, instead
+#   use deidcated local `.gitignore` files inside the directories to
+#   ignore what you need. This file should ONLY deal common top-level
+#   ignores and things you want to ignore.
+
+# Direnv cache folder.
+.direnv
+
+# Config files which are linked.
+.prettierrc.yaml
+.yamllint.yaml
+.typos.toml
+
+# General build folder.
+build
