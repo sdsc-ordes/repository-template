@@ -51,8 +51,6 @@ The following describes the content of the top-level directories:
 - [docs](./src/generic/docs) : The top-level folder to any related
   documentation. The [README.md](./src/generic/README.md) should link into this
   folder.
-- [src](./src/generic/src) : The top-level folder which should contain all
-  sources for your software component.
 - [examples](./src/generic/examples) : The top-level folder which should contain
   some examples how to use this software component.
 - [external](./src/generic/external) : If you really want to use sub-modules
@@ -62,6 +60,14 @@ The following describes the content of the top-level directories:
 - `build` : This is a reserved Git ignored top-level folder only for the build
   output.
 
-```
+## Python
 
-```
+TODO
+
+## Rust
+
+TODO
+
+## Go
+
+TODO
