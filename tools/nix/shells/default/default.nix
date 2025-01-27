@@ -3,7 +3,7 @@
   namespace,
   pkgs,
   ...
-}:
+}@args:
 let
   toolchains = import ../toolchain.nix { inherit pkgs namespace inputs; };
 

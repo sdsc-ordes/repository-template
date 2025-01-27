@@ -28,10 +28,11 @@ setup *args:
 test:
     #!/usr/bin/env bash
     set -eu
+
     cd "{{root_dir}}" && \
         rm -rf build && \
-        copier copy -w . ./build && \
-        copier copy -w src/python ./build
+        copier copy --trust -w . ./build && \
+        copier copy --trust -w src/python ./build
 
     cd build && git init && git add . && \
         git commit -a -m "init" && \

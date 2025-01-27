@@ -14,3 +14,14 @@ project_language:
     - python
     - rust
     - go
+
+project_version:
+  type: str
+  help: The initial project version your project should have?
+  default: "0.0.1"
+
+_jinja_extensions:
+  []
+  # TODO: To make this work we need to install `.venv` copier and
+  # add the extensions too.
+  # - jinja2_time.TimeExtension
