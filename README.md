@@ -13,4 +13,4 @@ following features.
 
 - Git/Git LFS properly setup.
 - Nix shell enabled with `direnv` and `.envrc`.
-- Formatting with [`treefmt-nix`](./tools/nix/packages/treefmt/treefmt.nix)
+- Formatting with [`treefmt-nix`](./tools/nix/packages/treefmt/treefmt.nix).
