@@ -1,10 +1,11 @@
 {
-  pkgs,
+  inputs,
   namespace,
+  pkgs,
   ...
 }:
 let
-  toolchains = import ../toolchains.nix { inherit pkgs namespace; };
+  toolchains = import ../toolchain.nix { inherit pkgs namespace inputs; };
 in
 pkgs.mkShell {
   packages = toolchains.ci;

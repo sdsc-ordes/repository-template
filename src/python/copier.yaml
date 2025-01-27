@@ -1,0 +1,4 @@
+module_name:
+  type: str
+  help: The python module name you want to use for your project.
+  default: mymodule

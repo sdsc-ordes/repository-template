@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "repository-template"
+authors:
+  - family-names: "Gabriel"
+    given-names: "Nuetzi"
+    orcid: "https://orcid.org/0009-0008-8197-2851"
+    affiliation: "SDSC - Swiss Data Science Center"
+date-released: 2025-01-27
+version: "1.0.0"
+doi: "" # Replace with your DOI if applicable
+url: ""
+repository-code: "https://github.com/sdsc-ordes/repository-template"
+keywords:
+  - repository template
+license: "apache-2.0"

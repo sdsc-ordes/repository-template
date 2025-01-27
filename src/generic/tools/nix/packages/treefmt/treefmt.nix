@@ -17,12 +17,6 @@
     indent_size = 4;
   };
   programs.shellcheck.enable = true;
-  settings.formatter.shellcheck = {
-    options = [
-      "-e"
-      "SC1091"
-    ];
-  };
 
   # Lua.
   programs.stylua.enable = true;

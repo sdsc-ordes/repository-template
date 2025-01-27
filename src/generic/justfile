@@ -23,24 +23,3 @@ format *args:
 # Setup the repository.
 setup *args:
     cd "{{root_dir}}" && ./tools/ci/setup.sh
-
-# Test the coding scaffolding.
-test:
-    #!/usr/bin/env bash
-    set -eu
-    cd "{{root_dir}}" && \
-        rm -rf build && \
-        copier copy -w . ./build && \
-        copier copy -w src/python ./build
-
-    cd build && git init && git add . && \
-        git commit -a -m "init" && \
-        just develop just setup && \
-
-    cp tools/nix/flake.lock "{{root_dir}}/src/generic/tools/nix/flake.lock"
-
-    just develop just format
-
-    if ! git diff --exit-code --quiet . ; then
-        echo "We have changes in the build folder."
-    fi

@@ -5,22 +5,22 @@
 # Search for package at:
 # https://search.nixos.org/packages
 {
+  lib,
   pkgs,
   namespace,
-}:
+  ...
+}@args:
 let
+  language = "{{ project_language }}";
+
+  # Load the toolchains language specific needs.
+  toolchains = lib.${namespace}.toolchain.import ./. args;
+
   # Packages for the 'default' shell.
-  default = with pkgs; [
-    # Stuff you always want ==============================
+  default = [
     pkgs.${namespace}.bootstrap
     pkgs.${namespace}.treefmt
-
-    coreutils
-    findutils
-    direnv # Auto apply stuff on entering directory `cd`.
-    just # Command executor like `make` but better.
-    # ====================================================
-  ];
+  ] ++ toolchains."${language}";
 
   # Packages for the 'ci' shell.
   ci = default ++ [

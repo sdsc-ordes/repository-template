@@ -1,0 +1,40 @@
+[project]
+name = "{{ module_name }}"
+authors = []
+description = ""
+readme = "README.md"
+requires-python = ">=3.13"
+version = "0.0.0"
+dependencies = [
+    "pydantic>=2.10.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+extend-include = ["*.ipynb"]
+target-version = "py313"
+line-length = 88
+
+[tool.ruff.lint]
+extend-select = [
+    "W605",   # pycodestyle: invalid-escape-sequence
+    "S102",   # flake8-bandit: exec-builtin
+    "INP",    # flake8-no-pep420
+    "PYI",    # flake8-pyi
+    "PT",     # flake8-pytest-style
+    "PGH",    # pygrep-hooks
+    "PL",     # Pylint
+    "NPY",    # NumPy-specific rules
+    "RUF",    # Ruff-specific rules
+]
+ignore = [
+    "NPY002", # numpy-legacy-random
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/**" = ["INP001"]
+"[!t][!e][!s][!t][!s]*/**" = ["PT"]

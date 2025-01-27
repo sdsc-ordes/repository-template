@@ -36,3 +36,5 @@ The following describes the content of the top-level directories:
   source.
 - `build` : This is a reserved Git ignored top-level folder only for the build
   output.
+- `build` : This is a reserved Git ignored top-level folder only for the build
+  output.

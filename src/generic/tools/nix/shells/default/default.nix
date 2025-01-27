@@ -1,11 +1,11 @@
 {
-  inputs,
-  namespace,
+  lib,
   pkgs,
+  namespace,
   ...
-}:
+}@args:
 let
-  toolchains = import ../toolchain.nix { inherit pkgs namespace inputs; };
+  toolchains = import ../toolchain.nix args;
 
   githooks-install = pkgs.writeShellScript "githooks-install" (
     builtins.readFile ./entry-scripts/githooks-installed.sh

@@ -1,0 +1,16 @@
+_subdirectory: src/generic
+
+project_name:
+  type: str
+  help: What is your project name?
+  default: "My Project"
+
+project_language:
+  type: str
+  help: What main language your project is written in?
+  default: generic
+  choices:
+    - generic
+    - python
+    - rust
+    - go
