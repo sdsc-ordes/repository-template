@@ -26,13 +26,11 @@ following features.
 
 Clone this repository to some place of your choice.
 
-First apply the generic templates in [`generic`](./src/generic) with the
-following:
+Apply the templates with `copier` using the following:
 
 ```shell
 cd repo && git pull
-just develop copier copy ./src/generic <destination>
-just develop copier copy ./src/<language> <destination>
+just create <language> <destination>
 ```
 
 where `<destination>` is the destination folder where you want to place this new
@@ -63,3 +61,7 @@ The following describes the content of the top-level directories:
   to your source.
 - `build` : This is a reserved Git ignored top-level folder only for the build
   output.
+
+```
+
+```

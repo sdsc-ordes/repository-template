@@ -8,6 +8,17 @@ flake_dir := "./tools/nix"
 default:
     just --list
 
+# Create a repository template.
+create language destination:
+    #!/usr/bin/env bash
+    set -eu
+    source ./tools/ci/general.sh
+    [[ "{{language}}" =~ rust|go|python ]] ||
+        ci::die "No such language '{{language}}'"
+    cd "{{root_dir}}" && \
+    just develop copier copy --trust . "{{destination}}" --data "project_language={{language}}" && \
+    just develop copier copy --trust "src/{{language}}" "{{destination}}"
+
 # Enter a Nix development shell.
 develop *args:
     #!/usr/bin/env bash
