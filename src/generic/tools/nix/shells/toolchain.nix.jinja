@@ -13,21 +13,24 @@
 let
   language = "{{ project_language }}";
 
-  # Load the toolchains language specific needs.
-  toolchains = lib.${namespace}.toolchain.import ./. args;
-
-  # Packages for the 'default' shell.
-  default = [
-    pkgs.${namespace}.bootstrap
-    pkgs.${namespace}.treefmt
-  ] ++ toolchains."${language}";
-
-  # Packages for the 'ci' shell.
-  ci = default ++ [
-    # Stuff for CI.
-  ];
+  # Load all toolchains specific needs.
+  all-toolchains = lib.${namespace}.toolchain.import ./. args;
+  toolchain = all-toolchains.${language};
 
 in
-{
-  inherit default ci;
+rec {
+
+  default = {
+    packages = [
+      pkgs.${namespace}.bootstrap
+      pkgs.${namespace}.treefmt
+    ] ++ toolchain.packages;
+
+    shellHook = ''
+      just setup
+      ${toolchain.shellHook}
+    '';
+  };
+
+  ci = default;
 }

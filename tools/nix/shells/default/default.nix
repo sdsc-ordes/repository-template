@@ -6,17 +6,26 @@
 }@args:
 let
   toolchains = import ../toolchain.nix { inherit pkgs namespace inputs; };
-
-  githooks-install = pkgs.writeShellScript "githooks-install" (
-    builtins.readFile ./entry-scripts/githooks-installed.sh
-  );
 in
 # Create the 'default' shell.
 pkgs.mkShell {
   packages = toolchains.default;
 
   shellHook = ''
-    ${githooks-install}
     just setup
+
+    repo_dir=$(git rev-parse --show-toplevel)
+    # We never want that uv manages python installs.
+    export UV_PYTHON_DOWNLOADS=never
+
+    venv_dir="$repo_dir/.venv"
+    # Activate python environment.
+    if [ -f "$venv_dir/bin/activate" ]; then
+      echo "Activating python environment in '$venv_dir'."
+      source "$venv_dir/bin/activate"
+    fi
+
+    unset venv_dir
+    unset repo_dir
   '';
 }

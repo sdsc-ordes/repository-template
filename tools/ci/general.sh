@@ -48,3 +48,29 @@ function ci::die() {
 function ci::is_running() {
     [ "${CI:-}" = "true" ] || return
 }
+
+function ci::setup_githooks() {
+    local root_dir
+    root_dir=$(git rev-parse --show-toplevel)
+
+    if git -C "$root_dir" hooks --version &>/dev/null; then
+        if [ "$(git -C "$root_dir" config --local githooks.registered)" != "true" ]; then
+            git -C "$root_dir" hooks install
+        else
+            ci::print_info "Githooks already installed."
+        fi
+    fi
+}
+
+function ci::setup_python_venv() {
+    local root_dir
+    root_dir=$(git rev-parse --show-toplevel)
+
+    if [ ! -d "$root_dir/.venv" ]; then
+        ci::print_info "Setting up venv environment in '$root_dir/.venv'."
+        uv venv "$root_dir/.venv"
+    fi
+
+    ci::print_info "Installing dependencies..."
+    uv pip install -r "$root_dir/tools/configs/copier/pyproject.toml" --extra dev
+}

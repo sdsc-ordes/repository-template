@@ -1,0 +1,14 @@
+[project]
+name = "repository-template"
+authors = []
+description = ""
+requires-python = ">=3.13"
+version = "1.0.0"
+
+[project.optional-dependencies]
+dev = [
+    "copier>=9.4.1",
+    "copier-templates-extensions",
+    "jinja2_slug",
+    "jinja2_time",
+]

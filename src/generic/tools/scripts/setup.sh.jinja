@@ -7,8 +7,9 @@ ROOT_DIR=$(git rev-parse --show-toplevel)
 . "$ROOT_DIR/tools/ci/general.sh"
 
 function link_config_files() {
-    ci::print_info "Linking configs files to root."
     cd "$ROOT_DIR"
+
+    ci::print_info "Linking configs files to root."
 
     rm -rf ".prettierrc.yaml" || true
     ln -s "tools/configs/prettier/prettierrc.yaml" ".prettierrc.yaml"
@@ -20,25 +21,12 @@ function link_config_files() {
     ln -s "tools/configs/yamllint/yamllint.yaml" ".yamllint.yaml"
 }
 
-{%- if project_language == "python" %}
-function init_virtual_env() {
-    if [ ! -d "$ROOT_DIR/.venv" ]; then
-        ci::print_info "Setting up venv environment in '$ROOT_DIR/.venv'."
-        uv venv "$ROOT_DIR/.venv"
-    fi
-
-    ci::print_info "Installing dependencies..."
-    uv pip install "$ROOT_DIR"
-}
-{%- elif project_language == "rust" %}
-{%- elif project_language == "go" %}
-{%- endif %}
-
 function main() {
     link_config_files
 
+    ci::setup_githooks
     {%- if project_language == "python" %}
-    init_virtual_env
+    ci::setup_python_venv
     {%- endif %}
 }
 

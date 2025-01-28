@@ -24,9 +24,10 @@ let
     # ====================================================
 
     # copier
-    inputs.copier.packages."${pkgs.system}".default
+    # inputs.copier.packages."${pkgs.system}".default
 
     uv
+    python313
   ];
 
   # Packages for the 'ci' shell.

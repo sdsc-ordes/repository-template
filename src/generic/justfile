@@ -22,4 +22,4 @@ format *args:
 
 # Setup the repository.
 setup *args:
-    cd "{{root_dir}}" && ./tools/ci/setup.sh
+    cd "{{root_dir}}" && ./tools/scripts/setup.sh

@@ -14,6 +14,7 @@
 
 # Direnv cache folder.
 .direnv
+.venv
 
 # Config files which are linked.
 .prettierrc.yaml

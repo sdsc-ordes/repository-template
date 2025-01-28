@@ -1,4 +1,4 @@
-_subdirectory: src/generic
+_answers_file: tools/configs/copier/answers/.generic.yaml
 
 project_name:
   type: str
@@ -15,13 +15,18 @@ project_language:
     - rust
     - go
 
+project_url:
+  type: str
+  help: What is the Git URL where you host this project?
+  default: https://github.com/SwissDataScienceCenter/{{ project_name | slug }}
+
 project_version:
   type: str
   help: The initial project version your project should have?
   default: "0.0.1"
 
 _jinja_extensions:
-  []
   # TODO: To make this work we need to install `.venv` copier and
   # add the extensions too.
-  # - jinja2_time.TimeExtension
+  - jinja2_time.TimeExtension
+  - jinja2_slug.SlugExtension

@@ -15,8 +15,10 @@ create language destination:
     source ./tools/ci/general.sh
     [[ "{{language}}" =~ rust|go|python ]] ||
         ci::die "No such language '{{language}}'"
-    cd "{{root_dir}}" && \
-    just develop copier copy --trust . "{{destination}}" --data "project_language={{language}}" && \
+
+    cd "{{root_dir}}"
+    just develop copier copy --trust "src/generic" "{{destination}}" \
+        --data "project_language={{language}}"
     just develop copier copy --trust "src/{{language}}" "{{destination}}"
 
 # Enter a Nix development shell.
@@ -33,21 +35,32 @@ format *args:
 
 # Setup the repository.
 setup *args:
-    cd "{{root_dir}}" && ./tools/ci/setup.sh
+    cd "{{root_dir}}" && ./tools/scripts/setup.sh
 
 # Test the coding scaffolding.
-test:
+test: setup
     #!/usr/bin/env bash
     set -eu
 
-    cd "{{root_dir}}" && \
-        rm -rf build && \
-        copier copy --trust -w . ./build && \
-        copier copy --trust -w src/python ./build
+    cd "{{root_dir}}" && rm -rf build
 
-    cd build && git init && git add . && \
-        git commit -a -m "init" && \
-        just develop just setup && \
+    uv run copier copy --trust -w  \
+        --data "project_language=python" \
+        --defaults  \
+        src/generic \
+        ./build
+
+    uv run copier copy --trust -w \
+        --defaults \
+        src/python \
+        ./build
+
+    # Test the templated output.
+    cd build &&
+        git init && git add . && \
+        git commit -a -m "init"
+
+    just develop just setup
 
     cp tools/nix/flake.lock "{{root_dir}}/src/generic/tools/nix/flake.lock"
 
