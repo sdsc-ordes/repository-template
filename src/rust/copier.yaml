@@ -1,6 +1,7 @@
 _answers_file: tools/configs/copier/answers/.rust.yaml
 _exclude:
   - .jinja
+  - copier.yaml
 
 module_version:
   type: str

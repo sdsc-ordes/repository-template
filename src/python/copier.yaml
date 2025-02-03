@@ -1,6 +1,7 @@
 _answers_file: tools/configs/copier/answers/.python.yaml
 _exclude:
   - .jinja
+  - copier.yaml
 
 module_version:
   type: str

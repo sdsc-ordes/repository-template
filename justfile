@@ -66,20 +66,20 @@ test lang="python": setup
     ci::print_info "Running test '{{lang}}'"
     ci::print_info "======================"
     build_dir="build/{{lang}}"
-    cd "{{root_dir}}" && rm -rf "${build_dir}"
+    cd "{{root_dir}}" && rm -rf "$build_dir"
 
     uv run copier copy --trust -w  \
         --data "project_language={{lang}}" \
         --defaults  \
         src/generic \
-        "${build_dir}"
+        "$build_dir"
 
     if [ "{{lang}}" != "generic" ]; then
         uv run copier copy --trust -w \
-            --data "module_version=$(yq -r ".project_version" ./build/tools/copier/answers/.generic.yaml)" \
+            --data "module_version=$(yq -r ".project_version" "$build_dir/tools/copier/answers/.generic.yaml")" \
             --defaults \
             "src/{{lang}}" \
-            "${build_dir}"
+            "$build_dir"
     fi
 
     # Test the templated output.

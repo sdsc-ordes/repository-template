@@ -1,6 +1,7 @@
 _answers_file: tools/configs/copier/answers/.generic.yaml
 _exclude:
   - .jinja
+  - copier.yaml
 
 project_maintainers:
   type: yaml
