@@ -14,19 +14,22 @@
 
 # Direnv cache folder.
 .direnv
+
 {%- if project_language == "python" %}
 # Virtual environment.
 .venv
 # Ruff cache folder.
 .ruff_cache
-{%- elif project_language == "rust" %}
-{%- elif project_language == "go" %}
 {%- endif %}
 
 # Config files which are linked.
 .prettierrc.yaml
 .yamllint.yaml
 .typos.toml
+{%- if project_language == "rust" %}
+# Rust Format config.
+.rustfmt.toml
+{%- endif %}
 
 # General build folder.
 build

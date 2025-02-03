@@ -1,1 +1,71 @@
-# {{ project_name }}
+<p align="center">
+  <img src="./docs/assets/logo.svg" alt="project logo" width="250">
+</p>
+
+<h1 align="center">
+  {{ project_name | slug }}
+</h1>
+<p align="center">
+</p>
+<p align="center">
+  {%- for host in project_hosts[0:1] %}
+  {%- if "github" in host.host %}
+  <a href="https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/releases/latest">
+    <img src="https://img.shields.io/github/release/{{ host.organization }}/{{ host.repo }}.svg?label=release" alt="Current Release" />
+  </a>
+  <a href="https://{{ host.host }}/{{ host.organization }}/ {{ host.repo }}/actions/workflows/main-and-pr.yaml">
+    <img src="https://img.shields.io/github/actions/workflow/status/{{ host.organization }}/{{ host.repo }}/main-and-pr.yaml?label=ci" alt="Pipeline Status" />
+  </a>
+  {%- elif "gitlab" in host.host %}
+  <a href="https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/releases">
+    <img src="https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/badges/release.svg" alt="Current Release" />
+  </a>
+  <a href="https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/pipelines">
+    <img src="https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/badges/main/pipeline.svg" alt="Pipeline Status" />
+  </a>
+  {%- endif %}
+  {%- endfor %}
+  {%- if project_license == "mit" %}
+  <a href="https://mit-license.org/">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg?" alt="License label" />
+  </a>
+  {%- elif project_license == "apache2" %}
+  <a href="http://www.apache.org/licenses/LICENSE-2.0.html">
+    <img src="https://img.shields.io/badge/License-Apache2.0-blue.svg?" alt="License label" />
+  </a>
+  {%- endif %}
+</p>
+
+**Authors:**
+
+{% for m in project_maintainers -%}
+- [{{ m.first_name }} {{m.last_name}}](mailto:{{m.email}})
+{% endfor %}
+
+## Installation
+
+Describe the installation instruction here.
+
+## Usage
+
+Describe the installation instruction here.
+
+## Development
+
+Read first the [Contribution Guidelines](/CONTRIBUTING.md).
+
+For technical documentation on setup and development, see the
+[Development Guide](docs/development-guide.md)
+
+## Acknowledgement
+
+Acknowledge all contributors and external collaborators here.
+
+## Copyright
+
+Copyright © {% now 'utc', '%Y' %}-2028 Swiss Data Science Center (SDSC),
+[www.datascience.ch](http://www.datascience.ch/). All rights reserved. The SDSC
+is jointly established and legally represented by the École Polytechnique
+Fédérale de Lausanne (EPFL) and the Eidgenössische Technische Hochschule Zürich
+(ETH Zürich). This copyright encompasses all materials, software, documentation,
+and other content created and developed by the SDSC.

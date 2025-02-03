@@ -1,4 +1,18 @@
 _answers_file: tools/configs/copier/answers/.generic.yaml
+_exclude:
+  - .jinja
+
+project_maintainers:
+  type: yaml
+  help: Who are the main maintainers of this project?
+  default:
+    - first_name: "Alice"
+      last_name: "Wonderland"
+      email: "alice.wonderland@sdsc.ethz.ch"
+    - first_name: "Bob"
+      last_name: "Wonderland"
+      email: "bob.wonderland@sdsc.ethz.ch"
+  multiline: true
 
 project_name:
   type: str
@@ -15,15 +29,39 @@ project_language:
     - rust
     - go
 
+project_hosts:
+  type: yaml
+  help: The providers which hosts this project (the first one is the default).
+  default: |
+    - host: github.com
+      organization: "SwissDataScienceCenter"
+      repo: "{{ project_name | slug }}"
+    - host: gitlab.datascience.ch
+      organization: "my-organization"
+      repo: "{{ project_name | slug }}"
+  multiline: true
+
 project_url:
   type: str
-  help: What is the Git URL where you host this project?
-  default: https://github.com/SwissDataScienceCenter/{{ project_name | slug }}
+  help: What is the Git main URL where you host this project?
+  default: https://{{ project_hosts.0.host }}/{{ project_hosts.0.organization }}/{{ project_hosts.0.repo }}
 
 project_version:
   type: str
   help: The initial project version your project should have?
   default: "0.0.1"
+  validator: >-
+    {% if not (project_version | regex_search('(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?')) %}
+    'project_version' must follow semantic versioning.
+    {% endif %}
+
+project_license:
+  type: str
+  help: The project license to use.
+  choices:
+    - mit
+    - apache2
+  default: apache2
 
 _jinja_extensions:
   # TODO: To make this work we need to install `.venv` copier and

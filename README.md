@@ -30,15 +30,21 @@ Apply the templates with `copier` using the following:
 
 ```shell
 cd repo && git pull
-just create <language> <destination>
+just create <language> <destination> [args...]
 ```
 
-where `<destination>` is the destination folder where you want to place this new
-repository and the `<language>` is one of the following:
+where
 
-- [`python`](./src/python)
-- [`rust`](./src/rust)
-- [`go`](./src/go)
+- `<destination>` is the destination folder where you want to place this new
+  repository.
+- `<language>` is one of the following templates:
+
+  - [`python`](./src/python)
+  - [`rust`](./src/rust)
+  - [`go`](./src/go)
+
+- `[args...]` are optional arguments passed to `copier`. If you want to
+  overwrite by default use `-w`
 
 ## Containerized
 

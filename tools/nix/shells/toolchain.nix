@@ -23,11 +23,9 @@ let
     just # Command executor like `make` but better.
     # ====================================================
 
-    # copier
-    # inputs.copier.packages."${pkgs.system}".default
-
     uv
     python313
+    yq
   ];
 
   # Packages for the 'ci' shell.

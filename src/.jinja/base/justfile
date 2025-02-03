@@ -1,7 +1,9 @@
+{%- raw -%}
 set positional-arguments
 set shell := ["bash", "-cue"]
 comp_dir := justfile_directory()
 root_dir := `git rev-parse --show-toplevel`
+build_dir := root_dir / "build"
 flake_dir := "./tools/nix"
 
 # Default target if you do not specify a target.
@@ -23,3 +25,4 @@ format *args:
 # Setup the repository.
 setup *args:
     cd "{{root_dir}}" && ./tools/scripts/setup.sh
+{%- endraw %}

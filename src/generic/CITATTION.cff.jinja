@@ -3,15 +3,16 @@ message: "If you use this software, please cite it as below."
 title: "{{ project_name }}"
 
 authors:
-  - family-names: "John"
-    given-names: "Doe"
+{%- for m in project_maintainers %}
+  - family-names: {{ m.last_name }}
+    given-names: {{ m.first_name }}
     orcid: "..."
     affiliation: "SDSC - Swiss Data Science Center"
-
-date-released: {{ date }}
+{%- endfor %}
+date-released: {% now 'utc', '%Y-%M-%d' %}
 version: "{{ project_version }}"
 doi: ""
-url: ""
-repository-code: ""
+url: {{ project_url }}
+repository-code: {{ project_url }}
 keywords: []
-license: "apache-2.0"
+license: {{ project_license }}

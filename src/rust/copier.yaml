@@ -1,4 +1,4 @@
-_answers_file: tools/configs/copier/answers/.python.yaml
+_answers_file: tools/configs/copier/answers/.rust.yaml
 _exclude:
   - .jinja
 
@@ -11,11 +11,20 @@ module_version:
     'module_version' must follow semantic versioning.
     {% endif %}
 
-module_name:
+executable_name:
   type: str
-  help: The python module name you want to use for your project.
-  default: mymodule
+  help: The executable name you want to use ]w.
+  default: main
   validator: >-
-    {% if not (module_name | regex_search('[a-z][a-z0-9_]+')) %}
-    'module_version' must follow '[a-z][a-z0-9_]+' regex.
+    {% if not (executable_name | regex_search('[a-z][a-z0-9\-]+')) %}
+    'executable_name' must follow '[a-z][a-z0-9-]+' regex.
+    {% endif %}
+
+library_name:
+  type: str
+  help: The library name you want to use.
+  default: custom-lib
+  validator: >-
+    {% if not (library_name | regex_search('[a-z][a-z0-9\-]+')) %}
+    'library_name' must follow '[a-z][a-z0-9-]+' regex.
     {% endif %}

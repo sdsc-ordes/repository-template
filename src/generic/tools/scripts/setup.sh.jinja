@@ -9,7 +9,7 @@ ROOT_DIR=$(git rev-parse --show-toplevel)
 function link_config_files() {
     cd "$ROOT_DIR"
 
-    ci::print_info "Linking configs files to root."
+    ci::print_info "Linking configs files to root '$ROOT_DIR'."
 
     rm -rf ".prettierrc.yaml" || true
     ln -s "tools/configs/prettier/prettierrc.yaml" ".prettierrc.yaml"
@@ -19,6 +19,11 @@ function link_config_files() {
 
     rm -rf ".yamllint.yaml" || true
     ln -s "tools/configs/yamllint/yamllint.yaml" ".yamllint.yaml"
+
+    {% if project_language == "rust" -%}
+    rm -rf ".rustfmt.toml" || true
+    ln -s "tools/configs/rust/rustfmt.toml" ".rustfmt.toml"
+    {%- endif %}
 }
 
 function main() {

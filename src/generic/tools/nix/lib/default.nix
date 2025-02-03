@@ -33,11 +33,20 @@ let
     attrsets.concatMapAttrs (lang: file: {
       ${lang} = (import file.path) args;
     }) (toolchains dir);
+
+  repo-root = ./../../..;
 in
 {
-  # Imports all files `toolchain-<language>.nix` which define a list of language specific
-  # packages, returns `{ "go" = [...];, "python" = [...]; }`.
+  # Filesystem functionality.
+  fs = {
+    # The repository root directory (inside the Nix store).
+    root-dir = "${repo-root}";
+  };
+
+  # Toolchain functionality.
   toolchain = {
+    # Imports all files `toolchain-<language>.nix` which define a list of language specific
+    # packages, returns `{ "go" = [...];, "python" = [...]; }`.
     import = dir: args: import-all dir args;
   };
 }

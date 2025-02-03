@@ -1,0 +1,8 @@
+[package]
+  name = '{{ executable_name }}'
+  version = '{{ module_version }}'
+  edition = '2021'
+
+[dependencies]
+  clap = { version = "4.5.7", features = ['derive']}
+  {{ library_name }} = { version = "{{ module_version }}", path = "../{{ library_name }}/" }
