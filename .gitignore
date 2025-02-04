@@ -14,6 +14,7 @@
 
 # Direnv cache folder.
 .direnv
+.devenv
 .venv
 
 # Config files which are linked.
@@ -22,4 +23,4 @@
 .typos.toml
 
 # General build folder.
-build
+.output

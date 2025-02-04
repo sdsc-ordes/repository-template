@@ -2,6 +2,7 @@ set positional-arguments
 set shell := ["bash", "-cue"]
 comp_dir := justfile_directory()
 root_dir := `git rev-parse --show-toplevel`
+output_dir := root_dir / ".output"
 flake_dir := "./tools/nix"
 
 # Default target if you do not specify a target.
@@ -31,9 +32,14 @@ create *args:
         exit 0
     fi
 
+    answer_file="$destination/tools/copier/answers/.generic.yaml"
     just develop copier copy --trust "${args[@]}" \
         "src/$language" "$destination" \
-        --data "project_version=$(yq -r ".project_version" "$destination/tools/copier/answers/.generic.yaml")" \
+        --data "project_authors=$(yq -r ".project_authors" "$answer_file")" \
+        --data "project_hosts=$(yq -r ".project_hosts" "$answer_file")" \
+        --data "project_version=$(yq -r ".project_version" "$answer_file")" \
+        --data "project_description=$(yq -r ".project_description" "$answer_file")" \
+        --data "project_url=$(yq -r ".project_url" "$answer_file")"
 
 # Enter a Nix development shell.
 develop *args:
@@ -65,7 +71,7 @@ test lang="python": setup
 
     ci::print_info "Running test '{{lang}}'"
     ci::print_info "======================"
-    build_dir="build/{{lang}}"
+    build_dir="{{output_dir}}/{{lang}}"
     cd "{{root_dir}}" && rm -rf "$build_dir"
 
     uv run copier copy --trust -w  \
@@ -75,12 +81,13 @@ test lang="python": setup
         "$build_dir"
 
     if [ "{{lang}}" != "generic" ]; then
+        answer_file="$build_dir/tools/copier/answers/.generic.yaml"
         uv run copier copy --trust -w \
-            --data "project_authors=$(yq -r ".project_authors" "$build_dir/tools/copier/answers/.generic.yaml")" \
-            --data "project_hosts=$(yq -r ".project_hosts" "$build_dir/tools/copier/answers/.generic.yaml")" \
-            --data "project_version=$(yq -r ".project_version" "$build_dir/tools/copier/answers/.generic.yaml")" \
-            --data "project_description=$(yq -r ".project_description" "$build_dir/tools/copier/answers/.generic.yaml")" \
-            --data "project_url=$(yq -r ".project_url" "$build_dir/tools/copier/answers/.generic.yaml")" \
+            --data "project_authors=$(yq -r ".project_authors" "$answer_file")" \
+            --data "project_hosts=$(yq -r ".project_hosts" "$answer_file")" \
+            --data "project_version=$(yq -r ".project_version" "$answer_file")" \
+            --data "project_description=$(yq -r ".project_description" "$answer_file")" \
+            --data "project_url=$(yq -r ".project_url" "$answer_file")" \
             --defaults \
             "src/{{lang}}" \
             "$build_dir"
@@ -98,7 +105,16 @@ test lang="python": setup
     just develop just run
 
     cp tools/nix/flake.lock "{{root_dir}}/src/{{lang}}/tools/nix/flake.lock"
+    if [ "{{lang}}" == "python" ]; then
+        cp uv.lock "{{root_dir}}/src/{{lang}}/uv.lock"
+    elif [ "{{lang}}" == "go" ]; then
+        cp go.work.sum "{{root_dir}}/src/{{lang}}/go.work.sum"
+        cp src/go.sum "{{root_dir}}/src/{{lang}}/src/go.work.sum"
+    elif [ "{{lang}}" == "rust" ]; then
+        cp Cargo.lock "{{root_dir}}/src/{{lang}}/src/Cargo.lock"
+    fi
 
+    git clean -df
 
     if ! git diff --exit-code --quiet . ; then
         echo "We have changes in the build folder."
