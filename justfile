@@ -111,7 +111,7 @@ test lang="python": setup
         cp go.work.sum "{{root_dir}}/src/{{lang}}/go.work.sum"
         cp src/go.sum "{{root_dir}}/src/{{lang}}/src/go.work.sum"
     elif [ "{{lang}}" == "rust" ]; then
-        cp Cargo.lock "{{root_dir}}/src/{{lang}}/src/Cargo.lock"
+        cp Cargo.lock "{{root_dir}}/src/{{lang}}/Cargo.lock"
     fi
 
     git clean -df
