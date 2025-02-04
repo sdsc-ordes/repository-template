@@ -32,7 +32,7 @@ function ci::print_info() {
     ci::_print "[0;94m" "" "" "$@"
 }
 
-function ci::print_warning() {
+function ci::print_warn() {
     ci::_print "[0;31m" "" "WARN: " "$@" >&2
 }
 

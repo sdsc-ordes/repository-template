@@ -4,5 +4,10 @@
   edition = '2021'
 
 [dependencies]
+  anyhow = "1.0.93"
   clap = { version = "4.5.7", features = ['derive']}
   {{ library_name }} = { version = "{{ module_version }}", path = "../{{ library_name }}/" }
+
+[lints.clippy]
+  pedantic = "deny"
+  needless_return = "warn"

@@ -4,19 +4,19 @@ set -e
 set -u
 
 ROOT_DIR=$(git rev-parse --show-toplevel)
-. "$ROOT_DIR/tools/general.sh"
+. "$ROOT_DIR/tools/ci/general.sh"
 
 cd "$ROOT_DIR"
 
 cargo --version
 cargo clippy --version
 
-print_info "Run Rust Clippy linter."
+ci::print_info "Run Rust Clippy linter."
 
-cargo clippy --no-deps -- -D warnings -A clippy::needless_return "$@" ||
+cargo clippy --no-deps "$@" ||
     {
         git diff --name-status || true
-        die "Rust clippy failed."
+        ci::die "Rust clippy failed."
     }
 
-print_info "Done."
+ci::print_info "Done."

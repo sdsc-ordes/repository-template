@@ -1,4 +1,11 @@
 [package]
-name = "{{ library_name }}"
-version = '{{ module_version }}'
-edition = "2021"
+  name = "{{ library_name }}"
+  version = '{{ module_version }}'
+  edition = "2021"
+
+[dependencies]
+  anyhow = "1.0.93"
+
+[lints.clippy]
+  pedantic = "deny"
+  needless_return = "warn"

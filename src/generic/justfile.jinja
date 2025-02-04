@@ -1,7 +1,35 @@
-{% include '.jinja/base/justfile' %}
-{% raw -%}
+{%- raw -%}
+set positional-arguments
+set shell := ["bash", "-cue"]
+root_dir := `git rev-parse --show-toplevel`
+build_dir := root_dir / "build"
+flake_dir := "./tools/nix"
 
-# Lint the package.
+# Default target if you do not specify a target.
+default:
+    just --list
+
+# Enter a Nix development shell and execute the command `"$@`.
+develop *args:
+    #!/usr/bin/env bash
+    set -eu
+    cd "{{root_dir}}"
+    args=("$@") && [ "${#args[@]}" != 0 ] || args="$SHELL"
+    nix develop --accept-flake-config "{{flake_dir}}#default" --command "${args[@]}"
+
+# Format the project.
+format *args:
+    nix run "{{flake_dir}}#treefmt" "$@"
+
+# Setup the project.
+setup *args:
+    cd "{{root_dir}}" && ./tools/scripts/setup.sh
+{%- endraw -%}
+
+{%- if project_language == "generic" %}
+{# Generic  ==================================================================== #}
+{%- raw %}
+# Lint the project.
 lint *args:
     echo "TODO: Not implemented"
 
@@ -9,11 +37,56 @@ lint *args:
 build *args:
     echo "TODO: Not implemented"
 
-# Run the executable.
-run *args:
-    echo "TODO: Not implemented"
-
-# Test the package.
+# Test the project.
 test *args:
     echo "TODO: Not implemented"
+
+# Run an executable.
+run *args:
+    echo "TODO: Not implemented"
 {%- endraw %}
+{%- elif project_language == "python" %}
+{# Python  ==================================================================== #}
+{%- raw %}
+# Lint the project.
+lint *args:
+    echo "TODO: Not implemented"
+
+# Build the project.
+build *args:
+    uv build --out-dir "{{build_dir}}" "$@"
+
+# Test the project.
+test *args:
+    echo "TODO: Not implemented"
+
+# Run an executable.
+run *args:
+    uv run cli "$@"
+{%- endraw %}
+{%- elif project_language == "rust" %}
+{# Rust ======================================================================= #}
+{%- raw %}
+# Lint the project.
+lint *args:
+    ./tools/scripts/lint-rust.sh "$@"
+    ./tools/scripts/lint-ub-rust.sh "$@"
+
+# Build the project.
+build *args:
+    cargo build --target-dir "{{build_dir}}" "$@"
+
+# Test the project.
+test *args:
+    cargo test "$@"
+
+# Watch `cargo build|run|test ...` commands.
+watch *args:
+    cargo watch -x "$1" "${@:2}"
+
+# Run an executable.
+run *args:
+    cargo run --target-dir "{{build_dir}}" "$@"
+{%- endraw %}
+{%- elif project_language == "go" %}
+{%- endif %}

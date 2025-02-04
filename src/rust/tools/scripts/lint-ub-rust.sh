@@ -4,15 +4,15 @@ set -e
 set -u
 
 ROOT_DIR=$(git rev-parse --show-toplevel)
-. "$ROOT_DIR/tools/general.sh"
+. "$ROOT_DIR/tools/ci/general.sh"
 
 cd "$ROOT_DIR"
 
 cargo --version
 cargo miri --version
 
-print_info "Run Rust Miri to check undefined behavior."
+ci::print_info "Run Rust Miri to check undefined behavior."
 cargo miri test "$@" ||
-    die "Rust Miri failed."
+    ci::die "Rust Miri failed."
 
-print_info "Done."
+ci::print_info "Done."
