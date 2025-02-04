@@ -6,6 +6,11 @@ Get in contact
 
 - Slack Channel : `#best-practice-ambassadors`
 
+Authors:
+
+- [Gabriel Nützi](gabriel.nuetzi@sdsc.ethz.ch)
+- [Cyril Matthey-Doret](cyril.matthey-doret@sdsc.ethz.ch)
+
 # What Is This?
 
 This is a repository template giving you a top-level structure with the
