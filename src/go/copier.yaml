@@ -1,0 +1,38 @@
+_answers_file: tools/configs/copier/answers/.go.yaml
+_exclude:
+  - .jinja
+  - copier.yaml
+
+project_hosts:
+  type: yaml
+  help: See generic template.
+  default: []
+  multiline: true
+
+# Non-parent options.
+package_name:
+  type: str
+  help: The package name you want to use.
+  default: github.com/{{ project_hosts.0.organization }}/{{project_hosts.0.repo}}
+  validator: >-
+    {% if not (module_name | regex_search('[a-z][a-z0-9\-]+')) %}
+    'module_name' must follow '[a-z][a-z0-9-]+' regex.
+    {% endif %}
+
+executable_name:
+  type: str
+  help: The executable name you want to use.
+  default: cli
+  validator: >-
+    {% if not (executable_name | regex_search('[a-z][a-z0-9\-]+')) %}
+    'executable_name' must follow '[a-z][a-z0-9-]+' regex.
+    {% endif %}
+
+module_name:
+  type: str
+  help: The module name you want to use.
+  default: custom-lib
+  validator: >-
+    {% if not (module_name | regex_search('[a-z][a-z0-9\-]+')) %}
+    'module_name' must follow '[a-z][a-z0-9-]+' regex.
+    {% endif %}

@@ -2,8 +2,9 @@
 set positional-arguments
 set shell := ["bash", "-cue"]
 root_dir := `git rev-parse --show-toplevel`
-build_dir := root_dir / "build"
-flake_dir := "./tools/nix"
+flake_dir := root_dir / "tools/nix"
+output_dir := root_dir / ".output"
+build_dir := output_dir / "build"
 
 # Default target if you do not specify a target.
 default:
@@ -89,4 +90,36 @@ run *args:
     cargo run --target-dir "{{build_dir}}" "$@"
 {%- endraw %}
 {%- elif project_language == "go" %}
+{# Rust ======================================================================= #}
+{%- raw %}
+# Lint the project.
+lint *args:
+    cd src && \
+    golangci-lint run \
+        --max-issues-per-linter 0 \
+        --max-same-issues 0 \
+        --timeout 10m0s \
+        --config "{{root_dir}}/tools/configs/golangci-lint/golangci.yaml" \
+        "$@"
+
+# Build the project.
+build *args:
+    #!/usr/bin/env bash
+    set -eu
+    mkdir -p "{{build_dir}}"
+    export GOBIN="{{build_dir}}"
+    cd src && go install "$@" ./...
+
+# Test the project.
+test *args:
+    #!/usr/bin/env bash
+    set -eu
+    mkdir -p "{{build_dir}}"
+    export GOBIN="{{build_dir}}"
+    cd src && go test "$@" ./...
+
+# Run an executable.
+run *args:
+    cd src && go run "$@" ./cmd/cli/...
+{%- endraw %}
 {%- endif %}

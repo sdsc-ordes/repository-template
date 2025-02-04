@@ -14,6 +14,11 @@
 
 # Direnv cache folder.
 .direnv
+# Devenv cache folder.
+.devenv
+
+# General output folder.
+.output
 
 {%- if project_language == "python" %}
 # Virtual environment.
@@ -29,7 +34,6 @@
 {%- if project_language == "rust" %}
 # Rust Format config.
 .rustfmt.toml
+{%- elif project_language == "go" %}
+.golangci.yaml
 {%- endif %}
-
-# General build folder.
-build

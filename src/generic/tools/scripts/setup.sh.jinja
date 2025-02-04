@@ -23,6 +23,9 @@ function link_config_files() {
     {% if project_language == "rust" -%}
     rm -rf ".rustfmt.toml" || true
     ln -s "tools/configs/rust/rustfmt.toml" ".rustfmt.toml"
+    {% elif project_language == "go" -%}
+    rm -rf ".golangci.yaml" || true
+    ln -s "tools/configs/golangci-lint/golangci.yaml" ".golangci.yaml"
     {%- endif %}
 }
 

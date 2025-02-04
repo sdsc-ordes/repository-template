@@ -77,6 +77,7 @@ test lang="python": setup
     if [ "{{lang}}" != "generic" ]; then
         uv run copier copy --trust -w \
             --data "project_authors=$(yq -r ".project_authors" "$build_dir/tools/copier/answers/.generic.yaml")" \
+            --data "project_hosts=$(yq -r ".project_hosts" "$build_dir/tools/copier/answers/.generic.yaml")" \
             --data "project_version=$(yq -r ".project_version" "$build_dir/tools/copier/answers/.generic.yaml")" \
             --data "project_description=$(yq -r ".project_description" "$build_dir/tools/copier/answers/.generic.yaml")" \
             --data "project_url=$(yq -r ".project_url" "$build_dir/tools/copier/answers/.generic.yaml")" \
@@ -91,13 +92,13 @@ test lang="python": setup
         git commit -a -m "init"
 
     just develop just setup
+    just develop just format
     just develop just lint
     just develop just build
     just develop just run
 
     cp tools/nix/flake.lock "{{root_dir}}/src/{{lang}}/tools/nix/flake.lock"
 
-    just develop just format
 
     if ! git diff --exit-code --quiet . ; then
         echo "We have changes in the build folder."

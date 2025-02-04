@@ -40,7 +40,7 @@ project_hosts:
   help: The providers which hosts this project (the first one is the default).
   default: |
     - host: github.com
-      organization: "SwissDataScienceCenter"
+      organization: "swissdatasciencecenter"
       repo: "{{ project_name | slug }}"
     - host: gitlab.datascience.ch
       organization: "my-organization"
