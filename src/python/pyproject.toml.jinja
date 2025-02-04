@@ -1,12 +1,21 @@
 [project]
 name = "{{ module_name }}"
-authors = []
-description = ""
+authors = [
+{%- for a in project_authors %}
+  { name = "{{ a.first_name }} {{ a.last_name }}", email = "{{ a.email }}" },
+{%- endfor %}
+]
+description = "{{ project_description }}"
 readme = "README.md"
 requires-python = ">=3.13"
-version = "{{ module_version }}"
+version = "{{ project_version }}"
+
 dependencies = [
     "pydantic>=2.10.6",
+]
+[dependency-groups]
+dev = [
+    "notebook>=7.3.2",
 ]
 
 [project.scripts]

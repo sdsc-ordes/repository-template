@@ -5,30 +5,48 @@
 # Search for package at:
 # https://search.nixos.org/packages
 {
+  lib,
   pkgs,
+  namespace,
   ...
 }:
 {
   packages = [
-    pkgs.python313
+    pkgs.${namespace}.bootstrap
+    pkgs.${namespace}.treefmt
+
+    # Language Server.
+    pkgs.pyright
+
+    # Formatter and linter.
     pkgs.ruff
-    pkgs.uv
+
+    pkgs.stdenv.cc.cc.lib # fix: libstdc++ required by jupyter.
+    pkgs.libz # fix: for numpy/pandas import
   ];
 
-  shellHook = ''
-    repo_dir=$(git rev-parse --show-toplevel)
+  # We use `devenv` language support since, its
+  # pretty involved to setup a python environment.
+  languages.python = {
+    directory = lib.${namespace}.fs.root-dir;
+    enable = true;
+    venv.enable = true;
+    uv = {
+      enable = true;
+      package = pkgs.uv;
+      sync = {
+        enable = true;
+        allExtras = true;
+      };
+    };
+  };
 
-    # We never want that uv manages python installs.
-    export UV_PYTHON_DOWNLOADS=never
-
-    venv_dir="$repo_dir/.venv"
-    # Activate python environment.
-    if [ -f "$venv_dir/bin/activate" ]; then
-      echo "Activating python environment in '$venv_dir'."
-      source "$venv_dir/bin/activate"
-    fi
-
-    unset venv_dir
-    unset repo_dir
+  enterShell = ''
+    just setup
   '';
+
+  env.LD_LIBRARY_PATH = "${lib.makeLibraryPath [
+    pkgs.stdenv.cc.cc.lib
+    pkgs.libz
+  ]}";
 }

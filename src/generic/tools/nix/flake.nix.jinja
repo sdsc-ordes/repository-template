@@ -24,6 +24,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # The devenv module to create good development shells.
+    devenv.url = "github:cachix/devenv";
+
     # Snowfall provides a structured way of creating a flake output.
     # Documentation: https://snowfall.org/guides/lib/quickstart/
     snowfall-lib = {
@@ -37,8 +40,12 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    {% endif %}
-
+    {% elif project_language == "python" -%}
+    nixpkgs-python = {
+      url = "github:cachix/nixpkgs-python";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    {%- endif %}
   };
 
 outputs =

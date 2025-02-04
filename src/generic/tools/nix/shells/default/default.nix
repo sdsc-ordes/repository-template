@@ -2,13 +2,16 @@
   lib,
   pkgs,
   namespace,
+  inputs,
   ...
 }@args:
 let
   toolchains = import ../toolchain.nix args;
 in
 # Create the 'default' shell.
-pkgs.mkShell {
-  packages = toolchains.default.packages;
-  shellHook = toolchains.default.shellHook;
+inputs.devenv.lib.mkShell {
+  inherit pkgs inputs;
+  modules = [
+    ({ pkgs, config, ... }: toolchains.default)
+  ];
 }

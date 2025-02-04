@@ -1,6 +1,15 @@
 [package]
   name = "{{ library_name }}"
-  version = '{{ module_version }}'
+  version = '{{ project_version }}'
+  description = "{{ project_description }}"
+  license = "{{ project_license }}"
+  homepage = " {{ project_url }} "
+  keywords = []
+  authors = [
+{%- for a in project_authors %}
+  "{{ a.first_name }} {{ a.last_name }} <{{ a.email }}>",
+{%- endfor %}
+  ]
   edition = "2021"
 
 [dependencies]

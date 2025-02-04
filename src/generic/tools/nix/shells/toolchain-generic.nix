@@ -1,5 +1,7 @@
-{ ... }:
+{ pkgs, namespace, ... }:
 {
-  packages = [ ];
-  shellHook = '''';
+  packages = [
+    pkgs.${namespace}.bootstrap
+    pkgs.${namespace}.treefmt
+  ];
 }

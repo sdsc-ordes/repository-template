@@ -68,9 +68,10 @@ function ci::setup_python_venv() {
 
     if [ ! -d "$root_dir/.venv" ]; then
         ci::print_info "Setting up venv environment in '$root_dir/.venv'."
-        uv venv "$root_dir/.venv"
+        uv venv "$root_dir/.venv" >/dev/null
     fi
 
     ci::print_info "Installing dependencies..."
-    uv pip install -r "$root_dir/tools/configs/copier/pyproject.toml" --extra dev
+    uv pip install -r "$root_dir/tools/configs/copier/pyproject.toml" \
+        --extra dev >/dev/null
 }

@@ -56,7 +56,7 @@ further defined and clarified by project maintainers.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported by contacting any of the following people:
-{% for m in project_maintainers %}
+{% for m in project_authors %}
 - [{{ m.first_name }} {{ m.last_name }}](mailto:{{ m.email }})
 {%- endfor %}
 

@@ -3,7 +3,7 @@ message: "If you use this software, please cite it as below."
 title: "{{ project_name }}"
 
 authors:
-{%- for m in project_maintainers %}
+{%- for m in project_authors %}
   - family-names: {{ m.last_name }}
     given-names: {{ m.first_name }}
     orcid: "..."

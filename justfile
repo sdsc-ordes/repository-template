@@ -33,7 +33,7 @@ create *args:
 
     just develop copier copy --trust "${args[@]}" \
         "src/$language" "$destination" \
-        --data "module_version=$(yq -r ".project_version" "$destination/tools/copier/answers/.generic.yaml")" \
+        --data "project_version=$(yq -r ".project_version" "$destination/tools/copier/answers/.generic.yaml")" \
 
 # Enter a Nix development shell.
 develop *args:
@@ -76,7 +76,10 @@ test lang="python": setup
 
     if [ "{{lang}}" != "generic" ]; then
         uv run copier copy --trust -w \
-            --data "module_version=$(yq -r ".project_version" "$build_dir/tools/copier/answers/.generic.yaml")" \
+            --data "project_authors=$(yq -r ".project_authors" "$build_dir/tools/copier/answers/.generic.yaml")" \
+            --data "project_version=$(yq -r ".project_version" "$build_dir/tools/copier/answers/.generic.yaml")" \
+            --data "project_description=$(yq -r ".project_description" "$build_dir/tools/copier/answers/.generic.yaml")" \
+            --data "project_url=$(yq -r ".project_url" "$build_dir/tools/copier/answers/.generic.yaml")" \
             --defaults \
             "src/{{lang}}" \
             "$build_dir"

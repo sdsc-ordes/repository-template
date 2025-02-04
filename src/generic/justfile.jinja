@@ -15,7 +15,7 @@ develop *args:
     set -eu
     cd "{{root_dir}}"
     args=("$@") && [ "${#args[@]}" != 0 ] || args="$SHELL"
-    nix develop --accept-flake-config "{{flake_dir}}#default" --command "${args[@]}"
+    nix develop --no-pure-eval --accept-flake-config "{{flake_dir}}#default" --command "${args[@]}"
 
 # Format the project.
 format *args:

@@ -3,7 +3,7 @@ _exclude:
   - .jinja
   - copier.yaml
 
-project_maintainers:
+project_authors:
   type: yaml
   help: Who are the main maintainers of this project?
   default:
@@ -19,6 +19,11 @@ project_name:
   type: str
   help: What is your project name?
   default: "My Project"
+
+project_description:
+  type: str
+  help: What is your project description in one sentence (full english sentence, with punctuation)?
+  default: "This a repository from a repository template."
 
 project_language:
   type: str

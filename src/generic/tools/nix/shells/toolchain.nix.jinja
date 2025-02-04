@@ -12,25 +12,9 @@
 }@args:
 let
   language = "{{ project_language }}";
-
-  # Load all toolchains specific needs.
-  all-toolchains = lib.${namespace}.toolchain.import ./. args;
-  toolchain = all-toolchains.${language};
-
+  toolchains = lib.${namespace}.toolchain.import ./. args;
 in
-rec {
-
-  default = {
-    packages = [
-      pkgs.${namespace}.bootstrap
-      pkgs.${namespace}.treefmt
-    ] ++ toolchain.packages;
-
-    shellHook = ''
-      just setup
-      ${toolchain.shellHook}
-    '';
-  };
-
+toolchains // rec {
+  default = toolchains.${language};
   ci = default;
 }

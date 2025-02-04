@@ -1,12 +1,21 @@
 [package]
   name = '{{ executable_name }}'
-  version = '{{ module_version }}'
-  edition = '2021'
+  version = '{{ project_version }}'
+  description = "{{ project_description }}"
+  license = "{{ project_license }}"
+  homepage = " {{ project_url }} "
+  keywords = []
+  authors = [
+{%- for a in project_authors %}
+  "{{ a.first_name }} {{ a.last_name }} <{{ a.email }}>",
+{%- endfor %}
+  ]
+  edition = "2021"
 
 [dependencies]
   anyhow = "1.0.93"
   clap = { version = "4.5.7", features = ['derive']}
-  {{ library_name }} = { version = "{{ module_version }}", path = "../{{ library_name }}/" }
+  {{ library_name }} = { version = "{{ project_version }}", path = "../{{ library_name }}/" }
 
 [lints.clippy]
   pedantic = "deny"
