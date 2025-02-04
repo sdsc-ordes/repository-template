@@ -34,6 +34,16 @@
     <img src="https://img.shields.io/badge/License-Apache2.0-blue.svg?" alt="License label" />
   </a>
   {%- endif %}
+  {%- if project_language == "go" %}
+  {%- for host in project_hosts[0:1] %}
+  <a href="https://pkg.go.dev/{{ host.host }}/{{ host.organization }}/{{ host.repo }}">
+    <img src="https://pkg.go.dev/badge/{{ host.host }}/{{ host.organization }}/{{ host.repo }}" alt="Go Doc" />
+  </a>
+  <a href="https://goreportcard.com/report/{{ host.host }}/{{ host.organization }}/{{ host.repo }}">
+    <img src="https://goreportcard.com/badge/{{ host.host }}/{{ host.organization }}/{{ host.repo }}" alt="Go Report Card" />
+  </a>
+  {%- endfor %}
+  {%- endif %}
 </p>
 
 **Authors:**
