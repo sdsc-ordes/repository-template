@@ -50,12 +50,14 @@ create-impl *args:
     fi
 
     if ! git -C "$destination" rev-parse --show-toplevel &>/dev/null; then
-        # If we are not inside a Git repo we need to
+        # If we are not inside a Git repo we need to init.
+        ci::print_info "Initializing Git repo '$destination'"
         git -C  "$destination" init || ci::die "Could not initialize Git repo."
     fi
 
     if [ "$(git -C "$destination" rev-parse --show-toplevel 2>/dev/null)" == "$destination" ]; then
         # If we are inside the top level, add the files directly.
+        ci::print_info "Staging all files."
         git -C "$destination" add . || ci::die "Could not stage all files."
     fi
 
