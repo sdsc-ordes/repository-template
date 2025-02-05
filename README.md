@@ -11,20 +11,44 @@ Authors:
 - [Gabriel Nützi](gabriel.nuetzi@sdsc.ethz.ch)
 - [Cyril Matthey-Doret](cyril.matthey-doret@sdsc.ethz.ch)
 
+<details>
+<summary><b>Table of Content (click to expand)</b></summary>
+
+<!--toc:start-->
+
+- [Repository Template](#repository-template)
+- [What Is This?](#what-is-this)
+- [Usage](#usage)
+  - [Cloning](#cloning)
+  - [Containerized](#containerized)
+- [Structure](#structure)
+  - [Generic Template](#generic-template)
+    - [Features](#features)
+    - [Toolchain](#toolchain)
+  - [Rust Template](#rust-template)
+    - [Toolchain](#toolchain)
+  - [Go Template](#go-template)
+    - [Toolchain](#toolchain)
+  - [Python Template](#python-template) - [Toolchain](#toolchain)
+  <!--toc:end-->
+
+</details>
+
 # What Is This?
 
 This is a repository template giving you a top-level structure with the
 following features.
 
-- **Git & Git LFS** properly setup.
-- **Nix development shell** enabled with `direnv` and `.envrc`.
+- **Git & Git Large File System (LFS)** properly setup.
+- **Nix development shell** enabled with [`direnv`](https://direnv.net) and
+  `.envrc`.
 - Formatting with [`treefmt-nix`](https://github.com/numtide/treefmt-nix).
 - [Githooks](https://github.com/gabyx/githooks) (optional) which runs
   `pre-commit` checks:
   - Git LFS checks.
   - Format with `treefmt-nix`.
-- Language specific best-practice setup for [`rust`](#rust), [`go`](#go) and
-  [`python`](#python).
+- Language specific best-practice setup for [`rust`](#rust-template),
+  [`go`](#go-template) and [`python`](#python-template).
 - [Devcontainer](https://containers.dev): _not-yet-provided_ (future, based on
   Nix dev shell)
 
@@ -55,7 +79,7 @@ where
   - [`go`](./src/go): For a default Go toolchain.
 
 - `[args...]` are optional arguments passed to `copier`. If you want to
-  overwrite by default use `-w`
+  overwrite by default use `-w`.
 
 ## Containerized
 
@@ -65,21 +89,26 @@ TODO: Add this.
 
 The following describes the content of the top-level directories:
 
-- [docs](./src/generic/docs) : The top-level folder to any related
-  documentation. The [README.md](./src/generic/README.md) should link into this
+- [`docs`](src/generic/docs) : The top-level folder to any related
+  documentation. The [README.md](src/generic/README.md) should link into this
   folder.
-- [examples](./src/generic/examples) : The top-level folder which should contain
+- [`examples`](src/generic/examples) : The top-level folder which should contain
   some examples how to use this software component.
-- [external](./src/generic/external) : If you really want to use sub-modules
+- [`external`](src/generic/external) : If you really want to use sub-modules
   (which you generally should avoid for a multitude of reasons), your external
   stuff should be either placed in here or in `src/external` if its more related
   to your source.
-- `build` : This is a reserved Git ignored top-level folder only for the build
-  output.
+- `src`: The folder where your source code lives.
+- [`tools`](src/generic/tools): The folder for all specific needs:
+  - [`configs`](src/generic/tools/configs): A collection folder for all config
+    related files for certain tools like, e.g. formatters, linters etc.
+  - [`nix`](src/generic/tools/nix): The folder containing all Nix related stuff.
+  - [`ci`](src/generic/tools/ci): Folder containing all CI related
+    tooling/scripts.
+  - [`scripts`](src/generic/tools/scripts): Folder containing additional scripts
+    complementing the `justfile` etc.
 
-## Generic
-
-**TODO**: Description about the different folder etc.
+## Generic Template
 
 ### Features
 
@@ -113,7 +142,7 @@ The following describes the content of the top-level directories:
 - Formatter: Tree format with `treefmt-nix` and
   [enabled languages](src/generic/tools/nix/packages/treefmt/treefmt.nix.jinja)
 
-## Rust
+## Rust Template
 
 ### Toolchain
 
@@ -125,7 +154,7 @@ The following describes the content of the top-level directories:
 - LSP: `rust-analyzer`
 - Formatter: `rustfmt`
 
-## Go
+## Go Template
 
 ### Toolchain
 
@@ -136,7 +165,7 @@ The following describes the content of the top-level directories:
 - LSP: `gopls`
 - Formatter: `gofmt`, `goimports`, `golines`
 
-## Python
+## Python Template
 
 ### Toolchain
 
