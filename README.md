@@ -1,4 +1,23 @@
-# Repository Template
+<p align="center">
+  <img src="./docs/assets/logo.svg" alt="project logo" width="250">
+</p>
+
+<h1 align="center">
+Repository Template
+</h1>
+<p align="center">
+</p>
+<p align="center">
+  <a href="https://github.com/swissdatasciencecenter/my-project/releases/latest">
+    <img src="https://img.shields.io/github/release/swissdatasciencecenter/my-project.svg?label=release" alt="Current Release" />
+  </a>
+  <a href="https://github.com/swissdatasciencecenter/ my-project/actions/workflows/main-and-pr.yaml">
+    <img src="https://img.shields.io/github/actions/workflow/status/swissdatasciencecenter/my-project/main-and-pr.yaml?label=ci" alt="Pipeline Status" />
+  </a>
+  <a href="http://www.apache.org/licenses/LICENSE-2.0.html">
+    <img src="https://img.shields.io/badge/License-Apache2.0-blue.svg?" alt="License label" />
+  </a>
+</p>
 
 **Vision: SDSC Excellence | Always be encouraging**
 
@@ -183,3 +202,19 @@ The following describes the content of the top-level directories:
 - Build-Tool: `uv`
 - LSP: `pyright`
 - Formatter: `ruff`
+
+## Development
+
+Read first the [Contribution Guidelines](/CONTRIBUTING.md).
+
+For technical documentation on setup and development, see the
+[Development Guide](docs/development-guide.md)
+
+## Copyright
+
+Copyright © 2025-2028 Swiss Data Science Center (SDSC),
+[www.datascience.ch](http://www.datascience.ch/). All rights reserved. The SDSC
+is jointly established and legally represented by the École Polytechnique
+Fédérale de Lausanne (EPFL) and the Eidgenössische Technische Hochschule Zürich
+(ETH Zürich). This copyright encompasses all materials, software, documentation,
+and other content created and developed by the SDSC.
