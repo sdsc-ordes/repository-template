@@ -8,11 +8,11 @@ Repository Template
 <p align="center">
 </p>
 <p align="center">
-  <a href="https://github.com/swissdatasciencecenter/my-project/releases/latest">
-    <img src="https://img.shields.io/github/release/swissdatasciencecenter/my-project.svg?label=release" alt="Current Release" />
+  <a href="https://github.com/sdsc-ordes/repository-template/releases/latest">
+    <img src="https://img.shields.io/github/release/sdsc-ordes/repository-template.svg?label=release" alt="Current Release" />
   </a>
   <a href="https://github.com/swissdatasciencecenter/ my-project/actions/workflows/main-and-pr.yaml">
-    <img src="https://img.shields.io/github/actions/workflow/status/swissdatasciencecenter/my-project/main-and-pr.yaml?label=ci" alt="Pipeline Status" />
+    <img src="https://img.shields.io/github/actions/workflow/status/sdsc-ordes/repository-template/main-and-pr.yaml?label=ci" alt="Pipeline Status" />
   </a>
   <a href="http://www.apache.org/licenses/LICENSE-2.0.html">
     <img src="https://img.shields.io/badge/License-Apache2.0-blue.svg?" alt="License label" />
