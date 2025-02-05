@@ -27,14 +27,17 @@ create-impl *args:
         ci::die "No such template '$template' to template"
     cd "{{root_dir}}"
 
+    ci::print_info "Rendering 'generic' template ... "
     copier copy --trust "${args[@]}" \
         "src/generic" "$destination" \
         --data "project_language=$template" ||
         ci::die "Could not apply template '$template'."
+    ci::print_info "Rendering 'generic' template completed."
 
     if [ "$template" != "generic" ]; then
         answer_file="$destination/tools/configs/copier/answers/generic.yaml"
 
+        ci::print_info "Rendering '$template' template completed."
         copier copy --trust "${args[@]}" \
             "src/$template" "$destination" \
             --data "project_authors=$(yq -r ".project_authors" "$answer_file")" \
@@ -43,6 +46,7 @@ create-impl *args:
             --data "project_description=$(yq -r ".project_description" "$answer_file")" \
             --data "project_url=$(yq -r ".project_url" "$answer_file")" ||
             ci::die "Could not apply template '$template'."
+        ci::print_info "Rendering '$template' template completed."
     fi
 
     if ! git -C "$destination" rev-parse --show-toplevel &>/dev/null; then

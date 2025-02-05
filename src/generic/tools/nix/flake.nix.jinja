@@ -62,8 +62,8 @@ outputs =
         root = "${root-dir}" + "/tools/nix";
         namespace = "repository";
         meta = {
-          name = "repository-template";
-          title = "Repository Template";
+          name = "{{ project_hosts.0.repo }}";
+          title = "{{ project_description }}";
         };
       };
     };
