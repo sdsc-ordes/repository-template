@@ -77,14 +77,43 @@ The following describes the content of the top-level directories:
 - `build` : This is a reserved Git ignored top-level folder only for the build
   output.
 
-## Python
+## Generic
 
-TODO
+**TODO**: Description about the different folder etc.
+
+### Toolchain
+
+[Source](src/python/tools/shells/toolchain-generic.nix)
+
+- Command-Runner: `just`
+- Formatter: Tree format with `treefmt-nix` and
+  [enabled languages](src/generic/tools/nix/packages/treefmt/treefmt.nix.jinja)
 
 ## Rust
 
-TODO
+[Source](src/rust/tools/shells/toolchain-rust.nix)
+
+- Rust-Toolchain: [`nightly`](src/rust/tools/configs/rust/rust-toolchain.toml)
+- Build-Tool: `cargo`
+- LSP: `rust-analyzer`
+- Formatter: `rustfmt`
 
 ## Go
 
-TODO
+[Source](src/go/tools/shells/toolchain-rust.nix)
+
+- Compiler: `go` at `1.23.X`
+- Build-Tool: `go`
+- LSP: `gopls`
+- Formatter: `gofmt`, `goimports`, `golines`
+
+## Python
+
+### Toolchain:
+
+[Source](src/python/tools/shells/toolchain-python.nix)
+
+- Interpreter: `python` at `3.12`
+- Build-Tool: `uv`
+- LSP: `pyright`
+- Formatter: `ruff`
