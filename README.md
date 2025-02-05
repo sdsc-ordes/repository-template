@@ -16,17 +16,17 @@ Authors:
 This is a repository template giving you a top-level structure with the
 following features.
 
-- [Git](.gitignore) & [Git LFS](.gitattributes) properly setup.
-- [Nix shell](./tools/nix/shells/default/default.nix) enabled with `direnv` and
-  [`.envrc`](.envrc).
-- Formatting with [`treefmt-nix`](./tools/nix/packages/treefmt/treefmt.nix).
-- Githooks (optional) which runs `pre-commit` checks:
-  - [Git LFS checks.](.githooks/pre-commit/1-git-lfs-check.sh)
-  - [Format with `treefmt-nix`.](.githooks/pre-commit/2-format.sh)
-- Language specific best-practice setup for `rust`, `go` and `python`:
-  - Toolchain: compiler/interpreters.
-  - Language Servers (LSP).
-  - etc.
+- **Git & Git LFS** properly setup.
+- **Nix development shell** enabled with `direnv` and `.envrc`.
+- Formatting with [`treefmt-nix`](https://github.com/numtide/treefmt-nix).
+- [Githooks](https://github.com/gabyx/githooks) (optional) which runs
+  `pre-commit` checks:
+  - Git LFS checks.
+  - Format with `treefmt-nix`.
+- Language specific best-practice setup for [`rust`](#rust), [`go`](#go) and
+  [`python`](#python).
+- [Devcontainer](https://containers.dev): _not-yet-provided_ (future, based on
+  Nix dev shell)
 
 # Usage
 
@@ -52,7 +52,7 @@ where
   - [`python`](./src/python): For python toolchain with `uv` and other good
     tooling.
   - [`rust`](./src/rust): For a Rust toolchain with `cargo`
-  - [`go`](./src/go)
+  - [`go`](./src/go): For a default Go toolchain.
 
 - `[args...]` are optional arguments passed to `copier`. If you want to
   overwrite by default use `-w`
@@ -81,26 +81,55 @@ The following describes the content of the top-level directories:
 
 **TODO**: Description about the different folder etc.
 
+### Features
+
+- **Git & Git LFS** properly setup:
+  [`.gitignore`](src/generic/.gitignore.jinja),
+  [`.gitattributes`](src/generic/.gitattributes)
+
+- **Nix development shell** based on `devenv` auto-enabled with `direnv` and
+  [`.envrc`](src/generic/.envrc).
+
+- Formatting with [`treefmt-nix`](https://github.com/numtide/treefmt-nix) and
+  [`treefmt.nix` config](src/generic/tools/nix/packages/treefmt/treefmt.nix.jinja).
+
+- [Githooks](https://github.com/gabyx/githooks) (optional) which runs
+  `pre-commit` checks:
+
+  - [Git LFS checks](src/generic/.githooks/pre-commit/1-git-lfs-check.sh)
+  - [Format](src/generic/.githooks/pre-commit/2-format.sh) with `treefmt-nix`.
+
+  > [!NOTE] You need to install the
+  > [Githooks](https://github.com/gabyx/githooks) tool yourself if you want to
+  > use it and it will work out-of-the-box.
+
 ### Toolchain
 
-[Source](src/python/tools/shells/toolchain-generic.nix)
+[Source](src/generic/tools/nix/shells/toolchain-generic.nix)
 
 - Command-Runner: `just`
+- Nix Shell: `devenv` provided Nix shell using
+  [toolchain-generic.nix](src/generic/tools/nix/shells/toolchain-generic.nix).
 - Formatter: Tree format with `treefmt-nix` and
   [enabled languages](src/generic/tools/nix/packages/treefmt/treefmt.nix.jinja)
 
 ## Rust
 
-[Source](src/rust/tools/shells/toolchain-rust.nix)
+### Toolchain
 
-- Rust-Toolchain: [`nightly`](src/rust/tools/configs/rust/rust-toolchain.toml)
+[Source](src/rust/tools/nix/shells/toolchain-rust.nix)
+
+- Toolchain: Rust toolchain on
+  [`nightly`](src/rust/tools/configs/rust/rust-toolchain.toml)
 - Build-Tool: `cargo`
 - LSP: `rust-analyzer`
 - Formatter: `rustfmt`
 
 ## Go
 
-[Source](src/go/tools/shells/toolchain-rust.nix)
+### Toolchain
+
+[Source](src/go/tools/nix/shells/toolchain-rust.nix)
 
 - Compiler: `go` at `1.23.X`
 - Build-Tool: `go`
@@ -109,9 +138,9 @@ The following describes the content of the top-level directories:
 
 ## Python
 
-### Toolchain:
+### Toolchain
 
-[Source](src/python/tools/shells/toolchain-python.nix)
+[Source](src/python/tools/nix/shells/toolchain-python.nix)
 
 - Interpreter: `python` at `3.12`
 - Build-Tool: `uv`
