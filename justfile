@@ -37,7 +37,7 @@ create-impl *args:
     if [ "$template" != "generic" ]; then
         answer_file="$destination/tools/configs/copier/answers/generic.yaml"
 
-        ci::print_info "Rendering '$template' template completed."
+        ci::print_info "Rendering '$template' template ..."
         copier copy --trust "${args[@]}" \
             "src/$template" "$destination" \
             --data "project_authors=$(yq -r ".project_authors" "$answer_file")" \
