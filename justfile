@@ -20,7 +20,7 @@ create-impl *args:
     source ./tools/ci/general.sh
 
     template="$1"
-    destination="$(mkdir -p "$2" && cd "$2" && pwd)" # Make absolute.
+    destination="$(realpath "$2")" # Make absolute (resolve symlinks etc...)
     args=("${@:3}")
 
     [[ "$template" =~ generic|rust|go|python ]] ||
