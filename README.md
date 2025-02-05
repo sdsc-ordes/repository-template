@@ -158,7 +158,7 @@ The following describes the content of the top-level directories:
 
 ### Toolchain
 
-[Source](src/go/tools/nix/shells/toolchain-rust.nix)
+[Source](src/go/tools/nix/shells/toolchain-go.nix)
 
 - Compiler: `go` at `1.23.X`
 - Build-Tool: `go`
