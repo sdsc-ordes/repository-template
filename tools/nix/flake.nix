@@ -24,11 +24,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    copier = {
-      url = "github:copier-org/copier?ref=v9.4.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Snowfall provides a structured way of creating a flake output.
     # Documentation: https://snowfall.org/guides/lib/quickstart/
     snowfall-lib = {
