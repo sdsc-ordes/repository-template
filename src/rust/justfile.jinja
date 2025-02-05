@@ -1,5 +1,5 @@
 {% include ".jinja/common/justfile" %}
-{%- raw %}
+{% raw %}
 # Lint the project.
 lint *args:
     ./tools/scripts/lint-rust.sh "$@"
