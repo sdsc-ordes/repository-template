@@ -84,7 +84,7 @@ test-all:
     just test python
     just test rust
 
-# Test the coding scaffolding.
+# Test the code scaffolding.
 test template="python": setup
     #!/usr/bin/env bash
     set -eu
