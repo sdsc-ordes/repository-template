@@ -1,6 +1,8 @@
 use clap::Parser;
 use anyhow::{Result, anyhow};
+use {{ library_name.replace("-", "_") }}::strings::suffix::has_suffix;
 
+{% raw -%}
 /// A simple CLI that says hello.
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -17,6 +19,9 @@ fn main() -> Result<()> {
         return Err(anyhow!("You cannot specify 'crash' as '--name'."))
     }
 
+    has_suffix("banana.exe", ".exe");
+
     println!("Hello, {}!", args.name);
     Ok(())
 }
+{%- endraw -%}

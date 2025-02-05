@@ -11,6 +11,10 @@ default:
 
 # Create a repository template.
 create *args:
+    just develop just create-impl "$@"
+
+[private]
+create-impl *args:
     #!/usr/bin/env bash
     set -eu
     source ./tools/ci/general.sh
@@ -21,10 +25,10 @@ create *args:
 
     [[ "$language" =~ generic|rust|go|python ]] ||
         ci::die "No such language '$language'"
-
     cd "{{root_dir}}"
 
-    just develop copier copy --trust "${args[@]}" \
+
+    copier copy --trust "${args[@]}" \
         "src/generic" "$destination" \
         --data "project_language=$language"
 
@@ -32,14 +36,20 @@ create *args:
         exit 0
     fi
 
-    answer_file="$destination/tools/copier/answers/.generic.yaml"
-    just develop copier copy --trust "${args[@]}" \
+    answer_file="$destination/tools/configs/copier/answers/generic.yaml"
+    copier copy --trust "${args[@]}" \
         "src/$language" "$destination" \
         --data "project_authors=$(yq -r ".project_authors" "$answer_file")" \
         --data "project_hosts=$(yq -r ".project_hosts" "$answer_file")" \
         --data "project_version=$(yq -r ".project_version" "$answer_file")" \
         --data "project_description=$(yq -r ".project_description" "$answer_file")" \
         --data "project_url=$(yq -r ".project_url" "$answer_file")"
+
+    if ! git -C "$destination" rev-parse --show-toplevel; then
+        # We are not inside any Git repository
+        git -C  "$destination" init &&
+        git -C "$destination" add .
+    fi
 
 # Enter a Nix development shell.
 develop *args:
@@ -81,7 +91,7 @@ test lang="python": setup
         "$build_dir"
 
     if [ "{{lang}}" != "generic" ]; then
-        answer_file="$build_dir/tools/copier/answers/.generic.yaml"
+        answer_file="$build_dir/tools/configs/copier/answers/generic.yaml"
         uv run copier copy --trust -w \
             --data "project_authors=$(yq -r ".project_authors" "$answer_file")" \
             --data "project_hosts=$(yq -r ".project_hosts" "$answer_file")" \
