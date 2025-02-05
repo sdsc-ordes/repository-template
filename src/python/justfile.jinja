@@ -15,4 +15,8 @@ test *args:
 # Run an executable.
 run *args:
     uv run cli "$@"
+
+# Run the Jupyter notebook.
+notebook *args:
+    uv run python -m notebook "$@"
 {%- endraw %}
