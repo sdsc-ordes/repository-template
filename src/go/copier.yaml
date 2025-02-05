@@ -13,11 +13,16 @@ project_hosts:
 package_name:
   type: str
   help: The package name you want to use.
-  default: github.com/{{ project_hosts.0.organization }}/{{project_hosts.0.repo}}
+  default: tool
   validator: >-
-    {% if not (module_name | regex_search('[a-z][a-z0-9\-]+')) %}
-    'module_name' must follow '[a-z][a-z0-9-]+' regex.
+    {% if not (package_name | regex_search('[a-z][a-z0-9\-]+')) %}
+    'package_name' must follow '[a-z][a-z0-9-]+' regex.
     {% endif %}
+
+package_url:
+  type: str
+  help: The package url you want to use.
+  default: github.com/{{ project_hosts.0.organization }}/{{ project_hosts.0.repo }}/{{ package_name }}
 
 executable_name:
   type: str

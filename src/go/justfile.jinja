@@ -1,0 +1,29 @@
+{% include ".jinja/common/justfile" %}
+{# workaround to not mess with the justfile templating, which is the same #}
+main_package := "{{ package_name }}"
+
+{%- raw %}
+# Lint the project.
+lint *args:
+    cd "src/{{main_package}}" && \
+    golangci-lint run \
+        --max-issues-per-linter 0 \
+        --max-same-issues 0 \
+        --timeout 10m0s \
+        --config "{{root_dir}}/tools/configs/golangci-lint/golangci.yaml" \
+        "$@"
+
+# Build the project.
+build *args:
+    mkdir -p "{{build_dir}}/{{main_package}}" && \
+    export GOBIN="{{build_dir}}/{{main_package}}" && \
+    cd "src/{{main_package}}" && go install "$@" ./...
+
+# Test the project.
+test *args:
+    cd "src/{{main_package}}" && go test "$@" ./...
+
+# Run an executable.
+run *args:
+    cd "src/{{main_package}}" && go run "$@" ./cmd/cli/...
+{%- endraw %}

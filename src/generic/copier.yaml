@@ -70,7 +70,5 @@ project_license:
   default: apache2
 
 _jinja_extensions:
-  # TODO: To make this work we need to install `.venv` copier and
-  # add the extensions too.
   - jinja2_time.TimeExtension
   - jinja2_slug.SlugExtension

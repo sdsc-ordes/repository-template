@@ -19,37 +19,42 @@ create-impl *args:
     set -eu
     source ./tools/ci/general.sh
 
-    language="$1"
-    destination="$2"
+    template="$1"
+    destination="$(mkdir -p "$2" && cd "$2" && pwd)" # Make absolute.
     args=("${@:3}")
 
-    [[ "$language" =~ generic|rust|go|python ]] ||
-        ci::die "No such language '$language'"
+    [[ "$template" =~ generic|rust|go|python ]] ||
+        ci::die "No such template '$template' to template"
     cd "{{root_dir}}"
-
 
     copier copy --trust "${args[@]}" \
         "src/generic" "$destination" \
-        --data "project_language=$language"
+        --data "project_language=$template" ||
+        ci::die "Could not apply template '$template'."
 
-    if [ "$language" == "generic" ]; then
-        exit 0
+    if [ "$template" != "generic" ]; then
+        answer_file="$destination/tools/configs/copier/answers/generic.yaml"
+
+        copier copy --trust "${args[@]}" \
+            "src/$template" "$destination" \
+            --data "project_authors=$(yq -r ".project_authors" "$answer_file")" \
+            --data "project_hosts=$(yq -r ".project_hosts" "$answer_file")" \
+            --data "project_version=$(yq -r ".project_version" "$answer_file")" \
+            --data "project_description=$(yq -r ".project_description" "$answer_file")" \
+            --data "project_url=$(yq -r ".project_url" "$answer_file")" ||
+            ci::die "Could not apply template '$template'."
     fi
 
-    answer_file="$destination/tools/configs/copier/answers/generic.yaml"
-    copier copy --trust "${args[@]}" \
-        "src/$language" "$destination" \
-        --data "project_authors=$(yq -r ".project_authors" "$answer_file")" \
-        --data "project_hosts=$(yq -r ".project_hosts" "$answer_file")" \
-        --data "project_version=$(yq -r ".project_version" "$answer_file")" \
-        --data "project_description=$(yq -r ".project_description" "$answer_file")" \
-        --data "project_url=$(yq -r ".project_url" "$answer_file")"
-
-    if ! git -C "$destination" rev-parse --show-toplevel; then
-        # We are not inside any Git repository
-        git -C  "$destination" init &&
-        git -C "$destination" add .
+    if ! git -C "$destination" rev-parse --show-toplevel &>/dev/null; then
+        # If we are not inside a Git repo we need to
+        git -C  "$destination" init || ci::die "Could not initialize Git repo."
     fi
+
+    if [ "$(git -C "$destination" rev-parse --show-toplevel 2>/dev/null)" == "$destination" ]; then
+        # If we are inside the top level, add the files directly.
+        git -C "$destination" add . || ci::die "Could not stage all files."
+    fi
+
 
 # Enter a Nix development shell.
 develop *args:
@@ -74,23 +79,23 @@ test-all:
     just test rust
 
 # Test the coding scaffolding.
-test lang="python": setup
+test template="python": setup
     #!/usr/bin/env bash
     set -eu
     source "{{root_dir}}/tools/ci/general.sh"
 
-    ci::print_info "Running test '{{lang}}'"
+    ci::print_info "Running test '{{template}}'"
     ci::print_info "======================"
-    build_dir="{{output_dir}}/{{lang}}"
+    build_dir="{{output_dir}}/{{template}}"
     cd "{{root_dir}}" && rm -rf "$build_dir"
 
     uv run copier copy --trust -w  \
-        --data "project_language={{lang}}" \
+        --data "project_language={{template}}" \
         --defaults  \
         src/generic \
         "$build_dir"
 
-    if [ "{{lang}}" != "generic" ]; then
+    if [ "{{template}}" != "generic" ]; then
         answer_file="$build_dir/tools/configs/copier/answers/generic.yaml"
         uv run copier copy --trust -w \
             --data "project_authors=$(yq -r ".project_authors" "$answer_file")" \
@@ -99,7 +104,7 @@ test lang="python": setup
             --data "project_description=$(yq -r ".project_description" "$answer_file")" \
             --data "project_url=$(yq -r ".project_url" "$answer_file")" \
             --defaults \
-            "src/{{lang}}" \
+            "src/{{template}}" \
             "$build_dir"
     fi
 
@@ -114,14 +119,14 @@ test lang="python": setup
     just develop just build
     just develop just run
 
-    cp tools/nix/flake.lock "{{root_dir}}/src/{{lang}}/tools/nix/flake.lock"
-    if [ "{{lang}}" == "python" ]; then
-        cp uv.lock "{{root_dir}}/src/{{lang}}/uv.lock"
-    elif [ "{{lang}}" == "go" ]; then
-        cp go.work.sum "{{root_dir}}/src/{{lang}}/go.work.sum"
-        cp src/go.sum "{{root_dir}}/src/{{lang}}/src/go.work.sum"
-    elif [ "{{lang}}" == "rust" ]; then
-        cp Cargo.lock "{{root_dir}}/src/{{lang}}/Cargo.lock"
+    cp tools/nix/flake.lock "{{root_dir}}/src/{{template}}/tools/nix/flake.lock"
+    if [ "{{template}}" == "python" ]; then
+        cp uv.lock "{{root_dir}}/src/{{template}}/uv.lock"
+    elif [ "{{template}}" == "go" ]; then
+        cp go.work.sum "{{root_dir}}/src/{{template}}/go.work.sum"
+        cp src/tool/go.sum "{{root_dir}}/src/{{template}}/src/{{{{ package_name }}/go.sum"
+    elif [ "{{template}}" == "rust" ]; then
+        cp Cargo.lock "{{root_dir}}/src/{{template}}/Cargo.lock"
     fi
 
     git clean -df

@@ -2,11 +2,11 @@
 {%- raw %}
 # Lint the project.
 lint *args:
-    echo "TODO: Not implemented"
+    ruff check
 
-# Build the module.
+# Build the project.
 build *args:
-    echo "TODO: Not implemented"
+    uv build --out-dir "{{build_dir}}" "$@"
 
 # Test the project.
 test *args:
@@ -14,5 +14,5 @@ test *args:
 
 # Run an executable.
 run *args:
-    echo "TODO: Not implemented"
+    uv run cli "$@"
 {%- endraw %}

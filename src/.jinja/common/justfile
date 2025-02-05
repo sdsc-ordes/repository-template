@@ -1,0 +1,28 @@
+{%- raw -%}
+set positional-arguments
+set shell := ["bash", "-cue"]
+root_dir := `git rev-parse --show-toplevel`
+flake_dir := root_dir / "tools/nix"
+output_dir := root_dir / ".output"
+build_dir := output_dir / "build"
+
+# Default target if you do not specify a target.
+default:
+    just --list
+
+# Enter a Nix development shell and execute the command `"$@`.
+develop *args:
+    #!/usr/bin/env bash
+    set -eu
+    cd "{{root_dir}}"
+    args=("$@") && [ "${#args[@]}" != 0 ] || args="$SHELL"
+    nix develop --no-pure-eval --accept-flake-config "{{flake_dir}}#default" --command "${args[@]}"
+
+# Format the project.
+format *args:
+    nix run "{{flake_dir}}#treefmt" "$@"
+
+# Setup the project.
+setup *args:
+    cd "{{root_dir}}" && ./tools/scripts/setup.sh
+{%- endraw -%}
