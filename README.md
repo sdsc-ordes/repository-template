@@ -23,7 +23,10 @@ following features.
 - Githooks (optional) which runs `pre-commit` checks:
   - [Git LFS checks.](.githooks/pre-commit/1-git-lfs-check.sh)
   - [Format with `treefmt-nix`.](.githooks/pre-commit/2-format.sh)
-- Language specific best-practice setup for `rust`, `go` and `python`.
+- Language specific best-practice setup for `rust`, `go` and `python`:
+  - Toolchain: compiler/interpreters.
+  - Language Servers (LSP).
+  - etc.
 
 # Usage
 
@@ -44,8 +47,11 @@ where
   repository.
 - `<language>` is one of the following templates:
 
-  - [`python`](./src/python)
-  - [`rust`](./src/rust)
+  - [`generic`](./src/generic): For a generic repository without any language
+    specific needs.
+  - [`python`](./src/python): For python toolchain with `uv` and other good
+    tooling.
+  - [`rust`](./src/rust): For a Rust toolchain with `cargo`
   - [`go`](./src/go)
 
 - `[args...]` are optional arguments passed to `copier`. If you want to
