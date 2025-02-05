@@ -110,6 +110,8 @@ The following describes the content of the top-level directories:
 
 ## Generic Template
 
+[Template Source](src/generic)
+
 ### Features
 
 - **Git & Git LFS** properly setup:
@@ -144,6 +146,8 @@ The following describes the content of the top-level directories:
 
 ## Rust Template
 
+[Template Source](src/rust)
+
 ### Toolchain
 
 [Source](src/rust/tools/nix/shells/toolchain-rust.nix)
@@ -156,6 +160,8 @@ The following describes the content of the top-level directories:
 
 ## Go Template
 
+[Template Source](src/go)
+
 ### Toolchain
 
 [Source](src/go/tools/nix/shells/toolchain-go.nix)
@@ -166,6 +172,8 @@ The following describes the content of the top-level directories:
 - Formatter: `gofmt`, `goimports`, `golines`
 
 ## Python Template
+
+[Template Source](src/python)
 
 ### Toolchain
 
