@@ -9,8 +9,8 @@ flake_dir := "./tools/nix"
 default:
     just --list
 
-# Create a repository template.
-create *args:
+# Create a new project from a template.
+create template="python" output_dir="build":
     just develop just create-impl "$@"
 
 [private]
