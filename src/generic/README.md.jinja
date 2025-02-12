@@ -73,9 +73,13 @@ Acknowledge all contributors and external collaborators here.
 
 ## Copyright
 
+{% if project_hosts[0].organization.lower() == "swissdatasciencecenter" or project_hosts[0].organization.lower() == "sdsc-ordes" -%}
 Copyright © {% now 'utc', '%Y' %}-2028 Swiss Data Science Center (SDSC),
 [www.datascience.ch](http://www.datascience.ch/). All rights reserved. The SDSC
 is jointly established and legally represented by the École Polytechnique
 Fédérale de Lausanne (EPFL) and the Eidgenössische Technische Hochschule Zürich
 (ETH Zürich). This copyright encompasses all materials, software, documentation,
 and other content created and developed by the SDSC.
+{%- else %}
+Add here your copyright statement.
+{%- endif %}
