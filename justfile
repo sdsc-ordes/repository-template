@@ -185,7 +185,10 @@ upload template="python": setup
         cat README.md
     ) > README.md.mod  && mv README.md.mod README.md
 
-    git init && git add . && git commit -a -m "init"
+    git init &&
+      just format &&
+      git add . &&
+      git commit -a -m "init"
 
     git remote add origin \
         "https://github.com/sdsc-ordes/repository-template-{{template}}.git"

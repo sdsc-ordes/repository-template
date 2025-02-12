@@ -207,14 +207,33 @@ The following describes the content of the top-level directories:
 - LSP: `pyright`
 - Formatter: `ruff`
 
-## Development
+## CI Implementations
+
+### Github Actions
+
+The following workflows are defined:
+
+- [`format.yaml`](./src/generic/.github/workflows/format.yaml): A format
+  workflow which formats the whole repository with `treefmt` which is configured
+  over Nix. For it to work with `cachix` (a Nix CI caching mechanism) you need
+  to define two secrets in **Settings** -> **Secrets & variables** ->
+  **Actions** -> **Repositories secrets**:
+
+  - `CACHIX_CACHE_NAME`: The cache name you created on
+    [cachix.org](https://cachix.org). This is free for public caches, which is
+    acceptable for OSS repositories.
+
+  - `CACHIX_AUTH_TOKEN`: The access token created on
+    [cachix.org](https://cachix.org) for this cache `CACHIX_CACHE_NAME`.
+
+# Development
 
 Read first the [Contribution Guidelines](/CONTRIBUTING.md).
 
 For technical documentation on setup and development, see the
 [Development Guide](docs/development-guide.md)
 
-## Copyright
+# Copyright
 
 Copyright © 2025-2028 Swiss Data Science Center (SDSC),
 [www.datascience.ch](http://www.datascience.ch/). All rights reserved. The SDSC
