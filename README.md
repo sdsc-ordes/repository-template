@@ -129,7 +129,8 @@ The following describes the content of the top-level directories:
 
 ## Generic Template
 
-[Template Source](src/generic)
+- [Template Source](src/generic)
+- [Demo Rendering](https://github.com/sdsc-ordes/repository-template-generic)
 
 ### Features
 
@@ -165,7 +166,8 @@ The following describes the content of the top-level directories:
 
 ## Rust Template
 
-[Template Source](src/rust)
+- [Template Source](src/rust)
+- [Demo Rendering](https://github.com/sdsc-ordes/repository-template-rust)
 
 ### Toolchain
 
@@ -179,7 +181,8 @@ The following describes the content of the top-level directories:
 
 ## Go Template
 
-[Template Source](src/go)
+- [Template Source](src/go)
+- [Demo Rendering](https://github.com/sdsc-ordes/repository-template-go)
 
 ### Toolchain
 
@@ -196,7 +199,8 @@ The following describes the content of the top-level directories:
 
 ### Toolchain
 
-[Source](src/python/tools/nix/shells/toolchain-python.nix)
+- [Source](src/python/tools/nix/shells/toolchain-python.nix)
+- [Demo Rendering](https://github.com/sdsc-ordes/repository-template-python)
 
 - Interpreter: `python` at `3.12`
 - Build-Tool: `uv`
