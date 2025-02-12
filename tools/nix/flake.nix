@@ -18,6 +18,12 @@
     # Nixpkgs repository on stable.
     nixpkgsStable.url = "github:nixos/nixpkgs/nixos-24.11";
 
+    # The devenv module to create good development shells.
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Format the repo with nix-treefmt.
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";

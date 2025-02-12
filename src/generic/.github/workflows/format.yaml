@@ -4,10 +4,10 @@ on:
   push:
     branches: main
 jobs:
-  formatter:
+  format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - uses: cachix/install-nix-action@v30
         with:
@@ -18,6 +18,16 @@ jobs:
           name: "${{ secrets.CACHIX_CACHE_NAME }}"
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
+      - name: bootstrap
+        run: nix profile install "./tools/nix#bootstrap"
+
       - name: treefmt
         run: |
-          nix run ./tools/nix#treefmt -- --fail-on-change --no-cache
+          just format --fail-on-change --no-cache ||
+          {
+            echo "You have not formatted these files: run 'just format' locally!"
+            echo "Note: For stability -> run it over Nix: 'just develop just format'"
+            echo "=============================================================="
+            git diff --name-only
+            echo "=============================================================="
+          }

@@ -67,21 +67,29 @@ create-impl *args:
     fi
 
 
-# Enter a Nix development shell.
+# Enter the default Nix development shell.
 develop *args:
+    just nix-develop default "$@"
+
+# Enter the Nix development shell `$1` and execute the command `${@:2}`.
+nix-develop *args:
     #!/usr/bin/env bash
     set -eu
     cd "{{root_dir}}"
+    shell="$1"; shift 1;
     args=("$@") && [ "${#args[@]}" != 0 ] || args="$SHELL"
-    nix develop --accept-flake-config "{{flake_dir}}#default" --command "${args[@]}"
+    nix develop --no-pure-eval --accept-flake-config \
+        "{{flake_dir}}#$shell" \
+        --command "${args[@]}"
 
 # Format the whole repository.
 format *args:
-    nix run "{{flake_dir}}#treefmt" "$@"
+    "{{root_dir}}/tools/scripts/setup-config-files.sh"
+    nix run --accept-flake-config {{flake_dir}}#treefmt -- "$@"
 
 # Setup the repository.
 setup *args:
-    cd "{{root_dir}}" && ./tools/scripts/setup.sh
+    ./tools/scripts/setup.sh
 
 # Test all templates.
 test-all:
