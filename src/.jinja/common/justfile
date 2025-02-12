@@ -10,19 +10,26 @@ build_dir := output_dir / "build"
 default:
     just --list
 
-# Enter a Nix development shell and execute the command `"$@`.
+# Enter the default Nix development shell and execute the command `"$@`.
 develop *args:
-    #!/usr/bin/env bash
-    set -eu
-    cd "{{root_dir}}"
-    args=("$@") && [ "${#args[@]}" != 0 ] || args="$SHELL"
-    nix develop --no-pure-eval --accept-flake-config "{{flake_dir}}#default" --command "${args[@]}"
+    just nix-develop "default" "$@"
 
 # Format the project.
 format *args:
-    nix run "{{flake_dir}}#treefmt" "$@"
+    "{{root_dir}}/tools/scripts/setup-config-files.sh"
+    nix run --accept-flake-config {{flake_dir}}#treefmt -- "$@"
 
 # Setup the project.
 setup *args:
     cd "{{root_dir}}" && ./tools/scripts/setup.sh
+
+# Enter the Nix development shell `$1` and execute the command `${@:2}`.
+nix-develop *args:
+    #!/usr/bin/env bash
+    set -eu
+    cd "{{root_dir}}"
+    shell="$1"; shift 1;
+    args=("$@") && [ "${#args[@]}" != 0 ] || args="$SHELL"
+    nix develop --no-pure-eval --accept-flake-config \
+        "{{flake_dir}}#$shell" --command "${args[@]}"
 {%- endraw -%}

@@ -1,7 +1,9 @@
 { pkgs, ... }:
 {
   # Used to find the project root
-  projectRootFile = ".git/config";
+  # We use `LICENSE` instead of `.git/config`
+  # because that does not work with Git worktree.
+  projectRootFile = "CONTRIBUTING.md";
 
   settings.global.excludes = [ "external/*" ];
 
@@ -16,6 +18,7 @@
     enable = true;
     indent_size = 4;
   };
+
   programs.shellcheck.enable = true;
   settings.formatter.shellcheck = {
     options = [

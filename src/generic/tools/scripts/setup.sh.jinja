@@ -6,31 +6,8 @@ set -u
 ROOT_DIR=$(git rev-parse --show-toplevel)
 . "$ROOT_DIR/tools/ci/general.sh"
 
-function link_config_files() {
-    cd "$ROOT_DIR"
-
-    ci::print_info "Linking configs files to root '$ROOT_DIR'."
-
-    rm -rf ".prettierrc.yaml" || true
-    ln -s "tools/configs/prettier/prettierrc.yaml" ".prettierrc.yaml"
-
-    rm -rf ".typos.toml" || true
-    ln -s "tools/configs/typos/typos.toml" ".typos.toml"
-
-    rm -rf ".yamllint.yaml" || true
-    ln -s "tools/configs/yamllint/yamllint.yaml" ".yamllint.yaml"
-
-    {% if project_language == "rust" -%}
-    rm -rf ".rustfmt.toml" || true
-    ln -s "tools/configs/rust/rustfmt.toml" ".rustfmt.toml"
-    {% elif project_language == "go" -%}
-    rm -rf ".golangci.yaml" || true
-    ln -s "tools/configs/golangci-lint/golangci.yaml" ".golangci.yaml"
-    {%- endif %}
-}
-
 function main() {
-    link_config_files
+    "$ROOT_DIR/tools/scripts/setup-config-files.sh"
 
     ci::setup_githooks
     {%- if project_language == "python" %}
