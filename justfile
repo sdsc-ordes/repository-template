@@ -13,6 +13,10 @@ default:
 create template="python" output_dir="build":
     just develop just create-impl "$@"
 
+# Create a new project from a template with all default answers.
+create-default template="python" output_dir="build":
+    just develop just create-impl "$@" -l
+
 [private]
 create-impl *args:
     #!/usr/bin/env bash
@@ -25,6 +29,7 @@ create-impl *args:
 
     [[ "$template" =~ generic|rust|go|python ]] ||
         ci::die "No such template '$template' to template"
+    [ -d "$destination" ] || ci::die "Destination '$destination' does not exist."
     cd "{{root_dir}}"
 
     ci::print_info "Rendering 'generic' template ... "
@@ -140,3 +145,56 @@ test template="python": setup
     if ! git diff --exit-code --quiet . ; then
         echo "We have changes in the build folder."
     fi
+
+# Create and upload the code scaffolding.
+upload-all template="python":
+    just upload generic
+    just upload rust
+    just upload go
+    just upload python
+
+# Create and upload the code scaffolding.
+upload template="python": setup
+    #!/usr/bin/env bash
+    set -eu
+    source "{{root_dir}}/tools/ci/general.sh"
+
+    temp_dir=$(mktemp -d)
+    function cleanup() {
+        [ ! -d "$temp_dir" ] || {
+            ci::print_info "removing temp dir"
+            rm -rf "$temp_dir"
+        }
+    }
+    trap cleanup EXIT
+
+    ci::print_info "Upload '{{template}}'"
+    ci::print_info "======================"
+    build_dir="$temp_dir/{{template}}"
+
+    cd "{{root_dir}}" && rm -rf "$build_dir" && mkdir -p "$build_dir"
+    just create-impl "{{template}}" "$build_dir" -l -f
+
+    cd "$build_dir"
+
+    # Add WARNING
+    cat <(
+        echo "> [!WARNING]"
+        echo "> This is a demo rendering of the [\`{{template}}\` template here](https://github.com/sdsc-ordes/repository-template#{{template}}-template)"
+        echo
+        cat README.md
+    ) > README.md.mod  && mv README.md.mod README.md
+
+    git init && git add . && git commit -a -m "init"
+
+    git remote add origin \
+        "https://github.com/sdsc-ordes/repository-template-{{template}}.git"
+
+    branch="main"
+    if ! ci::is_running; then
+        branch="test"
+        git switch -c "$branch"
+    fi
+
+    git checkout "$branch"
+    git push origin --force
