@@ -1,7 +1,7 @@
 {%- if project_license == "mit" %}
 # The MIT License (MIT)
 
-Copyright © {% now 'utc', '%Y' %} {{ project_name }}
+Copyright © {% now 'utc', '%Y' %} - {{ project_affiliation }}
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the “Software”), to deal in
@@ -23,8 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Apache License
 ==============
 
-_Version 2.0, January 2004_
-_&lt;<http://www.apache.org/licenses/>&gt;_
+_Version 2.0, January 2004_<br>
+[http://www.apache.org/licenses](http://www.apache.org/licenses)
 
 ### Terms and Conditions for use, reproduction, and distribution
 
@@ -202,7 +202,7 @@ the same “printed page” as the copyright notice for easier identification wi
 third-party archives.
 
 ```text
-Copyright © {% now 'utc', '%Y' %} {{ project_name }}
+Copyright © {% now 'utc', '%Y' %} - {{ project_affiliation }}
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

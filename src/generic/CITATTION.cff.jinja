@@ -7,7 +7,7 @@ authors:
   - family-names: {{ m.last_name }}
     given-names: {{ m.first_name }}
     orcid: "..."
-    affiliation: "SDSC - Swiss Data Science Center"
+    affiliation: "{{ project_affiliation }}"
 {%- endfor %}
 date-released: {% now 'utc', '%Y-%M-%d' %}
 version: "{{ project_version }}"

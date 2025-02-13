@@ -20,6 +20,11 @@ project_name:
   help: What is your project name?
   default: "My Project"
 
+project_affiliation:
+  type: str
+  help: What is the affiliation of this project?
+  default: "SDSC - Swiss Data Science Center"
+
 project_description:
   type: str
   help: What is your project description in one sentence (full english sentence, with punctuation)?

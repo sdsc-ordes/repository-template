@@ -6,6 +6,10 @@ authors:
     given-names: "Nuetzi"
     orcid: "https://orcid.org/0009-0008-8197-2851"
     affiliation: "SDSC - Swiss Data Science Center"
+  - family-names: "Cyril"
+    given-names: "Matthey-Doret"
+    orcid: "https://orcid.org/0000-0002-1126-1535"
+    affiliation: "SDSC - Swiss Data Science Center"
 date-released: 2025-01-27
 version: "1.0.0"
 doi: "" # Replace with your DOI if applicable
