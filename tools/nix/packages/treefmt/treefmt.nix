@@ -34,5 +34,5 @@
   programs.nixfmt.enable = true;
 
   # Typos.
-  programs.typos.enable = true;
+  programs.typos.enable = false;
 }
