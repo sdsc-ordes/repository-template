@@ -17,13 +17,17 @@ lint *args:
 build *args:
     mkdir -p "{{build_dir}}/{{main_package}}" && \
     export GOBIN="{{build_dir}}/{{main_package}}" && \
-    cd "src/{{main_package}}" && go install "$@" ./...
+    cd "src/{{main_package}}" && \
+        go generate "$@" ./... && \
+        go install "$@" ./...
 
 # Test the project.
 test *args:
-    cd "src/{{main_package}}" && go test "$@" ./...
+    cd "src/{{main_package}}" && \
+        go test "$@" ./...
 
 # Run an executable.
 run *args:
-    cd "src/{{main_package}}" && go run "$@" ./cmd/cli/...
+    cd "src/{{main_package}}" && \
+        go run "$@" ./cmd/cli/...
 {%- endraw %}
