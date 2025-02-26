@@ -23,7 +23,9 @@ format *args:
 setup *args:
     cd "{{root_dir}}" && ./tools/scripts/setup.sh
 
-# Enter the Nix development shell `$1` and execute the command `${@:2}`.
+
+# Enter the Nix `devShell` with name `$1` and execute the command `${@:2}` (default command is '$SHELL')
+[private]
 nix-develop *args:
     #!/usr/bin/env bash
     set -eu
