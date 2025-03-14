@@ -98,7 +98,7 @@ where
   - [`go`](./src/go): For a default Go toolchain.
 
 - `[args...]` are optional arguments passed to `copier`. If you want to
-  overwrite by default use `-w`.
+  overwrite by default use `-w` and not answer `Y` all the time.
 
 ## Containerized
 

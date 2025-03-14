@@ -29,7 +29,8 @@ create-impl *args:
 
     [[ "$template" =~ generic|rust|go|python ]] ||
         ci::die "No such template '$template' to template"
-    [ -d "$destination" ] || ci::die "Destination '$destination' does not exist."
+
+    mkdir -p "$destination"
     cd "{{root_dir}}"
 
     ci::print_info "Rendering 'generic' template ... "
