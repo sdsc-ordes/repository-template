@@ -18,3 +18,14 @@ Other scopes then the one in the specification are:
 - `python`: If the commit targets only the `python` template.
 - `rust`: If the commit targets only the `rust` template.
 - `go`: If the commit targets only the `go` template.
+
+## Testing
+
+Run
+
+```shell
+just test-all
+```
+
+Do update the Nix Flakes, run
+`REPOSITORY_TEMPLATE_UPDATE_FLAKES=true just test-all`.

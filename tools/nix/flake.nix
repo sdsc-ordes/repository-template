@@ -30,6 +30,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # The Nix flake for the deploy image.
+    nix = {
+      url = "github:nixos/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Snowfall provides a structured way of creating a flake output.
     # Documentation: https://snowfall.org/guides/lib/quickstart/
     snowfall-lib = {
@@ -40,13 +46,17 @@
 
   outputs =
     inputs:
+    let
+      root-dir = ../..;
+    in
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
+
       # The `src` must be the root of the flake.
-      src = ../..;
+      src = "${root-dir}";
 
       snowfall = {
-        root = ./.;
+        root = "${root-dir}" + "/tools/nix";
         namespace = "repository-template";
         meta = {
           name = "repository-template";
