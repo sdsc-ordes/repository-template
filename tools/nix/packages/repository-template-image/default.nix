@@ -40,7 +40,7 @@ let
 
   repositoryTemplate = (
     pkgs.dockerTools.buildImage {
-      name = "ghcr.io/sdsc-ordes/repository-template/create";
+      name = "ghcr.io/sdsc-ordes/repository-template";
       tag = version;
 
       # uid = 1000;
