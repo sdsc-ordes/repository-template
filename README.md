@@ -77,7 +77,7 @@ following features.
 
 ```bash
 mkdir repo
-docker run -it ghcr.io/sdsc-ordes/repository-template:latest -v "$(pwd)/repo:/workspace"\
+docker run -it -v "$(pwd)/repo:/workspace" ghcr.io/sdsc-ordes/repository-template:latest \
   -t "<language>" -d "." [-- ["args-to-copier"...]]
 ```
 
