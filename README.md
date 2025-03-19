@@ -84,11 +84,10 @@ podman run -it -v "$(pwd)/repo:/workspace" \
 
 > [!WARNING]
 >
-> **DO NOT try to use `docker`** (and for other things too 😆) for the above, it
+> **We DO NOT support `docker`** (and for other things too 😆) for the above, it
 > does not do
 > [user namespacing](https://docs.docker.com/engine/security/userns-remap/) and
-> it will create `root`-owned files. We do not support this now. Just use
-> `podman`!
+> it will create `root`-owned files on your machine. Just use `podman`!
 
 See [arguments explanations here](#arguments).
 
