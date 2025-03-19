@@ -7,7 +7,7 @@ flake_dir := "./tools/nix"
 container_mgr := "podman"
 
 default:
-    just maintenance --list --unsorted
+    just -f maintenance.just --list --unsorted
 
 # Setup the repository.
 setup *args:
@@ -31,10 +31,10 @@ push-deploy-image: build-deploy-image
     #!/usr/bin/env bash
     set -eu
     cd "{{root_dir}}" && \
+    skopeo login ghcr.io/sdsc-ordes && \
     skopeo copy \
-        --dest-creds "$CI_REGISTRY_USERNAME:$CI_REGISTRY_TOKEN"
         "docker-archive:.output/image/repository-template-latest" \
-        "docker://ghcr.io/sdsc-ordes/repository-template/create:latest"
+        "docker://ghcr.io/sdsc-ordes/repository-template:latest"
 
 # Test all templates.
 test-all:

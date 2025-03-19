@@ -77,9 +77,17 @@ following features.
 
 ```bash
 mkdir repo
-docker run -it -v "$(pwd)/repo:/workspace" ghcr.io/sdsc-ordes/repository-template:latest \
+podman run -it -v "$(pwd)/repo:/workspace" \
+  ghcr.io/sdsc-ordes/repository-template:latest \
   -t "<language>" -d "." [-- ["args-to-copier"...]]
 ```
+
+> [!WARNING]
+>
+> _DO NOT use `docker`_ for the above, it does not do
+> [user namespacing](https://docs.docker.com/engine/security/userns-remap/) and
+> it will create `root`-owned files we do not support this now. Just use
+> `podman`.
 
 See [arguments explanations here](#arguments).
 
