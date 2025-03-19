@@ -73,18 +73,39 @@ following features.
 
 # Usage
 
+## With Container
+
+```bash
+mkdir repo
+podman run -it -v "$(pwd)/repo:/workspace" \
+  ghcr.io/sdsc-ordes/repository-template:latest \
+  -t "<language>" -d "." [-- ["args-to-copier"...]]
+```
+
+> [!WARNING]
+>
+> **DO NOT try to use `docker`** (and for other things too 😆) for the above, it
+> does not do
+> [user namespacing](https://docs.docker.com/engine/security/userns-remap/) and
+> it will create `root`-owned files. We do not support this now. Just use
+> `podman`!
+
+See [arguments explanations here](#arguments).
+
 ## Cloning
 
 Clone this repository to some place of your choice.
 
 Apply the templates with `copier` using the following:
 
-```shell
+```bash
 cd repo && git pull
-just create <language> <destination> [args...]
+just create -t "<language>" -d "<destination>" [-- ["args-to-copier"...]]
 ```
 
-where
+See [arguments explanations here](#arguments).
+
+## Arguments
 
 - `<destination>` is the destination folder where you want to place this new
   repository.
@@ -97,8 +118,13 @@ where
   - [`rust`](./src/rust): For a Rust toolchain with `cargo`
   - [`go`](./src/go): For a default Go toolchain.
 
-- `[args...]` are optional arguments passed to `copier`. If you want to
-  overwrite by default use `-w` and not answer `Y` all the time.
+- `[args-to-copier...]` are optional arguments passed to `copier`. If you want
+  to overwrite by default use `-w` and not answer `Y` all the time and `-l` to
+  apply all defaults to inspect:
+
+  ```shell
+  just create -t <language> -d <destination> -- -w -l
+  ```
 
 ## Containerized
 

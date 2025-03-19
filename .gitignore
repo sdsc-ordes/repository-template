@@ -21,6 +21,7 @@
 .prettierrc.yaml
 .yamllint.yaml
 .typos.toml
+.ruff-cache
 
 # General build folder.
 .output

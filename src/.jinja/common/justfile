@@ -8,7 +8,7 @@ build_dir := output_dir / "build"
 
 # Default target if you do not specify a target.
 default:
-    just --list
+    just --list --unsorted
 
 # Enter the default Nix development shell and execute the command `"$@`.
 develop *args:
@@ -23,6 +23,9 @@ format *args:
 setup *args:
     cd "{{root_dir}}" && ./tools/scripts/setup.sh
 
+# Show all packages configured in the Nix `flake.nix`.
+nix-list *args:
+    cd tools/nix && nix flake --no-pure-eval show
 
 # Enter the Nix `devShell` with name `$1` and execute the command `${@:2}` (default command is '$SHELL')
 [private]

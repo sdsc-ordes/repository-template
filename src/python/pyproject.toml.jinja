@@ -25,6 +25,13 @@ cli = '{{ module_name }}.cli:main'
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build]
+exclude = [
+    ".direnv",
+    ".devenv",
+    ".output",
+]
+
 [tool.ruff]
 extend-include = ["*.ipynb"]
 target-version = "py313"

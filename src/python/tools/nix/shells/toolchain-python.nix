@@ -41,6 +41,10 @@
     };
   };
 
+  env = {
+    RUFF_CACHE_DIR = ".output/cache/ruff";
+  };
+
   enterShell = ''
     just setup
   '';
