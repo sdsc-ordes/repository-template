@@ -5,7 +5,7 @@ root_dir := `git rev-parse --show-toplevel`
 output_dir := root_dir / ".output"
 flake_dir := root_dir / "./tools/nix"
 
-mod maintenance "./tools/just/mainentance.just"
+mod maintenance "./tools/just/maintenance.just"
 
 # Default target if you do not specify a target.
 default:
