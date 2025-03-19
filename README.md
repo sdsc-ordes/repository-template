@@ -73,7 +73,7 @@ following features.
 
 # Usage
 
-## With Container
+## Over Container
 
 ```bash
 mkdir repo
@@ -92,7 +92,7 @@ podman run -it -v "$(pwd)/repo:/workspace" \
 
 See [arguments explanations here](#arguments).
 
-## Cloning
+## By Cloning
 
 Clone this repository to some place of your choice.
 
