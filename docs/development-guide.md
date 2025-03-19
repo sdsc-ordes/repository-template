@@ -27,5 +27,5 @@ Run
 just test-all
 ```
 
-Do update the Nix Flakes, run
+To update the Nix Flakes, run
 `REPOSITORY_TEMPLATE_UPDATE_FLAKES=true just test-all`.
