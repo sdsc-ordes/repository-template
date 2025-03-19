@@ -82,12 +82,13 @@ podman run -it -v "$(pwd)/repo:/workspace" \
   -t "<language>" -d "." [-- ["args-to-copier"...]]
 ```
 
-> [!WARNING]
+> [!CAUTION]
 >
-> **We DO NOT support `docker`** (and for other things too 😆) for the above, it
-> does not do
-> [user namespacing](https://docs.docker.com/engine/security/userns-remap/) and
-> it will create `root`-owned files on your machine. Just use `podman`!
+> Using `docker` above will create `root`-owned files on your machine (by
+> default without some
+> [user namespacing](https://docs.docker.com/engine/security/userns-remap/)
+> setup etc.), we strongly recommend using `podman` instead (also as a better
+> replacement of `docker` itself).
 
 See [arguments explanations here](#arguments).
 
