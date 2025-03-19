@@ -6,6 +6,9 @@ output_dir := root_dir / ".output"
 flake_dir := "./tools/nix"
 container_mgr := "podman"
 
+default:
+    just maintenance --list --unsorted
+
 # Setup the repository.
 setup *args:
     "{{root_dir}}/tools/scripts/setup.sh"
