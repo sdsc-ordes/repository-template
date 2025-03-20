@@ -37,11 +37,11 @@ Authors:
 - [Structure](#structure)
   - [Generic Template](#generic-template)
     - [Features](#features)
-    - [Toolchain](#toolchain)
+    - [Toolchain](#toolchain-1)
   - [Rust Template](#rust-template)
-    - [Toolchain](#toolchain)
+    - [Toolchain](#toolchain-2)
   - [Go Template](#go-template)
-    - [Toolchain](#toolchain)
+    - [Toolchain](#toolchain-3)
   - [Python Template](#python-template) - [Toolchain](#toolchain)
   <!--toc:end-->
 
