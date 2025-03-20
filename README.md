@@ -52,16 +52,16 @@ Authors:
 This is a repository template giving you a top-level structure with the
 following features.
 
-- **Git & Git Large File System (LFS)** properly setup.
+- **Git & Git Large File System (LFS)** configured.
 - **Nix development shell** enabled with [`direnv`](https://direnv.net) and
   `.envrc`.
+- Language specific best-practice setup for [`rust`](#rust-template),
+  [`go`](#go-template) or [`python`](#python-template).
 - Formatting with [`treefmt-nix`](https://github.com/numtide/treefmt-nix).
 - [Githooks](https://github.com/gabyx/githooks) (optional) which runs
   `pre-commit` checks:
   - Git LFS checks.
   - Format with `treefmt-nix`.
-- Language specific best-practice setup for [`rust`](#rust-template),
-  [`go`](#go-template) and [`python`](#python-template).
 - [Devcontainer](https://containers.dev): _not-yet-provided_ (future, based on
   Nix dev shell)
 
@@ -81,8 +81,7 @@ podman run -it -v "$(pwd)/repo:/workspace" \
 > Using `docker` above will create `root`-owned files on your machine (by
 > default without some
 > [user namespacing](https://docs.docker.com/engine/security/userns-remap/)
-> setup etc.), we strongly recommend using `podman` instead (also as a better
-> replacement of `docker` itself).
+> setup etc.), we strongly recommend using `podman` instead.
 
 See [arguments explanations here](#arguments).
 
