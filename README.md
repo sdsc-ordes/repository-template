@@ -21,8 +21,8 @@ Repository Template
 
 Authors:
 
-- Gabriel Nützi@gabyx (@gabyx)
-- Cyril Matthey-Doret (@cmdoret)
+- Gabriel Nützi [@gabyx](https://github.com/gabyx)
+- Cyril Matthey-Doret  [@cmdoret](https://github.com/cmdoret)
 
 <details>
 <summary><b>Table of Content (click to expand)</b></summary>
