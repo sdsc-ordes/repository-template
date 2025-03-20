@@ -19,16 +19,10 @@ Repository Template
   </a>
 </p>
 
-**Vision: SDSC Excellence | Always be encouraging**
-
-Get in contact
-
-- Slack Channel : `#best-practice-ambassadors`
-
 Authors:
 
-- [Gabriel Nützi](gabriel.nuetzi@sdsc.ethz.ch)
-- [Cyril Matthey-Doret](cyril.matthey-doret@sdsc.ethz.ch)
+- [Gabriel Nützi](@gabyx)
+- [Cyril Matthey-Doret](@cmdoret)
 
 <details>
 <summary><b>Table of Content (click to expand)</b></summary>
