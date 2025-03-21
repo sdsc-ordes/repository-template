@@ -9,7 +9,5 @@ let
 in
 inputs.devenv.lib.mkShell {
   inherit pkgs inputs;
-  modules = [
-    ({ pkgs, config, ... }: toolchains.ci)
-  ];
+  modules = toolchains.ci;
 }

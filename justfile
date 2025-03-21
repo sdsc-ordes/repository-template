@@ -28,13 +28,13 @@ setup *args:
 clean:
     rm -rf ./.output
 
-# Test a template.
-test template="python":
-   just maintenance::test "{{template}}"
-
 # Test everything.
-test-all:
+test:
    just maintenance::test-all
+
+# Test a template.
+test-single template="python":
+   just maintenance::test "{{template}}"
 
 # Show all packages configured in the Nix `flake.nix`.
 nix-list *args:

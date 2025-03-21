@@ -11,29 +11,34 @@
 }:
 let
   # Packages for the 'default' shell.
-  default = {
-    packages = with pkgs; [
-      # Stuff you always want ==============================
-      pkgs.${namespace}.bootstrap
-      pkgs.${namespace}.treefmt
-      # ====================================================
+  default = [
+    (
+      { ... }:
+      {
+        packages = with pkgs; [
+          # Stuff you always want ==============================
+          pkgs.${namespace}.bootstrap
+          pkgs.${namespace}.treefmt
+          # ====================================================
 
-      skopeo
+          skopeo
 
-      uv
-      python313
-      yq
-    ];
+          uv
+          python313
+          yq
+        ];
 
-    env = {
-      RUFF_CACHE_DIR = ".output/cache/ruff";
-    };
+        env = {
+          RUFF_CACHE_DIR = ".output/cache/ruff";
+        };
 
-    enterShell = ''
-      just setup
-      source ./tools/scripts/activate-env.sh
-    '';
-  };
+        enterShell = ''
+          just setup
+          source ./tools/scripts/activate-env.sh
+        '';
+      }
+    )
+  ];
 
   # Packages for the 'ci' shell.
   ci = default;

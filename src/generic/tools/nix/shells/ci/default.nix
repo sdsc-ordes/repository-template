@@ -1,17 +1,15 @@
 {
   lib,
   pkgs,
-  namespace,
   inputs,
+  namespace,
   ...
-}@args:
+}:
 let
-  toolchains = import ../toolchain.nix args;
+  toolchains = import ../toolchain.nix { inherit lib pkgs namespace; };
 in
 # Create the 'ci' shell.
 inputs.devenv.lib.mkShell {
   inherit pkgs inputs;
-  modules = [
-    ({ pkgs, config, ... }: toolchains.ci)
-  ];
+  modules = toolchains.ci;
 }
