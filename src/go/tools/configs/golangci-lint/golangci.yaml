@@ -160,12 +160,8 @@ linters-settings:
   gomodguard:
     blocked:
       modules:
-        - slog:
-            recommendations:
-              - custodian/components/lib-common/log
-        - github.com/sirupsen/logrus:
-            recommendations:
-              - custodian/components/lib-common/log
+        # Define here your modules you want to suggest instead of using
+        # wrong ones.
 
   tagliatelle:
     case:
