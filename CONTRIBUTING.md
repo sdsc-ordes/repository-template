@@ -29,3 +29,21 @@ Other scopes then the one in the specification are:
 - `python`: If the commit targets only the `python` template.
 - `rust`: If the commit targets only the `rust` template.
 - `go`: If the commit targets only the `go` template.
+
+## Testing
+
+For all task, enter a development shell with `just develop`.
+
+You can run tests with
+
+```bash
+just test
+```
+
+and also by pushing all repos to a test branch with
+
+```bash
+just maintenance upload-all
+```
+
+where you can also inspect the Github Action CI.
