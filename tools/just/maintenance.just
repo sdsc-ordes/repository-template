@@ -7,7 +7,7 @@ flake_dir := "./tools/nix"
 container_mgr := "podman"
 
 default:
-    just -f maintenance.just --list --unsorted
+    just --list --unsorted -f "{{source_file()}}"
 
 # Setup the repository.
 setup *args:
