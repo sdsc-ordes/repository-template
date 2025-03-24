@@ -1,9 +1,8 @@
 set positional-arguments
 set shell := ["bash", "-cue"]
-comp_dir := justfile_directory()
 root_dir := `git rev-parse --show-toplevel`
 output_dir := root_dir / ".output"
-flake_dir := "./tools/nix"
+flake_dir := root_dir / "./tools/nix"
 container_mgr := "podman"
 
 default:
