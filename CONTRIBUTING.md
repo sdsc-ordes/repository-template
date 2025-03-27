@@ -37,10 +37,15 @@ For all task, enter a development shell with `just develop`.
 You can run tests with
 
 ```bash
-just test
+just maintenance test-all
 ```
 
-and also by pushing all repos to a test branch with
+Note: You can `REPOSITORY_TEMPLATE_UPDATE_FLAKE=true just ...` to update the Nix
+flake before the tests to update dependencies.
+
+### Push the Templates
+
+Push all repos to a test branch with
 
 ```bash
 just maintenance upload-all

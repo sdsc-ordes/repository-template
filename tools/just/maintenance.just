@@ -78,16 +78,16 @@ test template="python": setup
         git init && git add . && \
         git commit -a -m "init"
 
+    if [ "${REPOSITORY_TEMPLATE_UPDATE_FLAKES:-}" = "true" ]; then
+        ci::print_warn "Updating flakes in template."
+        (cd tools/nix && nix flake update)
+    fi
+
     just develop just setup
     just develop just format
     just develop just lint
     just develop just build
     just develop just run
-
-    if [ "${REPOSITORY_TEMPLATE_UPDATE_FLAKES:-}" = "true" ]; then
-        ci::print_warn "Updating flakes in template."
-        (cd tools/nix && nix flake update)
-    fi
 
     cp tools/nix/flake.lock "{{root_dir}}/src/{{template}}/tools/nix/flake.lock"
     if [ "{{template}}" == "python" ]; then
