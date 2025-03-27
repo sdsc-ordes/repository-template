@@ -10,6 +10,7 @@ let
 in
 # Create the 'ci' shell.
 inputs.devenv.lib.mkShell {
-  inherit pkgs inputs;
+  inherit inputs;
+  pkgs = inputs.nixpkgsDevenv.legacyPackages.${pkgs.system};
   modules = toolchains.ci;
 }

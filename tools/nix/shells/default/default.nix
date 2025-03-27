@@ -8,6 +8,7 @@ let
   toolchains = import ../toolchain.nix { inherit pkgs namespace inputs; };
 in
 inputs.devenv.lib.mkShell {
-  inherit pkgs inputs;
+  inherit inputs;
+  pkgs = inputs.nixpkgsDevenv.legacyPackages.${pkgs.system};
   modules = toolchains.default;
 }

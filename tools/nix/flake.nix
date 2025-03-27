@@ -23,8 +23,12 @@
     # The devenv module to create good development shells.
     devenv = {
       url = "github:cachix/devenv/latest";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgsDevenv";
     };
+    # We have to lock somehow the pkgs in `mkShell` here:
+    # https://github.com/cachix/devenv/issues/1797
+    # `nixpkgs` is used in the devShell modules.
+    nixpkgsDevenv.url = "github:cachix/devenv-nixpkgs/rolling";
 
     # Format the repo with nix-treefmt.
     treefmt-nix = {
