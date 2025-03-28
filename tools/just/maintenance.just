@@ -141,6 +141,7 @@ upload template="python": setup
     # Add WARNING
     cat <(
         echo "> [!WARNING]"
+        echo ">"
         echo "> This is a demo rendering of the [\`{{template}}\` template here](https://github.com/sdsc-ordes/repository-template#{{template}}-template)"
         echo
         cat README.md
