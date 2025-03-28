@@ -19,16 +19,10 @@ Repository Template
   </a>
 </p>
 
-**Vision: SDSC Excellence | Always be encouraging**
-
-Get in contact
-
-- Slack Channel : `#best-practice-ambassadors`
-
 Authors:
 
-- [Gabriel Nützi](gabriel.nuetzi@sdsc.ethz.ch)
-- [Cyril Matthey-Doret](cyril.matthey-doret@sdsc.ethz.ch)
+- Gabriel Nützi [@gabyx](https://github.com/gabyx)
+- Cyril Matthey-Doret  [@cmdoret](https://github.com/cmdoret)
 
 <details>
 <summary><b>Table of Content (click to expand)</b></summary>
@@ -43,11 +37,11 @@ Authors:
 - [Structure](#structure)
   - [Generic Template](#generic-template)
     - [Features](#features)
-    - [Toolchain](#toolchain)
+    - [Toolchain](#toolchain-1)
   - [Rust Template](#rust-template)
-    - [Toolchain](#toolchain)
+    - [Toolchain](#toolchain-2)
   - [Go Template](#go-template)
-    - [Toolchain](#toolchain)
+    - [Toolchain](#toolchain-3)
   - [Python Template](#python-template) - [Toolchain](#toolchain)
   <!--toc:end-->
 
@@ -58,16 +52,16 @@ Authors:
 This is a repository template giving you a top-level structure with the
 following features.
 
-- **Git & Git Large File System (LFS)** properly setup.
+- **Git & Git Large File System (LFS)** configured.
 - **Nix development shell** enabled with [`direnv`](https://direnv.net) and
   `.envrc`.
+- Language specific best-practice setup for [`rust`](#rust-template),
+  [`go`](#go-template) or [`python`](#python-template).
 - Formatting with [`treefmt-nix`](https://github.com/numtide/treefmt-nix).
 - [Githooks](https://github.com/gabyx/githooks) (optional) which runs
   `pre-commit` checks:
   - Git LFS checks.
   - Format with `treefmt-nix`.
-- Language specific best-practice setup for [`rust`](#rust-template),
-  [`go`](#go-template) and [`python`](#python-template).
 - [Devcontainer](https://containers.dev): _not-yet-provided_ (future, based on
   Nix dev shell)
 
@@ -87,8 +81,7 @@ podman run -it -v "$(pwd)/repo:/workspace" \
 > Using `docker` above will create `root`-owned files on your machine (by
 > default without some
 > [user namespacing](https://docs.docker.com/engine/security/userns-remap/)
-> setup etc.), we strongly recommend using `podman` instead (also as a better
-> replacement of `docker` itself).
+> setup etc.), we strongly recommend using `podman` instead.
 
 See [arguments explanations here](#arguments).
 
@@ -107,7 +100,7 @@ See [arguments explanations here](#arguments).
 
 ## Arguments
 
-- `<destination>` is the destination folder where you want to place this new
+- `<destination>` is the destination folder where you want to place your new
   repository.
 - `<language>` is one of the following templates:
 
@@ -126,59 +119,25 @@ See [arguments explanations here](#arguments).
   just create -t <language> -d <destination> -- -w -l
   ```
 
-## Containerized
-
-TODO: Add this.
-
 # Structure
 
 The following describes the content of the top-level directories:
 
-- [`docs`](src/generic/docs) : The top-level folder to any related
-  documentation. The [README.md](src/generic/README.md) should link into this
+- [`docs`](src/generic/docs) : All documentation-related files. The [README.md](src/generic/README.md) should link into this
   folder.
-- [`examples`](src/generic/examples) : The top-level folder which should contain
-  some examples how to use this software component.
-- [`external`](src/generic/external) : If you really want to use sub-modules
-  (which you generally should avoid for a multitude of reasons), your external
-  stuff should be either placed in here or in `src/external` if its more related
-  to your source.
-- `src`: The folder where your source code lives.
-- [`tools`](src/generic/tools): The folder for all specific needs:
-  - [`configs`](src/generic/tools/configs): A collection folder for all config
-    related files for certain tools like, e.g. formatters, linters etc.
-  - [`nix`](src/generic/tools/nix): The folder containing all Nix related stuff.
-  - [`ci`](src/generic/tools/ci): Folder containing all CI related
-    tooling/scripts.
-  - [`scripts`](src/generic/tools/scripts): Folder containing additional scripts
-    complementing the `justfile` etc.
+- [`examples`](src/generic/examples) : Examples showing how to use this software component.
+- [`external`](src/generic/external) : Third party resources imported with git submodules, [vendir](https://carvel.dev/vendir/) or other tools.
+- `src`: Where your source code lives.
+- [`tools`](src/generic/tools): Specific needs which are not part of the source:
+  - [`configs`](src/generic/tools/configs): config related files for certain tools like, e.g. formatters, linters etc.
+  - [`nix`](src/generic/tools/nix): Nix related stuff.
+  - [`ci`](src/generic/tools/ci): CI related tooling/scripts.
+  - [`scripts`](src/generic/tools/scripts): Additional scripts complementing the `justfile` etc.
 
 ## Generic Template
 
 - [Template Source](src/generic)
 - [Demo Rendering](https://github.com/sdsc-ordes/repository-template-generic)
-
-### Features
-
-- **Git & Git LFS** properly setup:
-  [`.gitignore`](src/generic/.gitignore.jinja),
-  [`.gitattributes`](src/generic/.gitattributes)
-
-- **Nix development shell** based on `devenv` auto-enabled with `direnv` and
-  [`.envrc`](src/generic/.envrc).
-
-- Formatting with [`treefmt-nix`](https://github.com/numtide/treefmt-nix) and
-  [`treefmt.nix` config](src/generic/tools/nix/packages/treefmt/treefmt.nix.jinja).
-
-- [Githooks](https://github.com/gabyx/githooks) (optional) which runs
-  `pre-commit` checks:
-
-  - [Git LFS checks](src/generic/.githooks/pre-commit/1-git-lfs-check.sh)
-  - [Format](src/generic/.githooks/pre-commit/2-format.sh) with `treefmt-nix`.
-
-  > [!NOTE] You need to install the
-  > [Githooks](https://github.com/gabyx/githooks) tool yourself if you want to
-  > use it and it will work out-of-the-box.
 
 ### Toolchain
 
@@ -239,8 +198,7 @@ The following describes the content of the top-level directories:
 
 The following workflows are defined:
 
-- [`format.yaml`](./src/generic/.github/workflows/format.yaml): A format
-  workflow which formats the whole repository with `treefmt` which is configured
+- [`format.yaml`](./src/generic/.github/workflows/format.yaml): Formats the whole repository with `treefmt`, configured
   over Nix. For it to work with `cachix` (a Nix CI caching mechanism) you need
   to define two secrets in **Settings** -> **Secrets & variables** ->
   **Actions** -> **Repositories secrets**:
