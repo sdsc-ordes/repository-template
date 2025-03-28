@@ -44,7 +44,7 @@ test-all:
     just maintenance::test-images
 
 # Test the code scaffolding.
-test template="python": setup
+test template="python": ci-setup setup
     #!/usr/bin/env bash
     set -eu
     source "{{root_dir}}/tools/ci/general.sh"
@@ -109,7 +109,7 @@ test template="python": setup
     fi
 
 # Create and upload the code scaffolding.
-upload-all: setup
+upload-all:
     just maintenance::upload generic
     just maintenance::upload rust
     just maintenance::upload go
@@ -118,7 +118,7 @@ upload-all: setup
     just maintenance::push-deploy-image
 
 # Create and upload the code scaffolding.
-upload template="python": setup
+upload template="python": ci-setup setup
     #!/usr/bin/env bash
     set -eu
     source "{{root_dir}}/tools/ci/general.sh"
@@ -177,3 +177,10 @@ test-image:
     "{{container_mgr}}" run -it -v "{{output_dir}}/image:/workspace" \
             ghcr.io/sdsc-ordes/repository-template:latest \
             -t python -d "./test" -- -w -l
+
+[private]
+ci-setup:
+    #!/usr/bin/env bash
+    [ "${CI:-}" == true ] || exit 0
+    git config --global user.name "CI"
+    git config --global user.email "ci@noreply.github.com"
