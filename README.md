@@ -11,7 +11,7 @@ Repository Template
   <a href="https://github.com/sdsc-ordes/repository-template/releases/latest">
     <img src="https://img.shields.io/github/release/sdsc-ordes/repository-template.svg?label=release" alt="Current Release" />
   </a>
-  <a href="https://github.com/swissdatasciencecenter/ my-project/actions/workflows/main-and-pr.yaml">
+  <a href="https://github.com/swissdatasciencecenter/ my-project/actions/workflows/normal.yaml">
     <img src="https://img.shields.io/github/actions/workflow/status/sdsc-ordes/repository-template/main-and-pr.yaml?label=ci" alt="Pipeline Status" />
   </a>
   <a href="http://www.apache.org/licenses/LICENSE-2.0.html">
