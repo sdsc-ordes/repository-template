@@ -7,44 +7,29 @@
 </h1>
 <p align="center">
 </p>
-<p align="center">
-  {%- for host in project_hosts[0:1] %}
-  {%- if "github" in host.host %}
-  <a href="https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/releases/latest">
-    <img src="https://img.shields.io/github/release/{{ host.organization }}/{{ host.repo }}.svg?label=release" alt="Current Release" />
-  </a>
-  <a href="https://{{ host.host }}/{{ host.organization }}/ {{ host.repo }}/actions/workflows/main-and-pr.yaml">
-    <img src="https://img.shields.io/github/actions/workflow/status/{{ host.organization }}/{{ host.repo }}/main-and-pr.yaml?label=ci" alt="Pipeline Status" />
-  </a>
-  {%- elif "gitlab" in host.host %}
-  <a href="https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/releases">
-    <img src="https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/badges/release.svg" alt="Current Release" />
-  </a>
-  <a href="https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/pipelines">
-    <img src="https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/badges/main/pipeline.svg" alt="Pipeline Status" />
-  </a>
-  {%- endif %}
-  {%- endfor %}
-  {%- if project_license == "mit" %}
-  <a href="https://mit-license.org/">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg?" alt="License label" />
-  </a>
-  {%- elif project_license == "apache2" %}
-  <a href="http://www.apache.org/licenses/LICENSE-2.0.html">
-    <img src="https://img.shields.io/badge/License-Apache2.0-blue.svg?" alt="License label" />
-  </a>
-  {%- endif %}
-  {%- if project_language == "go" %}
-  {%- for host in project_hosts[0:1] %}
-  <a href="https://pkg.go.dev/{{ host.host }}/{{ host.organization }}/{{ host.repo }}">
-    <img src="https://pkg.go.dev/badge/{{ host.host }}/{{ host.organization }}/{{ host.repo }}" alt="Go Doc" />
-  </a>
-  <a href="https://goreportcard.com/report/{{ host.host }}/{{ host.organization }}/{{ host.repo }}">
-    <img src="https://goreportcard.com/badge/{{ host.host }}/{{ host.organization }}/{{ host.repo }}" alt="Go Report Card" />
-  </a>
-  {%- endfor %}
-  {%- endif %}
-</p>
+
+{% for host in project_hosts[0:1] %}
+{%- if "github" in host.host %}
+[![Current Release](https://img.shields.io/github/release/{{ host.organization }}/{{ host.repo }}.svg?label=release)](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/releases/latest)
+[![Pipeline Status](https://img.shields.io/github/actions/workflow/status/{{ host.organization }}/{{ host.repo }}/main-and-pr.yaml?label=ci)](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/actions/workflows/main-and-pr.yaml)
+{%- elif "gitlab" in host.host %}
+[![Current Release](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/badges/release.svg)](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/releases)
+[![Pipeline Status](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/badges/main/pipeline.svg)](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/pipelines)
+{%- endif %}
+{%- endfor %}
+
+{%- if project_license == "mit" %}
+[![License label](https://img.shields.io/badge/License-MIT-blue.svg?)](https://mit-license.org/)
+{%- elif project_license == "apache2" %}
+[![License label](https://img.shields.io/badge/License-Apache2.0-blue.svg?)](http://www.apache.org/licenses/LICENSE-2.0.html)
+{%- endif %}
+
+{%- if project_language == "go" %}
+{%- for host in project_hosts[0:1] %}
+[![Go Doc](https://pkg.go.dev/badge/{{ host.host }}/{{ host.organization }}/{{ host.repo }})](https://pkg.go.dev/{{ host.host }}/{{ host.organization }}/{{ host.repo }})
+[![Go Report Card](https://goreportcard.com/badge/{{ host.host }}/{{ host.organization }}/{{ host.repo }})](https://goreportcard.com/report/{{ host.host }}/{{ host.organization }}/{{ host.repo }})
+{%- endfor %}
+{%- endif %}
 
 **Authors:**
 
