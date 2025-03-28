@@ -26,7 +26,7 @@ jobs:
       - name: "Build & Test: ${{ matrix.language }}"
         run: just ci just maintenance::test ${{ matrix.language }}
 
-  test-images:
+  test-image:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,4 +35,4 @@ jobs:
           cachix_cache_name: "${{ secrets.CACHIX_CACHE_NAME }}"
           cachix_auth_token: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - name: "Build & Test Images"
-        run: just ci just maintenance::test-images
+        run: just ci just maintenance::test-image

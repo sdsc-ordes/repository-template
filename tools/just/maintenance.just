@@ -41,7 +41,7 @@ test-all:
     just maintenance::test python
     just maintenance::test rust
     just maintenance::test go
-    just maintenance::test-images
+    just maintenance::test-image
 
 # Test the code scaffolding.
 test template="python": ci-setup setup
