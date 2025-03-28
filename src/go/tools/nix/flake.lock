@@ -35,19 +35,20 @@
         "git-hooks": "git-hooks",
         "nix": "nix",
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgsDevenv"
         ]
       },
       "locked": {
-        "lastModified": 1742214310,
-        "narHash": "sha256-n5bdCsgv7+EtBH8R1rNEMPHskdHtTdm2tPHs0Hwle8s=",
+        "lastModified": 1739852725,
+        "narHash": "sha256-OjdnHKQ+eWA8YvPUpl3xxyaNK91c9sMebqXgVdN8Lm4=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "52db4dfc65cb0bc527dea0cc92aa475acf4e8f7f",
+        "rev": "98b99188b1539c0d2a45e0a0a161a7b8e797caac",
         "type": "github"
       },
       "original": {
         "owner": "cachix",
+        "ref": "latest",
         "repo": "devenv",
         "type": "github"
       }
@@ -380,6 +381,22 @@
         "type": "github"
       }
     },
+    "nixpkgsDevenv": {
+      "locked": {
+        "lastModified": 1733477122,
+        "narHash": "sha256-qamMCz5mNpQmgBwc8SB5tVMlD5sbwVIToVZtSxMph9s=",
+        "owner": "cachix",
+        "repo": "devenv-nixpkgs",
+        "rev": "7bd9e84d0452f6d2e63b6e6da29fe73fac951857",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "ref": "rolling",
+        "repo": "devenv-nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgsStable": {
       "locked": {
         "lastModified": 1742136038,
@@ -433,6 +450,7 @@
         "devenv": "devenv",
         "nix": "nix_2",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgsDevenv": "nixpkgsDevenv",
         "nixpkgsStable": "nixpkgsStable",
         "snowfall-lib": "snowfall-lib",
         "treefmt-nix": "treefmt-nix"

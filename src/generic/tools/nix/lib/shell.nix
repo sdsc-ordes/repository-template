@@ -1,14 +1,9 @@
-{ lib, ... }:
-let
-  fs = lib.fileset;
-in
-rec {
-  rootDir = ../../..;
-  rootFileset = fs.fromSource rootDir;
-
+{ ... }:
+{
   # Define a `devenv` shell.
-  # Pin the `pkgs` to the nixpkgsDevenv inputs.
-  makeShell =
+  # Pin the `pkgs` to the nixpkgsDevenv inputs to make it
+  # more stable.
+  mkShell =
     {
       inputs,
       system,

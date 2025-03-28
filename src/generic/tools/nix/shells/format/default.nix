@@ -1,13 +1,14 @@
 {
+  lib,
   pkgs,
   namespace,
   inputs,
   ...
 }:
 # Create the 'format' shell.
-inputs.devenv.lib.mkShell {
+lib.${namespace}.shell.mkShell {
+  inherit (pkgs) system;
   inherit inputs;
-  pkgs = inputs.nixpkgsDevenv.legacyPackages.${pkgs.system};
   modules = [
     (
       { pkgs, ... }:

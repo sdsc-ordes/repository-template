@@ -56,7 +56,9 @@
       root-dir = ../..;
     in
     inputs.snowfall-lib.mkFlake {
-      inherit inputs;
+      inputs = inputs // {
+        self = inputs.self;
+      };
 
       # The `src` must be the root of the flake.
       src = "${root-dir}";

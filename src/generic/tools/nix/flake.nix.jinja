@@ -36,15 +36,16 @@
         url = "github:cachix/devenv/latest";
         inputs.nixpkgs.follows = "nixpkgsDevenv";
     };
-    # We have to lock somehow the pkgs in `mkShell` here:
+    # We should lock the pkgs in `mkShell` here:
     # https://github.com/cachix/devenv/issues/1797
-    # `nixpkgs` is used in the devShell modules.
+    # to devenvs rolling nixpkgs. Note: that does not restrict the use of
+    # 'nixpkgs' input in devenv modules.
     nixpkgsDevenv.url = "github:cachix/devenv-nixpkgs/rolling";
 
     # Snowfall provides a structured way of creating a flake output.
     # Documentation: https://snowfall.org/guides/lib/quickstart/
     snowfall-lib = {
-      url = "github:snowfallorg/lib/latest";
+      url = "github:snowfallorg/lib?ref=v3.0.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

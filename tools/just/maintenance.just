@@ -79,7 +79,10 @@ test template="python": setup
         git commit -a -m "init"
 
     if [ "${REPOSITORY_TEMPLATE_UPDATE_FLAKES:-}" = "true" ]; then
-        ci::print_warn "Updating flakes in template."
+        ci::print_warn \
+        "===========================" \
+        "Updating flakes in template." \
+        "==========================="
         (cd tools/nix && nix flake update)
     fi
 

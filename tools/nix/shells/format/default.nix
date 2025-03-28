@@ -1,20 +1,18 @@
 {
+  inputs,
+  lib,
   pkgs,
   namespace,
-  inputs,
   ...
 }:
-inputs.devenv.lib.mkShell {
+lib.${namespace}.makeShell {
   inherit inputs;
-  pkgs = inputs.nixpkgsDevenv.legacyPackages.${pkgs.system};
+  inherit (pkgs) system;
   modules = [
-    (
-      { ... }:
-      {
-        packages = [
-          pkgs.${namespace}.treefmt
-        ];
-      }
-    )
+    (args: {
+      packages = [
+        pkgs.${namespace}.treefmt
+      ];
+    })
   ];
 }
