@@ -22,7 +22,7 @@ Repository Template
 Authors:
 
 - Gabriel Nützi [@gabyx](https://github.com/gabyx)
-- Cyril Matthey-Doret  [@cmdoret](https://github.com/cmdoret)
+- Cyril Matthey-Doret [@cmdoret](https://github.com/cmdoret)
 
 <details>
 <summary><b>Table of Content (click to expand)</b></summary>
@@ -123,16 +123,20 @@ See [arguments explanations here](#arguments).
 
 The following describes the content of the top-level directories:
 
-- [`docs`](src/generic/docs) : All documentation-related files. The [README.md](src/generic/README.md) should link into this
-  folder.
-- [`examples`](src/generic/examples) : Examples showing how to use this software component.
-- [`external`](src/generic/external) : Third party resources imported with git submodules, [vendir](https://carvel.dev/vendir/) or other tools.
+- [`docs`](src/generic/docs) : All documentation-related files. The
+  [README.md](src/generic/README.md) should link into this folder.
+- [`examples`](src/generic/examples) : Examples showing how to use this software
+  component.
+- [`external`](src/generic/external) : Third party resources imported with git
+  submodules, [vendir](https://carvel.dev/vendir/) or other tools.
 - `src`: Where your source code lives.
 - [`tools`](src/generic/tools): Specific needs which are not part of the source:
-  - [`configs`](src/generic/tools/configs): config related files for certain tools like, e.g. formatters, linters etc.
+  - [`configs`](src/generic/tools/configs): config related files for certain
+    tools like, e.g. formatters, linters etc.
   - [`nix`](src/generic/tools/nix): Nix related stuff.
   - [`ci`](src/generic/tools/ci): CI related tooling/scripts.
-  - [`scripts`](src/generic/tools/scripts): Additional scripts complementing the `justfile` etc.
+  - [`scripts`](src/generic/tools/scripts): Additional scripts complementing the
+    `justfile` etc.
 
 ## Generic Template
 
@@ -198,10 +202,11 @@ The following describes the content of the top-level directories:
 
 The following workflows are defined:
 
-- [`format.yaml`](./src/generic/.github/workflows/format.yaml): Formats the whole repository with `treefmt`, configured
-  over Nix. For it to work with `cachix` (a Nix CI caching mechanism) you need
-  to define two secrets in **Settings** -> **Secrets & variables** ->
-  **Actions** -> **Repositories secrets**:
+- [`format.yaml`](./src/generic/.github/workflows/format.yaml): Formats the
+  whole repository with `treefmt`, configured over Nix. For it to work with
+  `cachix` (a Nix CI caching mechanism) you need to define two secrets in
+  **Settings** -> **Secrets & variables** -> **Actions** -> **Repositories
+  secrets**:
 
   - `CACHIX_CACHE_NAME`: The cache name you created on
     [cachix.org](https://cachix.org). This is free for public caches, which is
