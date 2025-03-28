@@ -1,9 +1,7 @@
-# This function defines attrsets with packages
-# to be used in the different development shells
-# in this folder.
-
-# Search for package at:
-# https://search.nixos.org/packages
+# This function loads `toolchain-*.nix` files in this folder
+# and imports them. Each `toolchain-*.nix` file contains a
+# list of `devenv` modules.
+# The function returns all toolchains in an attrset.
 {
   lib,
   pkgs,

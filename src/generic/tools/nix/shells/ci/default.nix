@@ -9,7 +9,8 @@ let
   toolchains = import ../toolchain.nix { inherit lib pkgs namespace; };
 in
 # Create the 'ci' shell.
-inputs.devenv.lib.mkShell {
-  inherit pkgs inputs;
+lib.${namespace}.shell.mkShell {
+  inherit (pkgs) system;
+  inherit inputs;
   modules = toolchains.ci;
 }

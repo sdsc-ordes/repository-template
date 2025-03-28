@@ -11,7 +11,7 @@
 {% for host in project_hosts[0:1] %}
 {%- if "github" in host.host %}
 [![Current Release](https://img.shields.io/github/release/{{ host.organization }}/{{ host.repo }}.svg?label=release)](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/releases/latest)
-[![Pipeline Status](https://img.shields.io/github/actions/workflow/status/{{ host.organization }}/{{ host.repo }}/main-and-pr.yaml?label=ci)](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/actions/workflows/main-and-pr.yaml)
+[![Pipeline Status](https://img.shields.io/github/actions/workflow/status/{{ host.organization }}/{{ host.repo }}/normal.yaml?label=ci)](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/actions/workflows/normal.yaml)
 {%- elif "gitlab" in host.host %}
 [![Current Release](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/badges/release.svg)](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/releases)
 [![Pipeline Status](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/badges/main/pipeline.svg)](https://{{ host.host }}/{{ host.organization }}/{{ host.repo }}/-/pipelines)

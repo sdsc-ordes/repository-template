@@ -1,12 +1,14 @@
 {
+  lib,
   pkgs,
   namespace,
   inputs,
   ...
 }:
 # Create the 'format' shell.
-inputs.devenv.lib.mkShell {
-  inherit pkgs inputs;
+lib.${namespace}.shell.mkShell {
+  inherit (pkgs) system;
+  inherit inputs;
   modules = [
     (
       { pkgs, ... }:

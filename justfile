@@ -44,6 +44,10 @@ nix-list *args:
 develop *args:
     just nix-develop default "$@"
 
+# Enter the CI Nix development shell.
+ci *args:
+    just nix-develop ci "$@"
+
 # Enter the Nix development shell `$1` and execute the command `${@:2}`.
 [private]
 nix-develop *args:

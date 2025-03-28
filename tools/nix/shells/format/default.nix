@@ -1,19 +1,18 @@
 {
+  inputs,
+  lib,
   pkgs,
   namespace,
-  inputs,
   ...
 }:
-inputs.devenv.lib.mkShell {
-  inherit pkgs inputs;
+lib.${namespace}.makeShell {
+  inherit inputs;
+  inherit (pkgs) system;
   modules = [
-    (
-      { ... }:
-      {
-        packages = [
-          pkgs.${namespace}.treefmt
-        ];
-      }
-    )
+    {
+      packages = [
+        pkgs.${namespace}.treefmt
+      ];
+    }
   ];
 }
