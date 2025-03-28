@@ -26,7 +26,7 @@ jobs:
       - name: "Build & Test: ${{ matrix.language }}"
         run: just ci just maintenance::test ${{ matrix.language }}
 
-  test-image:
+  test-images:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
