@@ -37,13 +37,13 @@ For all task, enter a development shell with `just develop`.
 You can run tests with
 
 ```bash
-just test
+just maintenance::test
 ```
 
 Note: You can `REPOSITORY_TEMPLATE_UPDATE_FLAKE=true just ...` to update the Nix
 flake before the tests to update dependencies.
 
-To test single templates use `just maintenance test [generic|go|python|rust]`.
+To test single templates use `just maintenance::test [generic|go|python|rust]`.
 
 ### Push the Templates
 

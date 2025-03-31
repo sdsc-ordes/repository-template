@@ -32,10 +32,6 @@ clean:
 test:
    just maintenance::test-all
 
-# Test a template.
-test-single template="python":
-   just maintenance::test "{{template}}"
-
 # Show all packages configured in the Nix `flake.nix`.
 nix-list *args:
     cd tools/nix && nix flake --no-pure-eval show
