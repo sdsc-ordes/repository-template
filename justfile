@@ -32,10 +32,6 @@ clean:
 test:
    just maintenance::test-all
 
-# Test a template.
-test-single template="python":
-   just maintenance::test "{{template}}"
-
 # Show all packages configured in the Nix `flake.nix`.
 nix-list *args:
     cd tools/nix && nix flake --no-pure-eval show
@@ -43,6 +39,10 @@ nix-list *args:
 # Enter the default Nix development shell.
 develop *args:
     just nix-develop default "$@"
+
+# Enter the CI Nix development shell.
+ci *args:
+    just nix-develop ci "$@"
 
 # Enter the Nix development shell `$1` and execute the command `${@:2}`.
 [private]
