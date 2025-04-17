@@ -17,6 +17,8 @@ jobs:
         language: [generic, python, go, rust]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - uses: ./.github/actions/setup-nix
         with:
@@ -30,6 +32,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - uses: ./.github/actions/setup-nix
         with:
           cachix_cache_name: "${{ secrets.CACHIX_CACHE_NAME }}"

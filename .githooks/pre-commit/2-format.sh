@@ -15,7 +15,7 @@ if ! command -v "nix" &>/dev/null; then
 fi
 
 FILES=()
-readarray -t FILES < <(echo "$STAGED_FILES")
+readarray -t FILES < <(echo -n "$STAGED_FILES")
 
 # shellcheck disable=SC2128
 if [ "${#FILES[@]}" = "0" ]; then

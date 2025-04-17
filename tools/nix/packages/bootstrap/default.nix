@@ -12,7 +12,7 @@ pkgs.buildEnv {
   paths = [
     (lib.hiPrio pkgs.git)
     pkgs.git-lfs
-    pkgs.just
+    pkgs.bash
 
     pkgs.coreutils
     pkgs.findutils
