@@ -1,3 +1,6 @@
+# Nix tricks: the module system uses
+# `builtins.functionArgs` to determine what to pass in `perSystem`.
+# We only need to destructure the arguments not passed by default (`self'`, etc.)
 {
   self,
   ...
@@ -5,8 +8,6 @@
 {
   perSystem =
     {
-      self,
-      inputs,
       self',
       inputs',
       pkgs,

@@ -15,8 +15,7 @@ let
   ];
 
   # Imports all toolchain files into `{ "go" = [ list of devenv modules ], ... }`
-  # Pass `args` to the function.
-  # Should be called
+  # Pass all `args` to the function.
   toolchain-import =
     args:
     let
