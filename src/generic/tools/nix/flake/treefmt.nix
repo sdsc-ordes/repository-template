@@ -18,12 +18,8 @@
   };
   programs.shellcheck.enable = true;
 
-  {% if project_language == "rust" %}
-  programs.rustfmt.enable = true;
-  {%- elif project_language == "go" %}
   programs.gofmt.enable = true;
   programs.goimports.enable = true;
-  {%- endif %}
 
   # Lua.
   programs.stylua.enable = true;

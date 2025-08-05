@@ -1,16 +1,24 @@
-{ ... }:
+{ inputs, ... }:
 {
   # Define a `devenv` shell.
-  # Pin the `pkgs` to the nixpkgsDevenv inputs to make it
+  # Pin devenv's module function argument `pkgs` (if needed)
+  # to `inputs.nixpkgs-devenv` inputs to make it
   # more stable.
   mkShell =
     {
-      inputs,
       system,
       modules ? [ ],
     }:
+    let
+      pkgs = inputs.nixpkgs-devenv.legacyPackages.${system};
+    in
     inputs.devenv.lib.mkShell {
-      inherit inputs modules;
-      pkgs = inputs.nixpkgsDevenv.legacyPackages.${system};
+      inherit inputs pkgs;
+
+      modules = [
+        {
+          devenv.flakesIntegration = true;
+        }
+      ] ++ modules;
     };
 }

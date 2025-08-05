@@ -1,0 +1,24 @@
+{
+  self,
+  ...
+}:
+{
+  perSystem =
+    {
+      self',
+      inputs',
+      pkgs,
+      pkgsStable,
+      ...
+    }@args:
+    let
+      toolchains = self.lib.toolchain.import args;
+      language = "{{ project_language }}";
+    in
+    {
+      devShells.default = self.lib.shell.mkShell {
+        inherit (args) system;
+        modules = toolchains.general ++ toolchains.${language};
+      };
+    };
+}

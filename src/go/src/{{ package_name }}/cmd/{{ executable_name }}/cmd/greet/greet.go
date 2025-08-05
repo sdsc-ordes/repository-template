@@ -1,3 +1,4 @@
+//nolint:noctx // not needed.
 package greet
 
 import (
