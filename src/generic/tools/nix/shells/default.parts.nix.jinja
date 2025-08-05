@@ -1,5 +1,6 @@
 {
   self,
+  inputs,
   ...
 }:
 {
@@ -12,7 +13,7 @@
       ...
     }@args:
     let
-      toolchains = self.lib.toolchain.import args;
+      toolchains = self.lib.toolchain.import (args // { inherit self inputs; });
       language = "{{ project_language }}";
     in
     {

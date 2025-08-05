@@ -5,6 +5,8 @@
 {
   perSystem =
     {
+      self,
+      inputs,
       self',
       inputs',
       pkgs,

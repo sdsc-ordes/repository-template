@@ -2,7 +2,7 @@
 # which can be passed to `mkShell`.
 {
   lib,
-  self',
+  self,
   pkgs,
   ...
 }:
@@ -10,9 +10,6 @@
   python = [
     {
       packages = [
-        self'.packages.bootstrap
-        self'.packages.treefmt
-
         # Language Server.
         pkgs.pyright
 
@@ -26,7 +23,7 @@
       # We use `devenv` language support since, its
       # pretty involved to setup a python environment.
       languages.python = {
-        directory = self'.lib.fs.repoRoot;
+        directory = self.lib.fs.repoRoot;
         enable = true;
         venv.enable = true;
         uv = {

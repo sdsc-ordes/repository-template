@@ -67,13 +67,13 @@ function ci::setup_python_venv() {
     root_dir=$(git rev-parse --show-toplevel)
 
     # If VIRTUAL_ENV is set use it.
-    local venv_dir="${VIRTUAL_ENV:-$root_dir/.venv}"
-    ci::print_info "Python virtual env. dir '$venv_dir' set."
-    if [ ! -d "$venv_dir" ]; then
-        ci::print_info "Setting up venv environment in '$venv_dir'."
-        uv venv "$venv_dir" &>/dev/null
-    fi
+    export VIRTUAL_ENV="${VIRTUAL_ENV:-$root_dir/.venv}"
+    export UV_PROJECT_ENVIRONMENT="$VIRTUAL_ENV"
 
-    ci::print_info "Installing pip dependencies..."
-    uv pip install -r "$root_dir/pyproject.toml" &>/dev/null
+    ci::print_info "Python virtual env. dir '$UV_PROJECT_ENVIRONMENT' set."
+
+    if [ ! -d "$UV_PROJECT_ENVIRONMENT" ]; then
+        ci::print_info "Setting up venv environment in '$UV_PROJECT_ENVIRONMENT'."
+        uv sync
+    fi
 }
