@@ -92,6 +92,7 @@ test template="python": ci-setup setup
     just develop just build
     just develop just run
 
+    ci::print_info "Coping back lock files..."
     cp tools/nix/flake.lock "{{root_dir}}/src/{{template}}/tools/nix/flake.lock"
     if [ "{{template}}" == "python" ]; then
         cp uv.lock "{{root_dir}}/src/{{template}}/uv.lock"
