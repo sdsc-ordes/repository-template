@@ -10,7 +10,7 @@
     {
       packages = [
         self'.packages.rust-toolchain
-        pkgs.packages.cargo-watch
+        pkgs.cargo-watch
 
         # Debugging
         pkgs.lldb_18

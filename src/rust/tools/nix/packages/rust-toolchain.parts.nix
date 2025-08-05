@@ -1,6 +1,7 @@
 {
   inputs,
   self,
+  ...
 }:
 let
   toolchainFile = self.lib.fs.repoRoot + "/tools/configs/rust/rust-toolchain.toml";
