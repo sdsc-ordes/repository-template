@@ -8,13 +8,12 @@
 {
   perSystem =
     {
+      config,
       self',
-      inputs',
-      pkgs,
-      pkgsStable,
       ...
-    }@args:
+    }:
     let
+      args = config.allModuleArgs;
       toolchains = self.lib.toolchain.import args;
     in
     {
