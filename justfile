@@ -43,4 +43,4 @@ develop *args:
 
 # Enter the CI Nix development shell.
 ci *args:
-    just nix-develop ci "$@"
+    just nix::develop ci "$@"
