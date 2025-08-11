@@ -97,6 +97,10 @@ test template="python": ci-setup setup
     just develop just build
     just develop just run
 
+    if ci::is_running; then
+        just nix::package dev-container-image
+    fi
+
     ci::print_info "Coping back lock files..."
     cp -v tools/nix/flake.lock "{{root_dir}}/src/{{template}}/tools/nix/flake.lock"
     if [ "{{template}}" == "python" ]; then
