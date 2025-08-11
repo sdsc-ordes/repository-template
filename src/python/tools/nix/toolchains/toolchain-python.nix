@@ -1,8 +1,8 @@
 # This function returns a attrset of `devenv` modules
 # which can be passed to `mkShell`.
 {
-  lib,
   self,
+  lib,
   pkgs,
   ...
 }:
@@ -23,8 +23,11 @@
       # We use `devenv` language support since, its
       # pretty involved to setup a python environment.
       languages.python = {
-        directory = self.lib.fs.repoRoot;
         enable = true;
+        package = pkgs.python313;
+
+        directory = self.lib.fs.repoRoot;
+
         venv.enable = true;
         uv = {
           enable = true;

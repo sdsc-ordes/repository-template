@@ -86,6 +86,11 @@ test template="python": ci-setup setup
         (cd tools/nix && nix flake update)
     fi
 
+
+    # TODO: The `inputs.system` does not work when not first locking.
+    #       This is a nix flake bug IMO.
+    (cd tools/nix && nix flake lock)
+
     just develop just setup
     just develop just format
     just develop just lint

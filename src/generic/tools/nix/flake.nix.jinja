@@ -63,15 +63,15 @@
     };
 
     # The devenv module to create good development shells.
+    # The `nixpkgs-devenv` must aligned with the pinned version.
     devenv = {
-      url = "github:cachix/devenv/latest";
+      url = "github:cachix/devenv?ref=v1.8.1";
       inputs.nixpkgs.follows = "nixpkgs-devenv";
     };
-    # We should lock the pkgs in `mkShell` here:
-    # https://github.com/cachix/devenv/issues/1797
-    # to devenvs rolling nixpkgs. Note: that does not restrict the use of
-    # 'nixpkgs' input in devenv modules.
-    nixpkgs-devenv.url = "github:cachix/devenv-nixpkgs/rolling";
+    # This is the rolling nixpkgs with what devenv was tested.
+    nixpkgs-devenv = {
+        url = "github:cachix/devenv-nixpkgs?ref=0ceffe312871b443929ff3006960d29b120dc627";
+    };
 
     # To build a base image with Nix.
     nix = {

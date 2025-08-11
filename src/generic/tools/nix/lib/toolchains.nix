@@ -19,7 +19,12 @@ let
   toolchain-import =
     args:
     let
-      imports = lib.map (path: import path args) toolchain-files;
+      # Add inputs and lib to the arguments missing on `perSystem`.
+      allArgs = args // {
+        inherit inputs lib;
+        inherit (inputs) self;
+      };
+      imports = lib.map (path: import path allArgs) toolchain-files;
     in
     lib.attrsets.mergeAttrsList imports;
 in
