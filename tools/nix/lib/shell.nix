@@ -7,6 +7,7 @@
   mkShell =
     {
       system,
+      pkgs ? null,
       modules ? [ ],
     }:
     let
@@ -14,7 +15,14 @@
       # We use that as `pkgs` in the devenv modules.
       # One can still use the flake-parts `pkgs` which is from `inputs.nixpkgs`
       # to be more up-to-date.
-      pkgs = inputs.nixpkgs-devenv.legacyPackages.${system};
+      devenvPkgs =
+        if pkgs == null then
+          import inputs.nixpkgs-devenv {
+            inherit system;
+            config.allowUnfree = true;
+          }
+        else
+          pkgs;
 
       # Only inject what devenv really uses;
       ins = {
@@ -27,7 +35,7 @@
     in
     inputs.devenv.lib.mkShell {
       inputs = ins;
-      inherit pkgs;
+      pkgs = devenvPkgs;
 
       modules = [
         {
