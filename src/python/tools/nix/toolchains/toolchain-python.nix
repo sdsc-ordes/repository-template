@@ -26,7 +26,7 @@
         enable = true;
         package = pkgs.python313;
 
-        directory = self.lib.fs.repoRoot;
+        directory = builtins.toString self.lib.fs.repoRoot;
 
         venv.enable = true;
         uv = {

@@ -1,6 +1,5 @@
 {
   inputs,
-  self,
   lib,
   repoRoot,
   ...
@@ -23,7 +22,7 @@ let
       # Add inputs and lib to the arguments missing on `perSystem`.
       allArgs = args // {
         inherit inputs lib;
-        inherit self;
+        inherit (inputs) self;
       };
       imports = lib.map (path: import path allArgs) toolchain-files;
     in

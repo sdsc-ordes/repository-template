@@ -18,20 +18,13 @@ let
   };
 
   # Lib import.
-  libImport = import ./import.nix { inherit inputs self; };
+  libImport = import ./import.nix { inherit self inputs; };
 
   # Lib shell.
   libShell = import ./shell.nix { inherit inputs lib; };
 
   # Lib toolchains.
-  libToolchain = import ./toolchains.nix {
-    inherit
-      repoRoot
-      inputs
-      self
-      lib
-      ;
-  };
+  libToolchain = import ./toolchains.nix { inherit repoRoot inputs lib; };
 in
 {
   flake.lib = {
