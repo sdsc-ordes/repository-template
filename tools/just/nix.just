@@ -59,9 +59,6 @@ package-show:
     set -eu
     root_dir=$(git rev-parse --show-toplevel) || exit 1
     flake_dir="$root_dir/tools/nix"
+    nix_args=("--no-pure-eval")
 
-    # We cannot use `nix flake show` due to other systems where
-    # IFD (import-from-derivation -> from-yaml Nix derivation)
-    # does not work.
-    system=$(nix eval --impure --raw --expr builtins.currentSystem)
-    nix eval --json "$flake_dir#packages.$system" | jq
+    nix flake "${nix_args[@]}" show

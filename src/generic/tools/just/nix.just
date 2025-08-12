@@ -26,13 +26,13 @@ develop *args:
 
 # Start an Nix interpreter with loaded flake.
 [no-cd]
-repl:
+repl *args:
     #!/usr/bin/env bash
     set -eu
 
     root_dir=$(git rev-parse --show-toplevel) || exit 1
     flake_dir="$root_dir/tools/nix"
-    nix_args=("--no-pure-eval")
+    nix_args=("--no-pure-eval" "$@")
 
     nix repl \
         "${nix_args[@]}" \
@@ -47,10 +47,15 @@ package attrname *args:
     set -eu
     root_dir=$(git rev-parse --show-toplevel) || exit 1
     flake_dir="$root_dir/tools/nix"
+    nix_args=("${@:2}")
 
     mkdir -p .output/package
     outlink=".output/package/{{attrname}}"
-    nix build -L "$flake_dir#{{attrname}}" --out-link "$outlink" --json
+    nix build \
+        --accept-flake-config \
+        "${nix_args[@]}" \
+        -L "$flake_dir#{{attrname}}" \
+        --out-link "$outlink" --json
 
 # Show all packages.
 [no-cd]
