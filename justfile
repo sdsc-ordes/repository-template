@@ -6,6 +6,7 @@ output_dir := root_dir / ".output"
 flake_dir := root_dir / "./tools/nix"
 
 mod maintenance "./tools/just/maintenance.just"
+mod nix "./tools/just/nix.just"
 
 # Default target if you do not specify a target.
 default:
@@ -38,20 +39,8 @@ nix-list *args:
 
 # Enter the default Nix development shell.
 develop *args:
-    just nix-develop default "$@"
+    just nix::develop default "$@"
 
 # Enter the CI Nix development shell.
 ci *args:
-    just nix-develop ci "$@"
-
-# Enter the Nix development shell `$1` and execute the command `${@:2}`.
-[private]
-nix-develop *args:
-    #!/usr/bin/env bash
-    set -eu
-    cd "{{root_dir}}"
-    shell="$1"; shift 1;
-    args=("$@") && [ "${#args[@]}" != 0 ] || args="$SHELL"
-    nix develop --no-pure-eval --accept-flake-config \
-        "{{flake_dir}}#$shell" \
-        --command "${args[@]}"
+    just nix::develop ci "$@"

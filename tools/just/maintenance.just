@@ -86,20 +86,31 @@ test template="python": ci-setup setup
         (cd tools/nix && nix flake update)
     fi
 
+
+    # TODO: The `inputs.system` does not work when not first locking.
+    #       This is a nix flake bug IMO.
+    (cd tools/nix && nix flake lock)
+
     just develop just setup
     just develop just format
     just develop just lint
     just develop just build
     just develop just run
+    just nix::package-show
 
-    cp tools/nix/flake.lock "{{root_dir}}/src/{{template}}/tools/nix/flake.lock"
+    if ci::is_running; then
+        just nix::package devcontainer-image
+    fi
+
+    ci::print_info "Coping back lock files..."
+    cp -v tools/nix/flake.lock "{{root_dir}}/src/{{template}}/tools/nix/flake.lock"
     if [ "{{template}}" == "python" ]; then
-        cp uv.lock "{{root_dir}}/src/{{template}}/uv.lock"
+        cp -v uv.lock "{{root_dir}}/src/{{template}}/uv.lock"
     elif [ "{{template}}" == "go" ]; then
-        cp go.work.sum "{{root_dir}}/src/{{template}}/go.work.sum"
-        cp src/tool/go.sum "{{root_dir}}/src/{{template}}/src/{{{{ package_name }}/go.sum"
+        cp -v go.work.sum "{{root_dir}}/src/{{template}}/go.work.sum"
+        cp -v src/tool/go.sum "{{root_dir}}/src/{{template}}/src/{{{{ package_name }}/go.sum"
     elif [ "{{template}}" == "rust" ]; then
-        cp Cargo.lock "{{root_dir}}/src/{{template}}/Cargo.lock"
+        cp -v Cargo.lock "{{root_dir}}/src/{{template}}/Cargo.lock"
     fi
 
     git clean -df

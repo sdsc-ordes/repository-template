@@ -13,22 +13,48 @@
     ];
   };
 
+  # We use flake-parts to assemble all flake outputs.
+  # This gives nicer modularity. All `.parts` files are
+  # `flake-parts` module files.
+  outputs =
+    inputs:
+    let
+      lib = inputs.nixpkgs.lib;
+    in
+    inputs.flake-parts.lib.mkFlake
+      {
+        inherit inputs;
+      }
+      (
+        lib.pipe inputs.import-tree [
+          # NOTE: Uncomment the below to inspect what modules are loaded.
+          # (i: i.map (x: lib.info "Importing :${x}" x))
+          (i: i.filter (lib.hasInfix ".parts."))
+          (i: i ./.)
+        ]
+      );
+
   inputs = {
-    # Nixpkgs repository.
+    # Importing flake-parts modules recursively.
+    import-tree = {
+      url = "github:vic/import-tree";
+    };
+
+    systems = {
+      # Using `nix-systems` flake specification.
+      url = "path:./flake/systems.nix";
+      flake = false;
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+    };
+
+    # Nixpkgs (latest ones).
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Nixpkgs repository on stable.
-    nixpkgsStable.url = "github:nixos/nixpkgs/nixos-24.11";
-
-    # The devenv module to create good development shells.
-    devenv = {
-      url = "github:cachix/devenv/latest";
-      inputs.nixpkgs.follows = "nixpkgsDevenv";
-    };
-    # We have to lock somehow the pkgs in `mkShell` here:
-    # https://github.com/cachix/devenv/issues/1797
-    # `nixpkgs` is used in the devShell modules.
-    nixpkgsDevenv.url = "github:cachix/devenv-nixpkgs/rolling";
+    # Nixpkgs (stable NixOS branch)
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     # Format the repo with nix-treefmt.
     treefmt-nix = {
@@ -36,40 +62,27 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # The Nix flake for the deploy image.
+    # The devenv module to create good development shells.
+    # The `nixpkgs-devenv` must aligned with the pinned version.
+    devenv = {
+      url = "github:cachix/devenv?ref=v1.8.1";
+      inputs.nixpkgs.follows = "nixpkgs-devenv";
+    };
+    # This is the rolling nixpkgs with what devenv was tested.
+    nixpkgs-devenv = {
+      url = "github:cachix/devenv-nixpkgs?ref=0ceffe312871b443929ff3006960d29b120dc627";
+    };
+
+    # To build a base image with Nix.
     nix = {
       url = "github:nixos/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Snowfall provides a structured way of creating a flake output.
-    # Documentation: https://snowfall.org/guides/lib/quickstart/
-    snowfall-lib = {
-      url = "github:snowfallorg/lib?ref=v3.0.3";
+    # The Python packages for all versions.
+    nixpkgs-python = {
+      url = "github:cachix/nixpkgs-python";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  outputs =
-    inputs:
-    let
-      root-dir = ../..;
-    in
-    inputs.snowfall-lib.mkFlake {
-      inputs = inputs // {
-        self = inputs.self;
-      };
-
-      # The `src` must be the root of the flake.
-      src = "${root-dir}";
-
-      snowfall = {
-        root = "${root-dir}" + "/tools/nix";
-        namespace = "repository-template";
-        meta = {
-          name = "repository-template";
-          title = "Repository Template";
-        };
-      };
-    };
 }

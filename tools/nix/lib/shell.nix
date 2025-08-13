@@ -1,22 +1,9 @@
 { inputs, lib, ... }:
 {
-  # Make a devenv shell (from `inputs.devenv`) with the following features:
-  # - Using `pkgs` or imported from flake input `inputs.nixpkgs-devenv` for the `system` if not given.
-  # - Additional `modules` added.
-  # - Allow unfree packages.
-  # - Flake integration set to `true`
-  # - Misc: If `inputs.devenv-root` is given then `devenv.root` is set to the flake input `inputs.devenv-root`
-  #   defined by
-  #
-  #    ```nix
-  #       devenv-root = {
-  #         url = "file+file:///dev/null";
-  #         flake = false;
-  #       };
-  #     ```
-  #   and set with `nix develop --no-pure-eval --override-input devenv-root "path:.devenv/state/pwd"
-  #   where `.devenv/state/pwd` is the current project root directory. This is a workaround to allow
-  #   pure evaluation.
+  # Define a `devenv` shell.
+  # Pin devenv's module function argument `pkgs` (if needed)
+  # to `inputs.nixpkgs-devenv` inputs to make it
+  # more stable.
   mkShell =
     {
       modules ? [ ],

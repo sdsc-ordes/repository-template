@@ -72,6 +72,6 @@ function ci::setup_python_venv() {
     fi
 
     ci::print_info "Installing dependencies..."
-    uv pip install -r "$root_dir/tools/configs/copier/pyproject.toml" \
+    uv pip install -r "$root_dir/tools/configs/python/pyproject.toml" \
         --extra dev >/dev/null
 }
