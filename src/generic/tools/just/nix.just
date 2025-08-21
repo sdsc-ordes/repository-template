@@ -59,7 +59,7 @@ package attrname *args:
 
 # Show all packages.
 [no-cd]
-package-show:
+show:
     #!/usr/bin/env bash
     set -eu
     root_dir=$(git rev-parse --show-toplevel) || exit 1

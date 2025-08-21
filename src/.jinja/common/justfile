@@ -28,9 +28,4 @@ setup *args:
 # Run commands over the ci development shell.
 ci *args:
     just nix::develop "ci" "$@"
-
-## Nix Stuff ==================================================================
-# Show all packages configured in the Nix `flake.nix`.
-nix-list *args:
-    cd tools/nix && nix flake --no-pure-eval show
 {%- endraw -%}
