@@ -96,7 +96,7 @@ test template="python": ci-setup setup
     just develop just lint
     just develop just build
     just develop just run
-    just nix::package-show
+    just nix::show
 
     if ci::is_running; then
         just nix::package devcontainer-image
