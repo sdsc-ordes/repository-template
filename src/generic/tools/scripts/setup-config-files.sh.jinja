@@ -31,7 +31,7 @@ function main() {
     {% elif project_language == "go" -%}
     rm -rf ".golangci.yaml" || true
     ln -s "tools/configs/golangci-lint/golangci.yaml" ".golangci.yaml"
-    {%- endif %}
+    {%- endif -%}
 }
 
 main "$@"
