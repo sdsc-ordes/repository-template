@@ -29,21 +29,26 @@ Authors:
 
 <!--toc:start-->
 
-- [Repository Template](#repository-template)
 - [What Is This?](#what-is-this)
 - [Usage](#usage)
-  - [Cloning](#cloning)
-  - [Containerized](#containerized)
+  - [Over Container](#over-container)
+  - [By Cloning](#by-cloning)
+  - [Arguments](#arguments)
 - [Structure](#structure)
   - [Generic Template](#generic-template)
-    - [Features](#features)
-    - [Toolchain](#toolchain-1)
+    - [Toolchain](#toolchain)
   - [Rust Template](#rust-template)
-    - [Toolchain](#toolchain-2)
+    - [Toolchain](#toolchain)
   - [Go Template](#go-template)
-    - [Toolchain](#toolchain-3)
-  - [Python Template](#python-template) - [Toolchain](#toolchain)
-  <!--toc:end-->
+    - [Toolchain](#toolchain)
+  - [Python Template](#python-template)
+    - [Toolchain](#toolchain)
+  - [CI Implementations](#ci-implementations)
+    - [Github Actions](#github-actions)
+- [Development](#development)
+- [Copyright](#copyright)
+
+<!--toc:end-->
 
 </details>
 
@@ -103,7 +108,6 @@ See [arguments explanations here](#arguments).
 - `<destination>` is the destination folder where you want to place your new
   repository.
 - `<language>` is one of the following templates:
-
   - [`generic`](./src/generic): For a generic repository without any language
     specific needs.
   - [`python`](./src/python): For python toolchain with `uv` and other good
@@ -207,7 +211,6 @@ The following workflows are defined:
   `cachix` (a Nix CI caching mechanism) you need to define two secrets in
   **Settings** -> **Secrets & variables** -> **Actions** -> **Repositories
   secrets**:
-
   - `CACHIX_CACHE_NAME`: The cache name you created on
     [cachix.org](https://cachix.org). This is free for public caches, which is
     acceptable for OSS repositories.
