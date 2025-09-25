@@ -10,7 +10,7 @@ build *args:
 
 # Test the project.
 test *args:
-   uv run -m pytest .
+   uv run pytest "$@"
 
 # Run an executable.
 run *args:
