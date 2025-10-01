@@ -10,6 +10,7 @@
       # `$1: <new-tag>`
       # `$2: <git-cliff-config>` (optional)
       # `$3`: <changelog-file> (optional)
+      # NOTE: Due to Nix you need to escape with `''${VAR}`
       packages.generate-changelog = pkgs.writeShellApplication {
         name = "generate-changelog";
         runtimeInputs = [
@@ -48,16 +49,17 @@
                 exit 1
             fi
 
-            non_first_parent_commits=$(
+            non_first_parent_commits=()
+            readarray -t non_first_parent_commits < <(
                 comm -23 <(git rev-list "$end..$start" | sort) \
-                         <(git rev-list --ancestry-path --first-parent "$end..$start" |sort) | \
-                xargs printf "%s "
+                         <(git rev-list --ancestry-path --first-parent "$end..$start" |sort)
             )
 
             skip_args=()
-            if [ -n "$non_first_parent_commits" ]; then
+            if [ "''${#non_first_parent_commits[@]}" -ne 0 ]; then
               # shellcheck disable=SC2086,SC2206
-              skip_args=(--skip-commit $non_first_parent_commits)
+              skip_args=(--skip-commit)
+              skip_args+=("''${non_first_parent_commits[@]}")
             fi
 
             out=$(git-cliff --config "$config" \

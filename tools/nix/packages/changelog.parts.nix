@@ -44,10 +44,9 @@
                 exit 1
             fi
 
-            non_first_parent_commits=$(
+            readarray -t non_first_parent_commits < <(
                 comm -23 <(git rev-list $end..$start | sort) \
-                         <(git rev-list --ancestry-path --first-parent $end..$start |sort) | \
-                xargs printf "%s "
+                         <(git rev-list --ancestry-path --first-parent $end..$start |sort)
             )
 
             out=$(git-cliff --config "$config" \
