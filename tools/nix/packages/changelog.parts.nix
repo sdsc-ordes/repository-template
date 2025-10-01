@@ -13,6 +13,7 @@
       # `$3: Start Git reference (default: `HEAD`)
       # `$4: Config file for `git-cliff` (optional)
       # `$5`: Changelog file to update (default: `CHANGELOG.md`)
+      #
       # NOTE: Due to Nix you need to escape with `''${VAR}`
       packages.generate-changelog = pkgs.writeShellApplication {
         name = "generate-changelog";
