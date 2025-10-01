@@ -54,13 +54,19 @@
                 xargs printf "%s "
             )
 
-            # shellcheck disable=SC2086
+            skip_args=()
+            if [ -n "$non_first_parent_commits" ]; then
+              # shellcheck disable=SC2086,SC2206
+              skip_args=(--skip-commit $non_first_parent_commits)
+            fi
+
             out=$(git-cliff --config "$config" \
                 "$end..$start" \
                 --strip header \
-                --skip-commit $non_first_parent_commits \
+                "''${skip_args[@]}" \
                 --tag "$tag")
 
+            # Replace in file.
             echo "$out" | sed -i '/<!-- next-content -->/{
                 r /dev/stdin
                 d

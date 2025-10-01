@@ -91,7 +91,6 @@ test template="python": ci-setup setup
     #       This is a nix flake bug IMO.
     (cd tools/nix && nix flake lock)
 
-    git tag "v1.0.0" -m "New version" --no-sign
 
     just develop just setup
     just develop just format
@@ -99,6 +98,10 @@ test template="python": ci-setup setup
     just develop just build
     just develop just run
     just nix::show
+
+    git tag "v1.0.0" -m "New version" --no-sign
+    GITHOOKS_DISABLE=1 git commit --allow-empty -m "fix: first commit"
+    just develop just changelog::gen
 
     if ci::is_running; then
         just nix::package devcontainer-image

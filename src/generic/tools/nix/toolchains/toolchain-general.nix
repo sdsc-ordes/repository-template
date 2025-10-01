@@ -24,16 +24,13 @@ let
     }
   ];
 
-  general =
-    format
-    ++ changelog
-    ++ [
-      {
-        packages = [
-          self'.packages.bootstrap
-        ];
-      }
-    ];
+  general = format ++ [
+    {
+      packages = [
+        self'.packages.bootstrap
+      ];
+    }
+  ];
 
 in
 {
