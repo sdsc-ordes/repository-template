@@ -25,23 +25,29 @@
           # bash
           ''
             #!/usr/bin/env bash
+            set -eu
+
             root_dir=$(git rev-parse --show-toplevel) || exit 1
             cd "$root_dir"
 
             tag="$1"
-            config="''${2:-tools/config/git-cliff/config.toml}"
-            file="''${3:-CHANGELOG.md}"
+            end="$2"
+            start="$3"
+            config="''${4:-tools/config/git-cliff/config.toml}"
+            file="''${5:-CHANGELOG.md}"
 
-            lastTag=$(git describe --abbrev=0 --tags)
-            if [ "$lastTag" = "" ]; then
-                echo "No last tag found!" >&2
-                echo "Create one!" >&2
+            export GIT_CLIFF_TAG_PATTERN="''${GIT_CLIFF_TAG_PATTERN:-v\d+}"
 
-                exit 1
+            if [ -z "$end" ]; then
+                end=$(git describe --abbrev=0 --tags)
+                if [ "$end" = "" ]; then
+                    echo "No last tag found!" >&2
+                    echo "Create one!" >&2
+
+                    exit 1
+                fi
             fi
 
-            start=HEAD
-            end="$lastTag"
 
             echo "Changelog in '$end..$start'" >&2
 
