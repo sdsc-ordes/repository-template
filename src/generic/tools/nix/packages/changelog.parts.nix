@@ -41,7 +41,7 @@
             start=HEAD
             end="$lastTag"
 
-            echo "Changelog in $end..$start" >&2
+            echo "Changelog in '$end..$start'" >&2
 
             if ! grep -q '<!-- next-content -->' "$file"; then
                 echo "no '<!-- next-content -->' tag in '$file'"
@@ -49,11 +49,12 @@
             fi
 
             non_first_parent_commits=$(
-                comm -23 <(git rev-list $end..$start | sort) \
-                         <(git rev-list --ancestry-path --first-parent $end..$start |sort) | \
+                comm -23 <(git rev-list "$end..$start" | sort) \
+                         <(git rev-list --ancestry-path --first-parent "$end..$start" |sort) | \
                 xargs printf "%s "
             )
 
+            # shellcheck disable=SC2086
             out=$(git-cliff --config "$config" \
                 "$end..$start" \
                 --strip header \
