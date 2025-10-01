@@ -16,15 +16,26 @@ let
     }
   ];
 
-  general = format ++ [
+  changelog = [
     {
       packages = [
-        self'.packages.bootstrap
+        self'.packages.generate-changelog
       ];
     }
   ];
 
+  general =
+    format
+    ++ changelog
+    ++ [
+      {
+        packages = [
+          self'.packages.bootstrap
+        ];
+      }
+    ];
+
 in
 {
-  inherit format general;
+  inherit format changelog general;
 }
