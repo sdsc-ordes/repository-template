@@ -8,9 +8,11 @@
     {
       # Generate a changelog from `HEAD` to the last tag on the current branch.
       # With the following arguments.
-      # `$1: <new-tag>`
-      # `$2: <git-cliff-config>` (optional)
-      # `$3`: <changelog-file> (optional)
+      # `$1: The new tag.`
+      # `$2: End Git reference (default: last tag)`
+      # `$3: Start Git reference (default: `HEAD`)`
+      # `$4: Config file for `git-cliff` (optional)
+      # `$5`: Changelog file to update (default: `CHANGELOG.md`)
       # NOTE: Due to Nix you need to escape with `''${VAR}`
       packages.generate-changelog = pkgs.writeShellApplication {
         name = "generate-changelog";
@@ -76,10 +78,14 @@
                 --tag "$tag")
 
             # Replace in file.
-            echo "$out" | sed -i '/<!-- next-content -->/{
-                r /dev/stdin
-                d
-            }' "$file"
+            if [ -n "$file" ]; then
+              echo "$out" | sed -i '/<!-- next-content -->/{
+                  r /dev/stdin
+                  d
+              }' "$file"
+            else
+              echo "$out"
+            fi
           '';
       };
     };
