@@ -36,7 +36,7 @@
 
             tag="''${1:new-tag}"
             end="''${2:-}"
-            start="''${3:-}"
+            start="''${3:-HEAD}"
             config="''${4:-tools/config/git-cliff/config.toml}"
             file="''${5:-CHANGELOG.md}"
 
