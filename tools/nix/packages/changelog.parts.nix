@@ -8,9 +8,9 @@
     {
       # Generate a changelog from `HEAD` to the last tag on the current branch.
       # With the following arguments.
-      # `$1: The new tag.`
-      # `$2: End Git reference (default: last tag)`
-      # `$3: Start Git reference (default: `HEAD`)`
+      # `$1: The new tag. (default: `new-tag`)
+      # `$2: End Git reference (default: last tag)
+      # `$3: Start Git reference (default: `HEAD`)
       # `$4: Config file for `git-cliff` (optional)
       # `$5`: Changelog file to update (default: `CHANGELOG.md`)
       # NOTE: Due to Nix you need to escape with `''${VAR}`
@@ -32,7 +32,7 @@
             root_dir=$(git rev-parse --show-toplevel) || exit 1
             cd "$root_dir"
 
-            tag="$1"
+            tag="''${1:new-tag}"
             end="''${2:-}"
             start="''${3:-}"
             config="''${4:-tools/config/git-cliff/config.toml}"
