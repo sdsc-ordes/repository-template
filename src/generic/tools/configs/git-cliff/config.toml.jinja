@@ -1,3 +1,4 @@
+{% raw %}
 # git-cliff ~ configuration file
 # https://git-cliff.org/docs/configuration
 
@@ -35,9 +36,17 @@ render_always = true
 # An array of regex based postprocessors to modify the changelog.
 postprocessors = [
     # Replace some placeholders.
-    { pattern = '\$PR_URL', replace = "$$REPO/-/merge_requests" },
-    { pattern = '\$REPO', replace = "https://gitlab.com/data-custodian/dac-portal" },
-    { pattern = '\$COMMIT_URL', replace = "https://gitlab.com/data-custodian/dac-portal/-/tree" },
+{% endraw %}
+{%- if "github" in project_hosts[0].host %}
+    {{ "{" }} pattern = '\$PR_URL', replace = "$$REPO/pull" {{ "}" }},
+    {{ "{" }} pattern = '\$REPO', replace = "{{ project_url }}" {{ "}" }},
+    {{ "{" }} pattern = '\$COMMIT_URL', replace = "{{ project_url }}/commit" {{ "}" }},
+{%- elif "gitlab" in project_hosts[0].host %}
+    {{ "{" }} pattern = '\$PR_URL', replace = "$$REPO/-/merge_request" {{ "}" }},
+    {{ "{" }} pattern = '\$REPO', replace = "{{ project_url }}" {{ "}" }},
+    {{ "{" }} pattern = '\$COMMIT_URL', replace = "{{ project_url }}/-/tree" {{ "}" }},
+{%- endif %}
+{% raw %}
 ]
 # render body even when there are no releases to process
 # render_always = true
@@ -95,3 +104,4 @@ topo_order_commits = true
 sort_commits = "newest"
 # Process submodules commits
 recurse_submodules = false
+{% endraw %}
