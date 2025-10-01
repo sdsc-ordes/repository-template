@@ -9,6 +9,6 @@ default:
 # See: https://github.com/git-chglog/git-chglog/issues/284
 [group('aux')]
 [private]
-gen tag='new-tag' template="./tools/configs/git-cliff/config.toml" changelog="CHANGELOG.md":
+gen end="" start="HEAD" config="./tools/configs/git-cliff/config.toml" changelog="CHANGELOG.md":
     just nix::develop changelog \
-        generate-changelog "{{tag}}" "{{template}}" "{{changelog}}"
+        generate-changelog "{{end}}" "{{start}}" "{{config}}" "{{changelog}}"

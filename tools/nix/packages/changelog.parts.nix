@@ -9,7 +9,7 @@
       # Generate a changelog from `HEAD` to the last tag on the current branch.
       #
       # With the following arguments.
-      # `$1: The new tag. (default: `new-tag`)
+      # `$1: The new tag. (default: `newtag`)
       # `$2: End Git reference (default: last tag)
       # `$3: Start Git reference (default: `HEAD`)
       # `$4: Config file for `git-cliff` (optional)
@@ -34,11 +34,10 @@
             root_dir=$(git rev-parse --show-toplevel) || exit 1
             cd "$root_dir"
 
-            tag="''${1:new-tag}"
-            end="''${2:-}"
-            start="''${3:-HEAD}"
-            config="''${4:-tools/config/git-cliff/config.toml}"
-            file="''${5:-CHANGELOG.md}"
+            end="''${1:-}"
+            start="''${2:-HEAD}"
+            config="''${3:-tools/config/git-cliff/config.toml}"
+            file="''${4:-CHANGELOG.md}"
 
             export GIT_CLIFF_TAG_PATTERN="''${GIT_CLIFF_TAG_PATTERN:-v\d+}"
 
@@ -73,11 +72,12 @@
               skip_args+=("''${non_first_parent_commits[@]}")
             fi
 
-            out=$(git-cliff --config "$config" \
+            out=$(
+              git-cliff --config "$config" \
                 "$end..$start" \
                 --strip header \
-                "''${skip_args[@]}" \
-                --tag "$tag")
+                "''${skip_args[@]}"
+            )
 
             # Replace in file.
             if [ -n "$file" ]; then
