@@ -7,6 +7,7 @@
     { pkgs, ... }:
     {
       # Generate a changelog from `HEAD` to the last tag on the current branch.
+      #
       # With the following arguments.
       # `$1: The new tag. (default: `new-tag`)
       # `$2: End Git reference (default: last tag)
