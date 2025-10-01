@@ -33,8 +33,8 @@
             cd "$root_dir"
 
             tag="$1"
-            end="$2"
-            start="$3"
+            end="''${2:-}"
+            start="''${3:-}"
             config="''${4:-tools/config/git-cliff/config.toml}"
             file="''${5:-CHANGELOG.md}"
 
