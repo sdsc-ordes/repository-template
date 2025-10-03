@@ -13,31 +13,38 @@ default:
     just --list --unsorted
 
 # Create a new project from a template.
+[group('general')]
 create *args:
     just develop ./tools/scripts/create.sh "$@"
 
 # Format the whole repository.
+[group('general')]
 format *args:
     "{{root_dir}}/tools/scripts/setup-config-files.sh"
     nix run --accept-flake-config {{flake_dir}}#treefmt -- "$@"
 
 # Setup the repository.
+[group('general')]
 setup *args:
    just maintenance::setup "$@"
 
 # Clean output folder.
+[group('general')]
 clean:
     rm -rf ./.output
 
 # Test everything.
+[group('general')]
 test:
    just maintenance::test-all
 
 # Show all packages configured in the Nix `flake.nix`.
+[group('general')]
 nix-list *args:
     cd tools/nix && nix flake --no-pure-eval show
 
 # Enter the default Nix development shell.
+[group('general')]
 develop *args:
     just nix::develop default "$@"
 

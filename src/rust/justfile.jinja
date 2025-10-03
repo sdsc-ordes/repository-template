@@ -1,23 +1,28 @@
 {% include ".jinja/common/justfile" %}
 {% raw %}
 # Lint the project.
+[group('general')]
 lint *args:
     ./tools/scripts/lint-rust.sh "$@"
     ./tools/scripts/lint-ub-rust.sh "$@"
 
 # Build the project.
+[group('general')]
 build *args:
     cargo build --target-dir "{{build_dir}}" "$@"
 
 # Test the project.
+[group('general')]
 test *args:
     cargo test "$@"
 
 # Watch `cargo build|run|test ...` commands.
+[group('general')]
 watch *args:
     cargo watch -x "$1" "${@:2}"
 
 # Run an executable.
+[group('general')]
 run *args:
     cargo run --target-dir "{{build_dir}}" "$@"
 {%- endraw %}

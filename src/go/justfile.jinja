@@ -4,6 +4,7 @@ main_package := "{{ package_name }}"
 
 {%- raw %}
 # Lint the project.
+[group('general')]
 lint *args:
     cd "src/{{main_package}}" && \
     golangci-lint run \
@@ -14,6 +15,7 @@ lint *args:
         "$@"
 
 # Build the project.
+[group('general')]
 build *args:
     mkdir -p "{{build_dir}}/{{main_package}}" && \
     export GOBIN="{{build_dir}}/{{main_package}}" && \
@@ -22,11 +24,13 @@ build *args:
         go install "$@" ./...
 
 # Test the project.
+[group('general')]
 test *args:
     cd "src/{{main_package}}" && \
         go test "$@" ./...
 
 # Run an executable.
+[group('general')]
 run *args:
     cd "src/{{main_package}}" && \
         go run "$@" ./cmd/cli/...
