@@ -17,6 +17,11 @@
       toolchains = self.lib.toolchain.import args;
     in
     {
+      devShells.changelog = self.lib.shell.mkShell {
+        inherit (args) system;
+        modules = toolchains.changelog;
+      };
+
       devShells.format = self.lib.shell.mkShell {
         inherit (args) system;
         modules = toolchains.format;
