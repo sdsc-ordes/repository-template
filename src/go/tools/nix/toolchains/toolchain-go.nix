@@ -11,41 +11,26 @@ let
 in
 {
   go = [
-    (
-      { config, ... }:
-      {
-        packages = [
-          # Go.
-          package
+    {
+      repotemp.languages.go = {
+        enable = true;
+        inherit package;
 
-          # Go debugger.
-          pkgs.delve
-          # Language server.
-          pkgs.gopls
-          # Formatting
-          pkgs.golines
-          # Formatting (goimports)
-          pkgs.gotools
-
-          # Linting
-          pkgs.golangci-lint
-          pkgs.golangci-lint-langserver
-
-          # Debugging
-          pkgs.lldb_18
+        tools.packages = [
+          # Go specific tools which should be compiled with the chosen
+          # go `package`.
         ];
 
-        hardeningDisable = "fortify";
+      };
 
-        env.GOROOT = package + "/share/go/";
-        env.GOPATH = config.env.DEVENV_STATE + "/go";
-        env.GOTOOLCHAIN = "local";
+      packages = [
+        pkgs.golangci-lint
+        pkgs.golangci-lint-langserver
+      ];
 
-        enterShell = ''
-          export PATH=$GOPATH/bin:$PATH
-          just setup
-        '';
-      }
-    )
+      enterShell = ''
+        just setup
+      '';
+    }
   ];
 }
