@@ -17,13 +17,13 @@
           pkgs.lldb_18
         ];
 
-        language.rust = {
+        languages.rust = {
           enable = true;
           toolchainPackage = self'.packages.rust-toolchain;
         };
 
         env = {
-          CARGO_TARGET_DIR = "${config.git.root}/build";
+          CARGO_TARGET_DIR = "${config.devenv.root}/build";
         };
 
       }
