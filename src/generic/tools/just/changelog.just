@@ -8,7 +8,6 @@ default:
 # Only the first-parent reachable commits are taken.
 # See: https://github.com/git-chglog/git-chglog/issues/284
 [group('aux')]
-[private]
 gen start="HEAD" end="" config="./tools/configs/git-cliff/config.toml" changelog="CHANGELOG.md":
     just nix::develop changelog \
         generate-changelog "{{start}}" "{{end}}" "{{config}}" "{{changelog}}"
