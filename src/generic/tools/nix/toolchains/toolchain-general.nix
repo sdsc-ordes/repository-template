@@ -16,6 +16,14 @@ let
     }
   ];
 
+  changelog = [
+    {
+      packages = [
+        self'.packages.generate-changelog
+      ];
+    }
+  ];
+
   general = format ++ [
     {
       packages = [
@@ -26,5 +34,5 @@ let
 
 in
 {
-  inherit format general;
+  inherit format changelog general;
 }

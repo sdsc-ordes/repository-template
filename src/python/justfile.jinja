@@ -1,22 +1,27 @@
 {% include ".jinja/common/justfile" %}
 {% raw %}
 # Lint the project.
+[group('general')]
 lint *args:
     ruff check
 
 # Build the project.
+[group('general')]
 build *args:
     uv build --out-dir "{{build_dir}}" "$@"
 
 # Test the project.
+[group('general')]
 test *args:
    uv run pytest "$@"
 
 # Run an executable.
+[group('general')]
 run *args:
     uv run cli "$@"
 
 # Run the Jupyter notebook.
+[group('general')]
 notebook *args:
     uv run python -m notebook "$@"
 {%- endraw %}
