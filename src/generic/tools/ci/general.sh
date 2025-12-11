@@ -66,10 +66,6 @@ function ci::setup_python_venv() {
     local root_dir
     root_dir=$(git rev-parse --show-toplevel)
 
-    # If VIRTUAL_ENV is set use it.
-    export VIRTUAL_ENV="${VIRTUAL_ENV:-$root_dir/.venv}"
-    export UV_PROJECT_ENVIRONMENT="$VIRTUAL_ENV"
-
     ci::print_info "Python virtual env. dir '$UV_PROJECT_ENVIRONMENT' set."
 
     if [ ! -d "$UV_PROJECT_ENVIRONMENT" ]; then
