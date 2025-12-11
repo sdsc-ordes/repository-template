@@ -181,7 +181,7 @@ The following describes the content of the top-level directories:
 
 [Source](src/go/tools/nix/shells/toolchain-go.nix)
 
-- Compiler: `go` at `1.23.X`
+- Compiler: `go` at `1.24.X`
 - Build-Tool: `go`
 - LSP: `gopls`
 - Formatter: `gofmt`, `goimports`, `golines`
@@ -195,7 +195,7 @@ The following describes the content of the top-level directories:
 - [Source](src/python/tools/nix/shells/toolchain-python.nix)
 - [Demo Rendering](https://github.com/sdsc-ordes/repository-template-python)
 
-- Interpreter: `python` at `3.12`
+- Interpreter: `python` at `3.13`
 - Build-Tool: `uv`
 - LSP: `pyright`
 - Formatter: `ruff`
