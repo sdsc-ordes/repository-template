@@ -52,7 +52,10 @@ test template="python": ci-setup setup
     ci::print_info "Running test '{{template}}'"
     ci::print_info "======================"
     build_dir="{{output_dir}}/{{template}}"
-    cd "{{root_dir}}" && rm -rf "$build_dir"
+    # Go template has `read-only` Go modules cache, e.g `chown.`
+    cd "{{root_dir}}" &&
+        chown -R +w "$build_dir" &&
+        rm -rf "$build_dir"
 
     uv run copier copy --trust -w  \
         --data "project_language={{template}}" \

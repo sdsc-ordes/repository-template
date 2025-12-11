@@ -18,7 +18,7 @@ in
 
         tools.packages = [
           # Go specific tools which should be compiled with the chosen
-          # go `package`.
+          # go `package`. Default is set to `tools.packagesDefaults`.
         ];
 
       };

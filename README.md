@@ -54,8 +54,8 @@ Authors:
 
 # What Is This?
 
-This is a repository template giving you a top-level structure with the
-following features.
+This repo renders **repository templates** for different languages giving you a
+top-level structure with the following features.
 
 - **Git & Git Large File System (LFS)** configured.
 - **Nix development shell** enabled with [`direnv`](https://direnv.net) and
@@ -71,6 +71,8 @@ following features.
   Nix dev shell)
 
 # Usage
+
+To render a new repository for language `<language>` you can use
 
 ## Over Container
 
@@ -92,7 +94,7 @@ See [arguments explanations here](#arguments).
 
 ## By Cloning
 
-Clone this repository to some place of your choice.
+You can also clone this repository to some place of your choice.
 
 Apply the templates with `copier` using the following:
 
@@ -181,7 +183,7 @@ The following describes the content of the top-level directories:
 
 [Source](src/go/tools/nix/shells/toolchain-go.nix)
 
-- Compiler: `go` at `1.23.X`
+- Compiler: `go` at `1.24.X`
 - Build-Tool: `go`
 - LSP: `gopls`
 - Formatter: `gofmt`, `goimports`, `golines`
@@ -195,7 +197,7 @@ The following describes the content of the top-level directories:
 - [Source](src/python/tools/nix/shells/toolchain-python.nix)
 - [Demo Rendering](https://github.com/sdsc-ordes/repository-template-python)
 
-- Interpreter: `python` at `3.12`
+- Interpreter: `python` at `3.13`
 - Build-Tool: `uv`
 - LSP: `pyright`
 - Formatter: `ruff`
