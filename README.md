@@ -210,7 +210,10 @@ The following describes the content of the top-level directories:
 
 ### Github Actions
 
-The following workflows are defined:
+The following workflows are defined on all repositories:
+
+- [`normal.yaml`](./src/generic/.github/workflows/normal.yaml):
+  - Linting, testing, building the default targets in all templates.
 
 - [`format.yaml`](./src/generic/.github/workflows/format.yaml): Formats the
   whole repository with `treefmt`, configured over Nix. For it to work with
