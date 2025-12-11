@@ -21,7 +21,7 @@ let
   libImport = import ./import.nix { inherit inputs self; };
 
   # Lib shell.
-  libShell = import ./shell.nix { inherit inputs lib; };
+  libShell = import ./shell.nix { inherit inputs lib repoRoot; };
 
   # Lib toolchains.
   libToolchain = import ./toolchains.nix {

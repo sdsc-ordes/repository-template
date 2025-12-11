@@ -1,4 +1,19 @@
-{ inputs, lib, ... }:
+{
+  inputs,
+  lib,
+  repoRoot,
+  ...
+}:
+let
+  # List all devenv modules in `lib/devenv/...`.
+  devenv-modules = lib.pipe inputs.import-tree [
+    # NOTE: Uncomment the below to inspect what toolchains are loaded.
+    # (i: i.map (x: lib.info "Importing toolchain :${x}" x))
+    (i: i.match ".*/nix/lib/devenv/.*\.nix")
+    (i: i.withLib lib)
+    (i: i.leafs repoRoot)
+  ];
+in
 {
   # Make a devenv shell (from `inputs.devenv`) with the following features:
   # - Using `pkgs` or imported from flake input `inputs.nixpkgs-devenv` for the `system` if not given.
@@ -66,6 +81,7 @@
           }
         )
       ]
+      ++ devenv-modules
       ++ modules;
     };
 }

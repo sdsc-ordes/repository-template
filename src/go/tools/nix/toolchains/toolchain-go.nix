@@ -6,28 +6,28 @@
   pkgs,
   ...
 }:
+let
+  package = pkgs.go_1_25;
+in
 {
   go = [
     {
-      packages = [
-        # Go.
-        pkgs.go_1_23
+      repotemp.languages.go = {
+        enable = true;
+        inherit package;
 
-        # Go debugger.
-        pkgs.delve
-        # Language server.
-        pkgs.gopls
-        # Formatting
-        pkgs.golines
-        # Formatting (goimports)
-        pkgs.gotools
-        # Linting
+        tools.packages = [
+          # Go specific tools which should be compiled with the chosen
+          # go `package`.
+        ];
+
+      };
+
+      packages = [
         pkgs.golangci-lint
         pkgs.golangci-lint-langserver
-
-        # Debugging
-        pkgs.lldb_18
       ];
+
       enterShell = ''
         just setup
       '';
