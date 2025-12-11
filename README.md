@@ -57,6 +57,10 @@ Authors:
 This repo renders **repository templates** for different languages giving you a
 top-level structure with the following features.
 
+<p align="center">
+  <img src="./docs/assets/templating.png" alt="Current Release" width="50%"   style="border: 5pt solid black; border-radius:5pt"/>
+</p>
+
 - **Git & Git Large File System (LFS)** configured.
 - **Nix development shell** enabled with [`direnv`](https://direnv.net) and
   `.envrc`.
