@@ -54,8 +54,8 @@ Authors:
 
 # What Is This?
 
-This is a repository template giving you a top-level structure with the
-following features.
+This repo renders **repository templates** for different languages giving you a
+top-level structure with the following features.
 
 - **Git & Git Large File System (LFS)** configured.
 - **Nix development shell** enabled with [`direnv`](https://direnv.net) and
@@ -71,6 +71,8 @@ following features.
   Nix dev shell)
 
 # Usage
+
+To render a new repository for language `<language>` you can use
 
 ## Over Container
 
@@ -92,7 +94,7 @@ See [arguments explanations here](#arguments).
 
 ## By Cloning
 
-Clone this repository to some place of your choice.
+You can also clone this repository to some place of your choice.
 
 Apply the templates with `copier` using the following:
 
