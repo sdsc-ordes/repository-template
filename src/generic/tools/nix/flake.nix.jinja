@@ -54,7 +54,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Nixpkgs (stable NixOS branch)
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # Format the repo with nix-treefmt.
     treefmt-nix = {
@@ -65,12 +65,12 @@
     # The devenv module to create good development shells.
     # The `nixpkgs-devenv` must aligned with the pinned version.
     devenv = {
-      url = "github:cachix/devenv?ref=v1.10";
+      url = "github:cachix/devenv?ref=main";
       inputs.nixpkgs.follows = "nixpkgs-devenv";
     };
     # This is the rolling nixpkgs with what devenv was tested.
     nixpkgs-devenv = {
-      url = "github:cachix/devenv-nixpkgs?ref=207a4cb0e1253c7658c6736becc6eb9cace1f25f";
+      url = "github:cachix/devenv-nixpkgs";
     };
 
     # To build a base image with Nix.
