@@ -1,6 +1,6 @@
 _answers_file: tools/configs/copier/answers/.rust.yaml
 _exclude:
-  - .jinja
+  - .common
   - copier.yaml
 
 project_authors:
