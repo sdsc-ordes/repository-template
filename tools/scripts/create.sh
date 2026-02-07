@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
+# shellcheck disable=SC1090,SC1091
 
 set -eu
 
@@ -47,6 +47,18 @@ function parse_args() {
     ARGS=("$@")
 }
 
+function activate_python_venv() {
+    if [ "${REPO_TEMPLATE_IN_CONTAINER:-}" = "true" ]; then
+        source "$ROOT_DIR/tools/ci/general.sh"
+        ci::setup_python_venv
+    fi
+
+    # Activate python environment.
+    venv_dir="$UV_PROJECT_ENVIRONMENT"
+    echo "Activating python environment in '$venv_dir'."
+    source "$venv_dir/bin/activate"
+}
+
 parse_args "$@"
 
 [[ $TEMPLATE =~ generic|rust|go|python ]] ||
@@ -57,8 +69,7 @@ parse_args "$@"
 mkdir -p "$DESTINATION"
 cd "$ROOT_DIR"
 
-just setup
-source ./tools/scripts/activate-env.sh
+activate_python_venv
 
 ci::print_info "Rendering 'generic' template ... "
 copier copy --trust "${ARGS[@]}" \

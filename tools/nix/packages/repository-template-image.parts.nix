@@ -36,6 +36,7 @@
             ];
           };
 
+          # WARNING: This runs ins VM!
           runAsRoot = ''
             # Place  /usr/bin/env
             mkdir -p /usr/bin
@@ -46,10 +47,10 @@
 
             mkdir -p "$dir"
             cp -rf "${repository}/." "$dir/"
-            # chown -R non-root:non-root "$dir"
             chmod -R +w "$dir"
 
             cd "$dir"
+            export HOME=/root
             "${pkgs.git}/bin/git" config -f "$usrDir/.gitconfig" \
               --add safe.directory '*'
             "${pkgs.git}/bin/git" config -f "$usrDir/.gitconfig" \
@@ -64,6 +65,12 @@
           config = {
             Entrypoint = [
               "/root/repo/tools/scripts/create.sh"
+            ];
+
+            Env = [
+              "USER=root"
+              "HOME=/root"
+              "REPO_TEMPLATE_IN_CONTAINER=true"
             ];
 
             WorkingDir = "/workspace";

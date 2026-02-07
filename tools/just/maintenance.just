@@ -54,8 +54,16 @@ test template="python": ci-setup setup
     build_dir="{{output_dir}}/{{template}}"
     # Go template has `read-only` Go modules cache, e.g `chown.`
     cd "{{root_dir}}" &&
-        chown -R +w "$build_dir" &&
-        rm -rf "$build_dir"
+        rm -rf "$build_dir" &&
+        mkdir -p "$build_dir" &&
+        chmod -R +w "$build_dir"
+
+    echo "Copy needed common files."
+    cp -rf src/.common "src/{{template}}"
+    if [ "${CI:-}" = "true" ] && git diff --exit-code -q "src/{{template}}"; then
+       ci::print_error "You have diffs in 'src/{{template}}':" \
+            "$(git diff --name-only 'src/{{template}}')"
+    fi
 
     uv run copier copy --trust -w  \
         --data "project_language={{template}}" \

@@ -66,12 +66,12 @@ function ci::setup_python_venv() {
     local root_dir
     root_dir=$(git rev-parse --show-toplevel)
 
-    if [ ! -d "$root_dir/.venv" ]; then
-        ci::print_info "Setting up venv environment in '$root_dir/.venv'."
-        uv venv "$root_dir/.venv" >/dev/null
+    if [ "${REPO_TEMPLATE_IN_CONTAINER:-}" = true ]; then
+        export UV_PROJECT_ENVIRONMENT="$root_dir/.venv"
+        export UV_PYTHON_REFERENCE=only-system
+        export UV_PYTHON_DOWNLOADS=never
     fi
 
     ci::print_info "Installing dependencies..."
-    uv pip install -r "$root_dir/tools/configs/python/pyproject.toml" \
-        --extra dev >/dev/null
+    uv sync --extra dev
 }
