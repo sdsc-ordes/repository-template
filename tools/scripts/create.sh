@@ -58,7 +58,6 @@ mkdir -p "$DESTINATION"
 cd "$ROOT_DIR"
 
 just setup
-source ./tools/scripts/activate-env.sh
 
 ci::print_info "Rendering 'generic' template ... "
 copier copy --trust "${ARGS[@]}" \
