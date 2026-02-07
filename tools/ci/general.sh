@@ -66,6 +66,12 @@ function ci::setup_python_venv() {
     local root_dir
     root_dir=$(git rev-parse --show-toplevel)
 
+    if [ "${REPO_TEMPLATE_IN_CONTAINER:-}" = true ]; then
+        export UV_PROJECT_ENVIRONMENT="$root_dir/.venv"
+        export UV_PYTHON_REFERENCE=only-system
+        export UV_PYTHON_DOWNLOADS=never
+    fi
+
     ci::print_info "Installing dependencies..."
     uv sync --extra dev
 }
