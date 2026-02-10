@@ -36,9 +36,6 @@
           p.matplotlib
         ]);
 
-        directory = builtins.toString self.lib.fs.repoRoot;
-
-        venv.enable = true;
         uv = {
           enable = true;
           package = pkgs.uv;
