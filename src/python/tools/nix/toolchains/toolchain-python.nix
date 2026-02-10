@@ -22,10 +22,6 @@
 
       # We use `devenv` language support since, its
       # pretty involved to setup a python environment.
-      # FIXME: Any `python313.withPackages` expression
-      # cannot be used for creating a virtual environment (venv, uv etc.)
-      # Until this is fixed: https://github.com/NixOS/nixpkgs/pull/442540).
-      # See also https://github.com/astral-sh/uv/issues/16106
       languages.python = {
         enable = true;
 
