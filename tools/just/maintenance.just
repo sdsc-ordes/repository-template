@@ -103,12 +103,12 @@ test template="python": ci-setup setup
         "===========================" \
         "Updating deps in template." \
         "==========================="
-        if [ "{{template}}" == "python" ]; then
+        if [ "{{template}}" = "python" ]; then
             just develop uv lock --upgrade
-        elif [ "{{template}}" == "go" ]; then
+        elif [ "{{template}}" = "go" ]; then
             just develop go get -u ./...
-        elif [ "{{template}}" == "rust" ]; then
-            just develop cargo update --recursive
+        elif [ "{{template}}" = "rust" ]; then
+            just develop cargo update
         fi
     fi
 
