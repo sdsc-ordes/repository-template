@@ -15,7 +15,7 @@
 [dependencies]
   anyhow = "1.0.102"
   clap = { version = "4.6.0", features = ['derive']}
-  {{ library_name }} = { version = "{{ project_version }}", path = "../{{ library_name }}/" }
+  {{ library_name }} = {  workspace = true }
 
 [lints.clippy]
   pedantic = "deny"
