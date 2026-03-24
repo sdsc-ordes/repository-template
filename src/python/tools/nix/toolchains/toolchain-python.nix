@@ -1,7 +1,6 @@
 # This function returns a attrset of `devenv` modules
 # which can be passed to `mkShell`.
 {
-  self,
   lib,
   pkgs,
   ...
@@ -20,7 +19,7 @@
         pkgs.libz # fix: for numpy/pandas import
       ];
 
-      # We use `devenv` language support since, its
+      # We use `devenv` language support since, it's
       # pretty involved to setup a python environment.
       languages.python = {
         enable = true;
