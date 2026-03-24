@@ -1,7 +1,6 @@
 # This function returns a attrset of `devenv` modules
 # which can be passed to `mkShell`.
 {
-  self,
   lib,
   pkgs,
   ...
@@ -20,12 +19,8 @@
         pkgs.libz # fix: for numpy/pandas import
       ];
 
-      # We use `devenv` language support since, its
+      # We use `devenv` language support since, it's
       # pretty involved to setup a python environment.
-      # FIXME: Any `python313.withPackages` expression
-      # cannot be used for creating a virtual environment (venv, uv etc.)
-      # Until this is fixed: https://github.com/NixOS/nixpkgs/pull/442540).
-      # See also https://github.com/astral-sh/uv/issues/16106
       languages.python = {
         enable = true;
 
@@ -36,9 +31,6 @@
           p.matplotlib
         ]);
 
-        directory = builtins.toString self.lib.fs.repoRoot;
-
-        venv.enable = true;
         uv = {
           enable = true;
           package = pkgs.uv;
