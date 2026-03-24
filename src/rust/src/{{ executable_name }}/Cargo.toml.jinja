@@ -10,11 +10,11 @@
   "{{ a.first_name }} {{ a.last_name }} <{{ a.email }}>",
 {%- endfor %}
   ]
-  edition = "2021"
+  edition = "2024"
 
 [dependencies]
-  anyhow = "1.0.93"
-  clap = { version = "4.5.7", features = ['derive']}
+  anyhow = "1.0.102"
+  clap = { version = "4.6.0", features = ['derive']}
   {{ library_name }} = { version = "{{ project_version }}", path = "../{{ library_name }}/" }
 
 [lints.clippy]
