@@ -98,10 +98,23 @@ test template="python": ci-setup setup
     fi
 
 
+    if [ "${REPOSITORY_TEMPLATE_UPDATE_DEPS:-}" = "true" ]; then
+        ci::print_warn \
+        "===========================" \
+        "Updating deps in template." \
+        "==========================="
+        if [ "{{template}}" = "python" ]; then
+            just develop uv lock --upgrade
+        elif [ "{{template}}" = "go" ]; then
+            just develop go get -u ./...
+        elif [ "{{template}}" = "rust" ]; then
+            just develop cargo update
+        fi
+    fi
+
     # TODO: The `inputs.system` does not work when not first locking.
     #       This is a nix flake bug IMO.
     (cd tools/nix && nix flake lock)
-
 
     just develop just setup
     just develop just format
