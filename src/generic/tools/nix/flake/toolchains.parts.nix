@@ -14,7 +14,8 @@ in
     }:
     {
       options.toolchains = lib.mkOption {
-        description = "List of devenv modules.";
+        description = "Attrset of toolchain definitions keyed by toolchain name, where each value is a list of devenv modules.";
+        default = { };
         type = lib.types.attrsOf (lib.types.listOf lib.types.deferredModule);
       };
     }
