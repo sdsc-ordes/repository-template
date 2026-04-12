@@ -1,5 +1,5 @@
 use "net"
-use "../libs/{{ library_name }}"
+use cm = "../libs/{{ library_name }}"
 
 {% raw %}
 actor Main
@@ -25,7 +25,7 @@ actor Ping
     counter = counter + 1
     cm.Log(_env, "ping", "reply is: " + msg.string())
 
-    if counter != 30 then
+    if counter != 5 then
       _pong.receive(counter)
     else
       cm.Log(_env, "ping", "conversation complete.")

@@ -15,7 +15,6 @@
             packages = [
               pkgs.pony-corral
               pkgs.ponyc
-              pkgs.pony-lsp
             ];
 
             env = {
