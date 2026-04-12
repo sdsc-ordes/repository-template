@@ -198,7 +198,7 @@ The following describes the content of the top-level directories:
 
 ### Toolchain
 
-[Source](src/go/tools/nix/shells/toolchain-pony.nix)
+[Source](src/pony/tools/nix/shells/toolchain-pony.nix)
 
 - Compiler: `ponyc` at `0.60.X`
 - Build-Tool: `ponyc` and `corral`
