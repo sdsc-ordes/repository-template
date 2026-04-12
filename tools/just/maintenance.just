@@ -38,6 +38,7 @@ push-deploy-image: build-deploy-image
 # Test all templates.
 test-all:
     just maintenance::test generic
+    just maintenance::test pony
     just maintenance::test python
     just maintenance::test rust
     just maintenance::test go
@@ -52,6 +53,7 @@ test template="python": ci-setup setup
     ci::print_info "Running test '{{template}}'"
     ci::print_info "======================"
     build_dir="{{output_dir}}/{{template}}"
+
     # Go template has `read-only` Go modules cache, e.g `chown.`
     cd "{{root_dir}}" &&
         rm -rf "$build_dir" &&
@@ -65,6 +67,7 @@ test template="python": ci-setup setup
             "$(git diff --name-only 'src/{{template}}')"
     fi
 
+    ci::print_info "Run copier ..."
     uv run copier copy --trust -w  \
         --data "project_language={{template}}" \
         --defaults  \
