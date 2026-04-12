@@ -31,7 +31,7 @@ project_version:
 # Non-parent options.
 executable_name:
   type: str
-  help: The executable name you want to use ]w.
+  help: The executable name you want to use.
   default: main
   validator: >-
     {% if not (executable_name | regex_search('[a-z][a-z0-9\-]+')) %}
