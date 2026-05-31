@@ -1,0 +1,28 @@
+{% include ".common/justfile" %}
+
+executable_name := "{{ executable_name }}"
+
+{% raw %}
+# Lint the project.
+[group('general')]
+lint *args:
+    echo "Not implemented"
+
+# Build the project.
+[group('general')]
+build *args:
+    cd src && \
+    corral run -- ponyc -o "{{build_dir}}/bin" "{{executable_name}}"
+
+# Test the project.
+[group('general')]
+test *args:
+    cd src && \
+    corral run -- ponyc -o "{{build_dir}}/test/bin" test
+    "{{build_dir}}/test/bin/test" "$@"
+
+# Run an executable.
+[group('general')]
+run *args: build
+    "{{build_dir}}/bin/{{executable_name}}" "$@"
+{%- endraw %}

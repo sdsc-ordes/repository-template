@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        language: [generic, python, go, rust]
+        language: [generic, python, go, rust, pony]
     steps:
       - uses: actions/checkout@v4
         with:

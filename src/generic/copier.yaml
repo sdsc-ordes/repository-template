@@ -39,6 +39,7 @@ project_language:
     - python
     - rust
     - go
+    - pony
 
 project_hosts:
   type: yaml
