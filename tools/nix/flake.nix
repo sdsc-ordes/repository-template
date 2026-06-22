@@ -2,7 +2,7 @@
   description = "repository-template";
 
   nixConfig = {
-    extra-trusted-substituters = [
+    extra-substituters = [
       # Nix community's cache server
       "https://nix-community.cachix.org"
       "https://devenv.cachix.org"
