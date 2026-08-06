@@ -15,8 +15,8 @@ package_name:
   help: The package name you want to use.
   default: tool
   validator: >-
-    {% if not (package_name | regex_search('[a-z][a-z0-9\-]+')) %}
-    'package_name' must follow '[a-z][a-z0-9-]+' regex.
+    {% if not (package_name | regex_search('^[a-z][a-z0-9\-]+$')) %}
+    'package_name' must follow '^[a-z][a-z0-9-]+$' regex.
     {% endif %}
 
 package_url:
@@ -29,8 +29,8 @@ executable_name:
   help: The executable name you want to use.
   default: cli
   validator: >-
-    {% if not (executable_name | regex_search('[a-z][a-z0-9\-]+')) %}
-    'executable_name' must follow '[a-z][a-z0-9-]+' regex.
+    {% if not (executable_name | regex_search('^[a-z][a-z0-9\-]+$')) %}
+    'executable_name' must follow '^[a-z][a-z0-9-]+$' regex.
     {% endif %}
 
 module_name:
@@ -38,6 +38,6 @@ module_name:
   help: The module name you want to use.
   default: custom-lib
   validator: >-
-    {% if not (module_name | regex_search('[a-z][a-z0-9\-]+')) %}
-    'module_name' must follow '[a-z][a-z0-9-]+' regex.
+    {% if not (module_name | regex_search('^[a-z][a-z0-9\-]+$')) %}
+    'module_name' must follow '^[a-z][a-z0-9-]+$' regex.
     {% endif %}
