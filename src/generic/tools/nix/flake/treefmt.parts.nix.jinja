@@ -38,7 +38,7 @@
         # Rust
         programs.rustfmt = {
             enable = {% if project_language == "rust" %}true{% else %}false{% endif %};
-            package = self'.packages.rust-toolchain.passthru.availableComponents.rustfmt;
+            package = self'.legacyPackages.rust.shell.toolchain.availableComponents.rustfmt;
         };
 
         # Go

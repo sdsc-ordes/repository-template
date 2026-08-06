@@ -22,7 +22,7 @@
 
             languages.rust = {
               enable = true;
-              toolchainPackage = self'.packages.rust-toolchain;
+              toolchainPackage = self'.legacyPackages.rust.shell.toolchain;
             };
 
             env = {
