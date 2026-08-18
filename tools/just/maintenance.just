@@ -29,12 +29,11 @@ load-deploy-image: build-deploy-image
 push-deploy-image tag="latest": build-deploy-image
     #!/usr/bin/env bash
     set -eu
-    cd "{{root_dir}}" && \
-    if [ "$CI" = "true" ]; then
+    cd "{{root_dir}}"
+    if [ "$CI" != "true" ]; then
         skopeo login ghcr.io/sdsc-ordes
     else
-        echo "${REGISTRY_TOKEN?not set}" | \
-            skopeo login ghcr.io/sdsc-ordes \
+        echo "${REGISTRY_TOKEN?not set}" | skopeo login ghcr.io/sdsc-ordes \
             -u "$REGISTRY_USERNAME" --password-stdin
     fi
 
