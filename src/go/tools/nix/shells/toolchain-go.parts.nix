@@ -9,7 +9,7 @@
         {
           repotemp.languages.go = {
             enable = true;
-            package = pkgs.go_1_25;
+            package = pkgs.go_1_26;
 
             tools.packages = [
               # Go specific tools which should be compiled with the chosen
