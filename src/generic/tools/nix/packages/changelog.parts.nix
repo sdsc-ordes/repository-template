@@ -7,9 +7,9 @@
     {
       # Generate a changelog from `HEAD` to the last tag on the current branch.
       # With the following arguments.
-      # `$1: <new-tag>`
-      # `$2: <git-cliff-config>` (optional)
-      # `$3`: <changelog-file> (optional)
+      # `$1`: new tag name
+      # `$2`: git-cliff config (optional)
+      # `$3`: changelog file (optional)
       # NOTE: Due to Nix you need to escape with `''${VAR}`
       packages.generate-changelog = pkgs.writeShellApplication {
         name = "generate-changelog";

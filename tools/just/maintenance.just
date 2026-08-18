@@ -26,14 +26,21 @@ load-deploy-image: build-deploy-image
     "{{container_mgr}}" load < .output/image/repository-template-latest
 
 # Push the image to the registry.
-push-deploy-image: build-deploy-image
+push-deploy-image tag="latest": build-deploy-image
     #!/usr/bin/env bash
     set -eu
     cd "{{root_dir}}" && \
-    skopeo login ghcr.io/sdsc-ordes && \
+    if [ "$CI" = "true" ]; then
+        skopeo login ghcr.io/sdsc-ordes
+    else
+        echo "${REGISTRY_TOKEN?not set}" | \
+            skopeo login ghcr.io/sdsc-ordes \
+            -u "$REGISTRY_USERNAME" --password-stdin
+    fi
+
     skopeo copy \
         "docker-archive:.output/image/repository-template-latest" \
-        "docker://ghcr.io/sdsc-ordes/repository-template:latest"
+        "docker://ghcr.io/sdsc-ordes/repository-template:{{tag}}"
 
 # Test all templates.
 test-all:
