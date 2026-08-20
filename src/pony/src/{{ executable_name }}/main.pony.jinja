@@ -1,0 +1,46 @@
+use "net"
+use cm = "../libs/{{ library_name }}"
+
+{% raw %}
+actor Main
+  new create(env: Env) =>
+    let ping = Ping(env)
+    ping.start()
+
+actor Ping
+  let _env: Env
+  let _pong: Pong
+  var counter: U64 = 0
+
+  new create(env: Env) =>
+    _env = env
+    _pong = Pong(env, this)
+
+  // Async start function.
+  be start() =>
+    _pong.receive(counter)
+
+  // Async reply function.
+  be reply(msg: U64) =>
+    counter = counter + 1
+    cm.Log(_env, "ping", "reply is: " + msg.string())
+
+    if counter != 5 then
+      _pong.receive(counter)
+    else
+      cm.Log(_env, "ping", "conversation complete.")
+    end
+
+actor Pong
+  let _env: Env
+  let _ping: Ping tag // A reference to Ping where we can only send messages.
+
+  new create(env: Env, ping: Ping tag) =>
+    _env = env
+    _ping = ping
+
+  // Async receive function.
+  be receive(msg: U64) =>
+    cm.Log(_env, "pong", "received: " + msg.string())
+    _ping.reply(msg*msg)
+{% endraw %}
