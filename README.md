@@ -38,16 +38,17 @@ Authors:
   - [Generic Template](#generic-template)
     - [Toolchain](#toolchain)
   - [Rust Template](#rust-template)
-    - [Toolchain](#toolchain)
+    - [Toolchain](#toolchain-1)
   - [Go Template](#go-template)
-    - [Toolchain](#toolchain)
+    - [Toolchain](#toolchain-2)
+  - [Pony Template](#pony-template)
+    - [Toolchain](#toolchain-3)
   - [Python Template](#python-template)
-    - [Toolchain](#toolchain)
+    - [Toolchain](#toolchain-4)
   - [CI Implementations](#ci-implementations)
     - [Github Actions](#github-actions)
 - [Development](#development)
 - [Copyright](#copyright)
-
 <!--toc:end-->
 
 </details>
@@ -187,10 +188,23 @@ The following describes the content of the top-level directories:
 
 [Source](src/go/tools/nix/shells/toolchain-go.nix)
 
-- Compiler: `go` at `1.24.X`
+- Compiler: `go` at `1.25.X`
 - Build-Tool: `go`
 - LSP: `gopls`
 - Formatter: `gofmt`, `goimports`, `golines`
+
+## Pony Template
+
+- [Template Source](src/pony)
+- [Demo Rendering](https://github.com/sdsc-ordes/repository-template-pony)
+
+### Toolchain
+
+[Source](src/pony/tools/nix/shells/toolchain-pony.nix)
+
+- Compiler: `ponyc` at `0.60.X`
+- Build-Tool: `ponyc` and `corral`
+- LSP: `pony-lsp`
 
 ## Python Template
 
