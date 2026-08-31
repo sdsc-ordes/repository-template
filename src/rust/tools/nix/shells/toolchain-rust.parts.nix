@@ -26,7 +26,7 @@
             };
 
             env = {
-              CARGO_TARGET_DIR = "${config.devenv.root}/build";
+              CARGO_TARGET_DIR = "${config.devenv.root}/.output/build";
             };
           }
         )
