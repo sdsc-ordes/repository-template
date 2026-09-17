@@ -49,23 +49,7 @@ function ci::is_running() {
     [ "${CI:-}" = "true" ] || return
 }
 
-function ci::setup_githooks() {
-    local root_dir
-    root_dir=$(git rev-parse --show-toplevel)
-
-    if git -C "$root_dir" hooks --version &>/dev/null; then
-        if [ "$(git -C "$root_dir" config --local githooks.registered)" != "true" ]; then
-            git -C "$root_dir" hooks install
-        else
-            ci::print_info "Githooks already installed."
-        fi
-    fi
-}
-
 function ci::setup_python_venv() {
-    local root_dir
-    root_dir=$(git rev-parse --show-toplevel)
-
     ci::print_info "Python virtual env. dir '$UV_PROJECT_ENVIRONMENT' set."
 
     if [ ! -d "$UV_PROJECT_ENVIRONMENT" ]; then

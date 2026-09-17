@@ -130,7 +130,7 @@ test template="python": ci-setup setup
     just nix::show
 
     git tag "v1.0.0" -m "New version" --no-sign
-    GITHOOKS_DISABLE=1 git commit --allow-empty -m "fix: first commit"
+    git commit --allow-empty --no-verify -m "fix: first commit"
     just develop just changelog::gen
 
     if ci::is_running; then
@@ -196,11 +196,10 @@ upload template="python": ci-setup setup
         cat README.md
     ) > README.md.mod  && mv README.md.mod README.md
 
-    export GITHOOKS_DISABLE=true
     git init &&
       just develop just format &&
       git add . &&
-      git commit -a -m "init"
+      git commit --no-verify -a -m "init"
 
     git remote add origin \
         "https://github.com/sdsc-ordes/repository-template-{{template}}.git"

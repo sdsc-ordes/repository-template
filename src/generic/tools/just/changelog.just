@@ -7,5 +7,5 @@ default:
 # Generate the changelog for the tag `tag`
 [group('aux')]
 gen name="current" config="./tools/configs/git-cliff/config.toml" changelog="CHANGELOG.md":
-    just nix::develop changelog \
+    just nix::develop default \
         generate-changelog "{{name}}" "{{config}}" "{{changelog}}"

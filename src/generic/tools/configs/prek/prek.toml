@@ -1,0 +1,28 @@
+[[repos]]
+repo = "builtin"
+
+  [[repos.hooks]]
+  id = "check-added-large-files"
+
+  [[repos.hooks]]
+  id = "check-merge-conflict"
+
+[[repos]]
+repo = "local"
+
+  [[repos.hooks]]
+  id = "treefmt"
+  name = "treefmt"
+  language = "system"
+  entry = "just format"
+  pass_filenames = false
+  require_serial = true
+
+  [[repos.hooks]]
+  id = "git-lfs-check"
+  name = "git-lfs-check"
+  language = "system"
+  entry = "./tools/ci/check-git-lfs.sh"
+  pass_filenames = false
+  require_serial = false
+
