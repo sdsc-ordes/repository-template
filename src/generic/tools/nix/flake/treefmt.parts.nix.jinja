@@ -51,9 +51,12 @@
         # Markdown, JSON, YAML, etc.
         programs.prettier.enable = true;
         settings.formatter.prettier = {
-          config = ../../configs/prettier/prettierrc.yaml;
           excludes = [
             ".yamllint.yaml" # this is a symlink, which prettier cannot deal with
+          ];
+          options = [
+            "--config"
+            "${../../configs/prettier/prettierrc.yaml}"
           ];
         };
 
