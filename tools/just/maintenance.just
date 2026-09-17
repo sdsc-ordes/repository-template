@@ -199,7 +199,7 @@ upload template="python": ci-setup setup
     git init &&
       just develop just format &&
       git add . &&
-      git commit --no-verify -a -m "init"
+      git commit -a -m "init"
 
     git remote add origin \
         "https://github.com/sdsc-ordes/repository-template-{{template}}.git"
