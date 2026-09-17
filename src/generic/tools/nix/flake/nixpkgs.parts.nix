@@ -1,35 +1,39 @@
-# Flake-Parts module which imports nixpkgs from
-# `inputs.nixpkgs` and `inputs.nixpkgs-stable`
-# It makes these packages available as
+# Module for flake-parts which imports nixpkgs
+# and makes these packages available as
 # `pkgs` and `pkgsStable` in each flake-parts module.
-#
-# There are two functions
-# - `self.lib.importPkgs`
-# - `self.lib.importPkgsUnstable`
-# to import nixpkgs somewhere else.
+# The instantiated multiverse package set is given as well `mv`.
 {
-  self,
   inputs,
+  lib,
+  self,
   ...
 }:
-let
-in
 {
-
   perSystem =
     {
       system,
       ...
     }:
     let
-      pkgs = self.lib.import.pkgs { inherit system; };
-      pkgsStable = self.lib.import.pkgsStable { inherit system; };
+      p = self.lib.nixpkgs.importPkgs { inherit system; };
+
+      pkgs =
+        assert lib.assertMsg (
+          p.multiverse.rev == inputs.nixpkgs.rev
+        ) "Input 'nixpkgs' (unstable) must be aligned with `importPkgs` '${p.multiverse.rev}'.";
+        p;
+
+      pkgsStable = self.lib.nixpkgs.importPkgsStable { inherit system; };
+
+      mvs = self.lib.nixpkgs.mkMultiverse { inherit system; };
     in
     {
-      # All flake-parts modules now have two more arguments.
+      # Define two arguments `pkgs` and `pkgsStable` available on all flake-parts modules.
       _module.args.pkgs = pkgs;
       _module.args.pkgsStable = pkgsStable;
+      _module.args.mvs = mvs;
 
       legacyPackages.unstable = pkgs;
+      legacyPackages.stable = pkgsStable;
     };
 }
