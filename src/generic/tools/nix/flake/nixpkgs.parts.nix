@@ -20,7 +20,7 @@
       pkgs =
         assert lib.assertMsg (
           p.multiverse.rev == inputs.nixpkgs.rev
-        ) "Input 'nixpkgs-unstable' must be aligned with `importPkgs` '${p.multiverse.rev}'.";
+        ) "Input 'nixpkgs' (unstable) must be aligned with `importPkgs` '${p.multiverse.rev}'.";
         p;
 
       pkgsStable = self.lib.nixpkgs.importPkgsStable { inherit system; };
