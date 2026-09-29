@@ -50,11 +50,8 @@
       url = "github:hercules-ci/flake-parts";
     };
 
-    # Nixpkgs (latest ones).
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    # Nixpkgs (stable NixOS branch)
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs?rev=d6524aaca2ff07876657ae2b323f24be4874944b";
+    multiverse.url = "github:fzakaria/nixpkgs-multiverse";
 
     # Format the repo with nix-treefmt.
     treefmt-nix = {

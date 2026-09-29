@@ -8,8 +8,6 @@ ROOT_DIR=$(git rev-parse --show-toplevel)
 
 function main() {
     "$ROOT_DIR/tools/scripts/setup-config-files.sh"
-
-    ci::setup_githooks
     {%- if project_language == "python" %}
     ci::setup_python_venv
     {%- endif %}
